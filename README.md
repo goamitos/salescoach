@@ -2,6 +2,8 @@
 
 AI-powered sales coaching that learns from top sales influencers. Get personalized advice for any deal stage, backed by wisdom from 13 industry experts.
 
+**Try it now:** [ask-the-coach.streamlit.app](https://ask-the-coach.streamlit.app/)
+
 ## What It Does
 
 Sales Coach automatically:
