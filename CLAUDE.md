@@ -13,10 +13,13 @@ Automated pipeline that scrapes sales wisdom from LinkedIn/YouTube, categorizes 
 ```
 salescoach/
 ├── tools/              # Pipeline scripts (scraping, processing, API calls)
-│   └── ask_coach.py    # CLI-based Q&A tool
-├── streamlit_app.py    # Web UI for Q&A (deployable to Streamlit Cloud)
-├── workflows/          # Markdown SOPs for each pipeline stage
+│   ├── ask_coach.py    # CLI-based Q&A tool
+│   └── generate_avatars.py  # Generates placeholder influencer avatars
+├── streamlit_app.py    # Web UI for Q&A (chat interface, deployable to Streamlit Cloud)
+├── assets/avatars/     # Influencer profile pictures (13 images)
 ├── docs/               # Setup guides and documentation
+│   └── influencers.md  # Influencer profiles with LinkedIn/YouTube links
+├── workflows/          # Markdown SOPs for each pipeline stage
 ├── .tmp/               # Intermediate files (disposable)
 ├── .env.tpl            # 1Password secret references (safe to commit)
 ├── run.sh              # Local runner with 1Password secret injection
@@ -102,9 +105,18 @@ Location: `tools/ask_coach.py`
 ### Streamlit Web App
 Location: `streamlit_app.py`
 
+**Features:**
+- Chat interface with conversation memory (session-based)
+- Header with 13 influencer avatars
+- Two-column layout: chat (left) + stage sidebar (right)
+- Claude-synthesized insights per stage group
+- Collapsible stage groups with record counts
+- Source attribution with links
+
 **Run locally:**
 ```bash
-streamlit run streamlit_app.py
+./run.sh streamlit
+# or: streamlit run streamlit_app.py
 ```
 
 **Deploy to Streamlit Cloud:**
@@ -117,11 +129,23 @@ streamlit run streamlit_app.py
    - `AIRTABLE_BASE_ID`
    - `AIRTABLE_TABLE_NAME`
 
+### Stage Groups (Sidebar)
+| Group | Stages |
+|-------|--------|
+| Planning & Research | Territory Planning, Account Research, Stakeholder Mapping |
+| Outreach & Contact | Outreach Strategy, Initial Contact |
+| Discovery & Analysis | Discovery, Needs Analysis |
+| Present & Prove Value | Demo & Presentation, Business Case Development, Proof of Value |
+| Close & Grow | RFP/RFQ Response, Procurement & Negotiation, Closing, Onboarding & Expansion |
+
+*General Sales Mindset* insights shown as always-visible callout at top.
+
 ### Demo Questions
 - "I'm in discovery with a CFO who seems distracted"
 - "The procurement team is pushing back on pricing"
 - "How do I create urgency without being pushy?"
 - "The prospect went silent after my demo"
+- Follow-ups: "Tell me more about the MEDDIC approach you mentioned"
 
 ### Airtable Interface (Browse Mode)
 Use Airtable's Interface Designer for browsing:
