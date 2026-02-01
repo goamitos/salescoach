@@ -34,4 +34,4 @@ fi
 
 # Run with secrets injected via 1Password CLI
 echo "Running tools/$1.py with 1Password secrets..."
-op run --env-file=.env.tpl -- python tools/$1.py
+op run --account=my.1password.com --env-file=.env.tpl -- python tools/$1.py
