@@ -12,8 +12,11 @@ Automated pipeline that scrapes sales wisdom from LinkedIn/YouTube, categorizes 
 ## Project Structure
 ```
 salescoach/
-├── tools/              # Deterministic scripts (scraping, API calls)
+├── tools/              # Pipeline scripts (scraping, processing, API calls)
+│   └── ask_coach.py    # CLI-based Q&A tool
+├── streamlit_app.py    # Web UI for Q&A (deployable to Streamlit Cloud)
 ├── workflows/          # Markdown SOPs for each pipeline stage
+├── docs/               # Setup guides and documentation
 ├── .tmp/               # Intermediate files (disposable)
 ├── .env.tpl            # 1Password secret references (safe to commit)
 ├── run.sh              # Local runner with 1Password secret injection
@@ -79,3 +82,49 @@ Influencer | Source Type | Source URL | Date Collected | Primary Stage | Seconda
 - **GitHub Actions**: Secrets stored in GitHub Secrets (encrypted)
 - **Vault**: 1Password vault "SalesCoach" with item "SalesCoach"
 - **Keys**: ANTHROPIC_API_KEY, AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME, SERPER_API_KEY
+
+## AI-Powered Q&A
+
+### Overview
+Two options for "Ask the Coach" natural language Q&A:
+1. **CLI Tool**: `./run.sh ask_coach` - quick terminal-based Q&A
+2. **Streamlit Web App**: Beautiful web UI, deployable to Streamlit Cloud
+
+### CLI Tool
+Location: `tools/ask_coach.py`
+
+```bash
+./run.sh ask_coach
+# Describe your situation: ___
+# Returns synthesized coaching advice with sources
+```
+
+### Streamlit Web App
+Location: `streamlit_app.py`
+
+**Run locally:**
+```bash
+streamlit run streamlit_app.py
+```
+
+**Deploy to Streamlit Cloud:**
+1. Push repo to GitHub
+2. Go to share.streamlit.io → New app
+3. Select your repo and `streamlit_app.py`
+4. Add secrets in App Settings → Secrets:
+   - `ANTHROPIC_API_KEY`
+   - `AIRTABLE_API_KEY`
+   - `AIRTABLE_BASE_ID`
+   - `AIRTABLE_TABLE_NAME`
+
+### Demo Questions
+- "I'm in discovery with a CFO who seems distracted"
+- "The procurement team is pushing back on pricing"
+- "How do I create urgency without being pushy?"
+- "The prospect went silent after my demo"
+
+### Airtable Interface (Browse Mode)
+Use Airtable's Interface Designer for browsing:
+- Filter by deal stage, influencer, keywords
+- Click cards to see full insights
+- Works on free Airtable plan

@@ -3,10 +3,17 @@
 .env.local
 credentials.json
 token.json
+.streamlit/secrets.toml
 # Note: .env.tpl is safe to commit - it only contains 1Password references, not actual secrets
 
 # Intermediate files
 .tmp/
+
+# Generated outputs (re-generate with pipeline)
+outputs/
+
+# Internal planning docs
+plan.md
 
 # Python
 *.pyc

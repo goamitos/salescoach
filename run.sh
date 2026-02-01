@@ -6,6 +6,7 @@
 #   ./run.sh collect_linkedin
 #   ./run.sh process_content
 #   ./run.sh push_airtable
+#   ./run.sh streamlit          # Run Streamlit web app
 
 set -e
 
@@ -19,9 +20,20 @@ fi
 # Check if script name was provided
 if [ -z "$1" ]; then
     echo "Usage: ./run.sh <script_name>"
+    echo ""
     echo "Available scripts:"
     ls tools/*.py | xargs -n1 basename | sed 's/.py$//'
+    echo ""
+    echo "Special commands:"
+    echo "  streamlit    - Run the Streamlit web app"
     exit 1
+fi
+
+# Handle streamlit specially
+if [ "$1" = "streamlit" ]; then
+    echo "Starting Streamlit with 1Password secrets..."
+    op run --account=my.1password.com --env-file=.env.tpl -- streamlit run streamlit_app.py
+    exit 0
 fi
 
 # Check if the script exists
