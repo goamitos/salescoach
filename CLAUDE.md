@@ -15,16 +15,28 @@ salescoach/
 ├── tools/              # Deterministic scripts (scraping, API calls)
 ├── workflows/          # Markdown SOPs for each pipeline stage
 ├── .tmp/               # Intermediate files (disposable)
-├── .env                # API keys (ANTHROPIC_API_KEY, AIRTABLE_API_KEY)
-└── outputs/            # Final CSVs for Airtable import
+├── .env.tpl            # 1Password secret references (safe to commit)
+├── run.sh              # Local runner with 1Password secret injection
+├── outputs/            # Final CSVs for Airtable import
+└── .github/workflows/  # GitHub Actions for weekly automation
 ```
 
 ## Commands
+
+### Local Development (with 1Password)
+- `./run.sh collect_linkedin` - Step 1: Google X-ray LinkedIn posts
+- `./run.sh collect_youtube` - Step 2: YouTube transcript extraction
+- `./run.sh process_content` - Step 3: Claude categorization
+- `./run.sh push_airtable` - Step 4: Push to Airtable
+
+### Setup
 - `pip install -r requirements.txt` - Install dependencies
-- `python tools/collect_linkedin.py` - Step 1: Google X-ray LinkedIn posts
-- `python tools/collect_youtube.py` - Step 2: YouTube transcript extraction
-- `python tools/process_content.py` - Step 3: Claude categorization
-- `python tools/export_airtable.py` - Step 4: Generate Airtable CSV
+- `brew install 1password-cli` - Install 1Password CLI
+- `op signin` - Sign in to 1Password
+
+### GitHub Actions
+- Weekly automation runs every Monday 9am UTC
+- Manual trigger: GitHub Actions → "Weekly LinkedIn Collection" → Run workflow
 
 ## WAT Architecture
 
@@ -34,7 +46,7 @@ You operate as the Agent layer - reading workflows, executing tools, handling fa
 - `workflows/` - Read BEFORE executing tasks
 - `tools/` - Run scripts; don't rewrite unless fixing bugs
 - `.tmp/` - Disposable intermediate files
-- `.env` - Secrets (never commit, never expose)
+- Secrets stored in 1Password (vault: SalesCoach), injected at runtime via `run.sh`
 
 ### Operating Principles
 1. Check `tools/` before writing new scripts
@@ -57,7 +69,13 @@ Territory Planning, Account Research, Stakeholder Mapping, Outreach Strategy, In
 Influencer | Source Type | Source URL | Date Collected | Primary Stage | Secondary Stages | Key Insight | Tactical Steps | Keywords | Situation Examples | Best Quote | Relevance Score
 
 ## Important Constraints
-- Never commit `.env` or credentials
+- Never commit credentials (secrets are in 1Password, injected at runtime)
 - LinkedIn scraping via Google X-ray only (not direct scraping)
 - Attribute all content to original creators
 - Store intermediate files in `.tmp/`, final outputs in `outputs/`
+
+## Security Setup
+- **Local**: 1Password CLI injects secrets via `run.sh` (never written to disk)
+- **GitHub Actions**: Secrets stored in GitHub Secrets (encrypted)
+- **Vault**: 1Password vault "SalesCoach" with item "SalesCoach"
+- **Keys**: ANTHROPIC_API_KEY, AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME, SERPER_API_KEY
