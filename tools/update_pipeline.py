@@ -35,8 +35,7 @@ from config import (
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -44,16 +43,15 @@ logger = logging.getLogger(__name__)
 # Format: (channel_id, influencer_name)
 TARGET_CHANNELS = [
     # Top LinkedIn Sales Voices
-    ("UCKwbDwBK_adh4AgzprZb5FQ", "Ian Koniak"),           # Ian Koniak Sales Coaching
-    ("UC5dUIRNBMfKND8w8MtcsFsA", "30MPC"),                # 30 Minutes to President's Club
-    ("UCHLjEOsdrKQna86DToBSUkw", "Samantha McKenna"),     # #samsales
-    ("UCOnSLryHal-I5SFokPIuUyQ", "Morgan Ingram"),        # The SDR Chronicles
-
+    ("UCKwbDwBK_adh4AgzprZb5FQ", "Ian Koniak"),  # Ian Koniak Sales Coaching
+    ("UC5dUIRNBMfKND8w8MtcsFsA", "30MPC"),  # 30 Minutes to President's Club
+    ("UCHLjEOsdrKQna86DToBSUkw", "Samantha McKenna"),  # #samsales
+    ("UCOnSLryHal-I5SFokPIuUyQ", "Morgan Ingram"),  # The SDR Chronicles
     # Additional Influencers
-    ("UCCGGmhqLy9bryNg-XlVi7Lg", "John Barrows"),         # JBarrows Sales Training
-    ("UCBGpNArVNpXSWFnp4zbemig", "Josh Braun"),           # Josh Braun
-    ("UC4RykET1R_18qDXfSUqhrUg", "Jeb Blount"),           # Sales Gravy
-    ("UCsT0YIqwnpJCM-mx7-gSA4Q", "Gong.io"),              # Gong
+    ("UCCGGmhqLy9bryNg-XlVi7Lg", "John Barrows"),  # JBarrows Sales Training
+    ("UCBGpNArVNpXSWFnp4zbemig", "Josh Braun"),  # Josh Braun
+    ("UC4RykET1R_18qDXfSUqhrUg", "Jeb Blount"),  # Sales Gravy
+    ("UCsT0YIqwnpJCM-mx7-gSA4Q", "Gong.io"),  # Gong
 ]
 
 RSS_URL_TEMPLATE = "https://www.youtube.com/feeds/videos.xml?channel_id={}"
@@ -71,10 +69,7 @@ def get_existing_video_urls() -> set:
         table = api.table(base_id, AIRTABLE_TABLE_NAME)
         records = table.all()
 
-        urls = {
-            record["fields"].get("Source URL", "")
-            for record in records
-        }
+        urls = {record["fields"].get("Source URL", "") for record in records}
         logger.info(f"Found {len(urls)} existing videos in Airtable")
         return urls
 
@@ -107,14 +102,16 @@ def fetch_channel_videos(channel_id: str, influencer: str) -> list[dict]:
             title = entry.find("atom:title", ns).text
             published = entry.find("atom:published", ns).text
 
-            videos.append({
-                "video_id": video_id,
-                "title": title,
-                "published": published,
-                "influencer": influencer,
-                "channel_id": channel_id,
-                "url": f"https://youtube.com/watch?v={video_id}",
-            })
+            videos.append(
+                {
+                    "video_id": video_id,
+                    "title": title,
+                    "published": published,
+                    "influencer": influencer,
+                    "channel_id": channel_id,
+                    "url": f"https://youtube.com/watch?v={video_id}",
+                }
+            )
 
         return videos
 
@@ -133,11 +130,13 @@ def discover_new_videos(existing_urls: set) -> list[tuple]:
 
         for video in videos:
             if video["url"] not in existing_urls:
-                new_videos.append((
-                    video["video_id"],
-                    video["influencer"],
-                    f"{video['influencer']} Channel"
-                ))
+                new_videos.append(
+                    (
+                        video["video_id"],
+                        video["influencer"],
+                        f"{video['influencer']} Channel",
+                    )
+                )
                 logger.info(f"  NEW: {video['title'][:50]}...")
 
     return new_videos
@@ -158,15 +157,14 @@ def update_collect_youtube(new_videos: list[tuple]):
         return False
 
     # Format new entries
-    new_entries = "\n    # Auto-discovered " + datetime.now().strftime("%Y-%m-%d") + "\n"
+    new_entries = (
+        "\n    # Auto-discovered " + datetime.now().strftime("%Y-%m-%d") + "\n"
+    )
     for video_id, influencer, channel in new_videos:
         new_entries += f'    ("{video_id}", "{influencer}", "{channel}"),\n'
 
     # Insert before closing bracket
-    content = content.replace(
-        insert_marker,
-        new_entries + insert_marker
-    )
+    content = content.replace(insert_marker, new_entries + insert_marker)
 
     with open(collect_file, "w") as f:
         f.write(content)
@@ -204,9 +202,9 @@ def run_pipeline():
 
 def main():
     """Main update function."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("SALES COACH PIPELINE UPDATE")
-    print("="*60 + "\n")
+    print("=" * 60 + "\n")
 
     # Step 1: Get existing videos from Airtable
     logger.info("Checking existing videos in Airtable...")
@@ -217,9 +215,9 @@ def main():
     new_videos = discover_new_videos(existing_urls)
 
     if not new_videos:
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("No new videos found. Your database is up to date!")
-        print("="*60)
+        print("=" * 60)
         return
 
     print(f"\nFound {len(new_videos)} new videos:")
@@ -232,19 +230,19 @@ def main():
         return
 
     # Step 4: Run the pipeline
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("Running pipeline for new videos...")
-    print("="*60)
+    print("=" * 60)
 
     if run_pipeline():
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("UPDATE COMPLETE!")
         print(f"Added {len(new_videos)} new videos to your Sales Coach database.")
-        print("="*60)
+        print("=" * 60)
     else:
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("UPDATE FAILED - Check logs above for errors")
-        print("="*60)
+        print("=" * 60)
 
 
 if __name__ == "__main__":

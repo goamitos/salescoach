@@ -32,13 +32,36 @@ from config import (
 
 # Stage-related keywords for better matching
 STAGE_KEYWORDS = {
-    "discovery": ["discovery", "discover", "question", "ask", "learn", "understand", "needs"],
+    "discovery": [
+        "discovery",
+        "discover",
+        "question",
+        "ask",
+        "learn",
+        "understand",
+        "needs",
+    ],
     "prospecting": ["prospect", "cold", "outreach", "email", "call", "reach", "sdr"],
-    "negotiation": ["negotiate", "negotiation", "price", "pricing", "discount", "contract"],
+    "negotiation": [
+        "negotiate",
+        "negotiation",
+        "price",
+        "pricing",
+        "discount",
+        "contract",
+    ],
     "closing": ["close", "closing", "deal", "sign", "commit", "decision", "won"],
     "objection": ["objection", "pushback", "concern", "hesitation", "resist", "but"],
     "demo": ["demo", "presentation", "present", "show", "demonstrate"],
-    "qualification": ["qualify", "qualification", "fit", "budget", "authority", "timeline", "bant"],
+    "qualification": [
+        "qualify",
+        "qualification",
+        "fit",
+        "budget",
+        "authority",
+        "timeline",
+        "bant",
+    ],
     "followup": ["follow", "followup", "silent", "ghost", "respond", "reply"],
 }
 
@@ -57,7 +80,9 @@ def fetch_records():
     return records
 
 
-def score_record(record: dict, user_keywords: list[str], matched_stages: list[str]) -> float:
+def score_record(
+    record: dict, user_keywords: list[str], matched_stages: list[str]
+) -> float:
     """Score a record based on keyword and stage matches."""
     fields = record.get("fields", {})
 
@@ -90,13 +115,13 @@ def score_record(record: dict, user_keywords: list[str], matched_stages: list[st
     return score
 
 
-def find_relevant_records(records: list[dict], scenario: str, top_n: int = 5) -> list[dict]:
+def find_relevant_records(
+    records: list[dict], scenario: str, top_n: int = 5
+) -> list[dict]:
     """Find the most relevant records for a given scenario."""
     # Extract keywords from user's question
     user_keywords = [
-        word.lower()
-        for word in re.findall(r'\w+', scenario)
-        if len(word) > 3
+        word.lower() for word in re.findall(r"\w+", scenario) if len(word) > 3
     ]
 
     # Find stage matches
@@ -136,7 +161,7 @@ def build_context(records: list[dict]) -> str:
         if situations:
             part += f"\nWhen to use: {situations}"
         if quote:
-            part += f"\nKey quote: \"{quote}\""
+            part += f'\nKey quote: "{quote}"'
         parts.append(part)
 
     return "\n\n---\n\n".join(parts)
@@ -211,16 +236,22 @@ def main():
     print("=" * 50)
     print()
 
-    # Get user's question
-    print("Describe your sales situation or question:")
-    print("(Type your question and press Enter)")
-    print()
+    # Check for CLI argument first
+    if len(sys.argv) > 1:
+        scenario = " ".join(sys.argv[1:]).strip()
+        print(f"Question: {scenario}")
+        print()
+    else:
+        # Interactive mode (existing behavior)
+        print("Describe your sales situation or question:")
+        print("(Type your question and press Enter)")
+        print()
 
-    try:
-        scenario = input("> ").strip()
-    except (EOFError, KeyboardInterrupt):
-        print("\nGoodbye!")
-        return
+        try:
+            scenario = input("> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nGoodbye!")
+            return
 
     if not scenario:
         print("No question provided. Exiting.")
@@ -239,7 +270,9 @@ def main():
         print("\nNo matching insights found. Try:")
         print("- Using different keywords")
         print("- Being more specific about the sales stage")
-        print("- Asking about: discovery, objections, closing, negotiation, prospecting")
+        print(
+            "- Asking about: discovery, objections, closing, negotiation, prospecting"
+        )
         return
 
     print(f"Found {len(relevant)} relevant insights")

@@ -28,8 +28,7 @@ from config import (
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -122,7 +121,9 @@ def push_to_airtable():
             "Key Insight": item.get("key_insight", ""),
             "Tactical Steps": format_multiline_field(item.get("tactical_steps", [])),
             "Keywords": format_list_field(item.get("keywords", [])),
-            "Situation Examples": format_multiline_field(item.get("situation_examples", [])),
+            "Situation Examples": format_multiline_field(
+                item.get("situation_examples", [])
+            ),
             "Best Quote": item.get("best_quote", ""),
             "Relevance Score": item.get("relevance_score", 0),
         }

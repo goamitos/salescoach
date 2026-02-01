@@ -5,3 +5,7 @@ anthropic>=0.18.0
 python-dotenv>=1.0.0
 pyairtable>=3.0.0
 streamlit>=1.31.0
+Pillow>=10.0.0
+black>=24.0.0
+pre-commit>=3.6.0
+pytest>=8.0.0

@@ -25,8 +25,7 @@ from config import (
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -102,9 +101,13 @@ def export_to_csv():
                 "Primary Stage": item.get("primary_stage", ""),
                 "Secondary Stages": format_list_field(item.get("secondary_stages", [])),
                 "Key Insight": item.get("key_insight", ""),
-                "Tactical Steps": format_multiline_field(item.get("tactical_steps", [])),
+                "Tactical Steps": format_multiline_field(
+                    item.get("tactical_steps", [])
+                ),
                 "Keywords": format_list_field(item.get("keywords", [])),
-                "Situation Examples": format_multiline_field(item.get("situation_examples", [])),
+                "Situation Examples": format_multiline_field(
+                    item.get("situation_examples", [])
+                ),
                 "Best Quote": item.get("best_quote", ""),
                 "Relevance Score": item.get("relevance_score", ""),
             }
@@ -113,9 +116,9 @@ def export_to_csv():
     logger.info(f"Exported {len(processed)} records to {output_file}")
 
     # Print summary
-    print("\n" + "="*50)
+    print("\n" + "=" * 50)
     print("EXPORT SUMMARY")
-    print("="*50)
+    print("=" * 50)
     print(f"Records exported: {len(processed)}")
     print(f"Output file: {output_file}")
     print("\nNext steps:")
@@ -127,7 +130,7 @@ def export_to_csv():
     print("   - Secondary Stages, Keywords: Multi-select")
     print("   - Relevance Score: Number")
     print("   - All others: Text or Long Text")
-    print("="*50)
+    print("=" * 50)
 
     return output_file
 

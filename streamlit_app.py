@@ -15,6 +15,7 @@ Deploy to Streamlit Cloud:
     2. Connect repo at share.streamlit.io
     3. Add secrets in Streamlit Cloud dashboard
 """
+
 import base64
 import re
 from pathlib import Path
@@ -31,7 +32,8 @@ st.set_page_config(
 )
 
 # Custom CSS for Claude.ai-inspired styling
-st.markdown("""
+st.markdown(
+    """
 <style>
 /* Remove default Streamlit padding at top */
 .block-container {
@@ -144,7 +146,9 @@ st.markdown("""
     opacity: 1;
 }
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 # Constants
 PROJECT_ROOT = Path(__file__).parent
@@ -199,13 +203,36 @@ STAGE_GROUPS = {
 
 # Stage-related keywords for matching
 STAGE_KEYWORDS = {
-    "discovery": ["discovery", "discover", "question", "ask", "learn", "understand", "needs"],
+    "discovery": [
+        "discovery",
+        "discover",
+        "question",
+        "ask",
+        "learn",
+        "understand",
+        "needs",
+    ],
     "prospecting": ["prospect", "cold", "outreach", "email", "call", "reach", "sdr"],
-    "negotiation": ["negotiate", "negotiation", "price", "pricing", "discount", "contract"],
+    "negotiation": [
+        "negotiate",
+        "negotiation",
+        "price",
+        "pricing",
+        "discount",
+        "contract",
+    ],
     "closing": ["close", "closing", "deal", "sign", "commit", "decision", "won"],
     "objection": ["objection", "pushback", "concern", "hesitation", "resist", "but"],
     "demo": ["demo", "presentation", "present", "show", "demonstrate"],
-    "qualification": ["qualify", "qualification", "fit", "budget", "authority", "timeline", "bant"],
+    "qualification": [
+        "qualify",
+        "qualification",
+        "fit",
+        "budget",
+        "authority",
+        "timeline",
+        "bant",
+    ],
     "followup": ["follow", "followup", "silent", "ghost", "respond", "reply"],
 }
 
@@ -222,6 +249,7 @@ def get_secrets():
     except Exception:
         import os
         from dotenv import load_dotenv
+
         load_dotenv()
         return {
             "anthropic_key": os.getenv("ANTHROPIC_API_KEY"),
@@ -240,7 +268,9 @@ def fetch_records(_airtable_key: str, _base_id: str, _table_name: str):
     return table.all()
 
 
-def score_record(record: dict, user_keywords: list[str], matched_stages: list[str]) -> float:
+def score_record(
+    record: dict, user_keywords: list[str], matched_stages: list[str]
+) -> float:
     """Score a record based on keyword and stage matches."""
     fields = record.get("fields", {})
 
@@ -269,12 +299,12 @@ def score_record(record: dict, user_keywords: list[str], matched_stages: list[st
     return score
 
 
-def find_relevant_records(records: list[dict], scenario: str, top_n: int = 5) -> list[dict]:
+def find_relevant_records(
+    records: list[dict], scenario: str, top_n: int = 5
+) -> list[dict]:
     """Find the most relevant records for a given scenario."""
     user_keywords = [
-        word.lower()
-        for word in re.findall(r'\w+', scenario)
-        if len(word) > 3
+        word.lower() for word in re.findall(r"\w+", scenario) if len(word) > 3
     ]
 
     matched_stages = []
@@ -311,13 +341,19 @@ def build_context(records: list[dict]) -> str:
         if situations:
             part += f"\nWhen to use: {situations}"
         if quote:
-            part += f"\nKey quote: \"{quote}\""
+            part += f'\nKey quote: "{quote}"'
         parts.append(part)
 
     return "\n\n---\n\n".join(parts)
 
 
-def get_coaching_advice(anthropic_key: str, scenario: str, context: str, chat_history: list, selected_persona: str = None) -> str:
+def get_coaching_advice(
+    anthropic_key: str,
+    scenario: str,
+    context: str,
+    chat_history: list,
+    selected_persona: str = None,
+) -> str:
     """Call Claude API to synthesize coaching advice with conversation context."""
     client = anthropic.Anthropic(api_key=anthropic_key)
 
@@ -394,7 +430,9 @@ def get_records_for_stage_group(records: list[dict], stages: list[str]) -> list[
     return matching
 
 
-def synthesize_stage_insight(anthropic_key: str, group_name: str, records: list[dict]) -> str:
+def synthesize_stage_insight(
+    anthropic_key: str, group_name: str, records: list[dict]
+) -> str:
     """Synthesize a golden insight for a stage group (max 15 words)."""
     if not records:
         return "No insights available yet."
@@ -506,8 +544,10 @@ def render_header():
             continue
 
         b64 = get_image_base64(avatar_path)
-        is_selected = (avatar["slug"] == "collective-wisdom" and st.session_state.selected_persona is None) or \
-                     st.session_state.selected_persona == avatar["slug"]
+        is_selected = (
+            avatar["slug"] == "collective-wisdom"
+            and st.session_state.selected_persona is None
+        ) or st.session_state.selected_persona == avatar["slug"]
 
         # Styling
         border = "3px solid #4ECDC4" if is_selected else "2px solid #555"
@@ -519,29 +559,35 @@ def render_header():
         else:
             onclick = f"window.location.search = '?persona={avatar['slug']}'"
 
-        avatar_html += f'''<img src="data:image/png;base64,{b64}"
+        avatar_html += f"""<img src="data:image/png;base64,{b64}"
             onclick="{onclick}"
             class="avatar-img"
             style="width:52px; height:52px; border-radius:50%;
                    border:{border}; opacity:{opacity}; cursor:pointer;
                    transition: all 0.15s ease;"
-            title="{avatar['name']}">'''
+            title="{avatar['name']}">"""
 
     # Layout: title left, avatars right
     col1, col2 = st.columns([1, 3])
     with col1:
-        st.markdown("""
+        st.markdown(
+            """
         <div class="header-title">
             <h1>Sales Coach AI</h1>
             <p>Elite sales wisdom on demand</p>
         </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
     with col2:
-        st.markdown(f'''
+        st.markdown(
+            f"""
         <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-content:center; gap:8px 0; align-items:center; padding:12px 0;">
             {avatar_html}
         </div>
-        ''', unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
 
 def render_chat_interface(secrets: dict, records: list[dict]):
@@ -555,9 +601,10 @@ def render_chat_interface(secrets: dict, records: list[dict]):
     # Filter records based on selected persona
     if st.session_state.get("selected_persona"):
         filtered_records = [
-            r for r in records
-            if st.session_state.selected_persona.lower() in
-            (r.get("fields", {}).get("Influencer") or "").lower()
+            r
+            for r in records
+            if st.session_state.selected_persona.lower()
+            in (r.get("fields", {}).get("Influencer") or "").lower()
         ]
         persona_name = get_influencer_name(st.session_state.selected_persona)
         st.info(f"💬 Channeling **{persona_name}**'s coaching style")
@@ -566,8 +613,10 @@ def render_chat_interface(secrets: dict, records: list[dict]):
 
     # Display conversation title
     if st.session_state.messages:
-        st.markdown(f'<div class="conversation-title">{st.session_state.conversation_title}</div>',
-                    unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="conversation-title">{st.session_state.conversation_title}</div>',
+            unsafe_allow_html=True,
+        )
 
     # Create a fixed-height container for chat messages
     chat_container = st.container(height=450)
@@ -579,7 +628,9 @@ def render_chat_interface(secrets: dict, records: list[dict]):
                 if message.get("sources"):
                     with st.expander("📚 View sources", expanded=False):
                         for source in message["sources"]:
-                            st.markdown(f"**{source['influencer']}** ({source['stage']})")
+                            st.markdown(
+                                f"**{source['influencer']}** ({source['stage']})"
+                            )
                             if source.get("url"):
                                 st.markdown(f"[View source]({source['url']})")
 
@@ -597,7 +648,9 @@ def render_chat_interface(secrets: dict, records: list[dict]):
             except Exception:
                 # Fallback: use first 5 words
                 words = prompt.split()[:5]
-                st.session_state.conversation_title = " ".join(words) + ("..." if len(prompt.split()) > 5 else "")
+                st.session_state.conversation_title = " ".join(words) + (
+                    "..." if len(prompt.split()) > 5 else ""
+                )
 
         # Find relevant records from filtered set
         relevant = find_relevant_records(filtered_records, prompt)
@@ -620,7 +673,7 @@ def render_chat_interface(secrets: dict, records: list[dict]):
                 prompt,
                 context,
                 st.session_state.messages[:-1],  # Exclude current message
-                selected_persona
+                selected_persona,
             )
             sources = [
                 {
@@ -632,11 +685,13 @@ def render_chat_interface(secrets: dict, records: list[dict]):
             ]
 
         # Add assistant response
-        st.session_state.messages.append({
-            "role": "assistant",
-            "content": response,
-            "sources": sources,
-        })
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": response,
+                "sources": sources,
+            }
+        )
 
         st.rerun()
 
@@ -644,7 +699,9 @@ def render_chat_interface(secrets: dict, records: list[dict]):
     if st.session_state.messages:
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            if st.button("🗑️ Clear conversation", type="secondary", use_container_width=True):
+            if st.button(
+                "🗑️ Clear conversation", type="secondary", use_container_width=True
+            ):
                 st.session_state.messages = []
                 st.session_state.conversation_title = "New Conversation"
                 st.rerun()
@@ -667,17 +724,26 @@ def render_stages_sidebar(secrets: dict, records: list[dict]):
     if "General Sales Mindset" not in st.session_state.stage_insights:
         if general_records:
             with st.spinner("..."):
-                st.session_state.stage_insights["General Sales Mindset"] = synthesize_stage_insight(
-                    secrets["anthropic_key"], "General Sales Mindset", general_records
+                st.session_state.stage_insights["General Sales Mindset"] = (
+                    synthesize_stage_insight(
+                        secrets["anthropic_key"],
+                        "General Sales Mindset",
+                        general_records,
+                    )
                 )
         else:
-            st.session_state.stage_insights["General Sales Mindset"] = "Serve, don't sell."
+            st.session_state.stage_insights["General Sales Mindset"] = (
+                "Serve, don't sell."
+            )
 
-    st.markdown(f"""
+    st.markdown(
+        f"""
     <div class="mindset-callout">
         <strong>Mindset:</strong> {st.session_state.stage_insights['General Sales Mindset']}
     </div>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     st.markdown("---")
 
@@ -688,8 +754,12 @@ def render_stages_sidebar(secrets: dict, records: list[dict]):
 
         # Group header button (no counter)
         icon = "▼" if is_expanded else "▶"
-        if st.button(f"{icon} {group_name}", key=f"group_{group_name}",
-                     use_container_width=True, type="secondary"):
+        if st.button(
+            f"{icon} {group_name}",
+            key=f"group_{group_name}",
+            use_container_width=True,
+            type="secondary",
+        ):
             if is_expanded:
                 st.session_state.expanded_group = None
                 st.session_state.expanded_stage = None
@@ -704,28 +774,40 @@ def render_stages_sidebar(secrets: dict, records: list[dict]):
             if group_name not in st.session_state.stage_insights:
                 if group_records:
                     with st.spinner("..."):
-                        st.session_state.stage_insights[group_name] = synthesize_stage_insight(
-                            secrets["anthropic_key"], group_name, group_records
+                        st.session_state.stage_insights[group_name] = (
+                            synthesize_stage_insight(
+                                secrets["anthropic_key"], group_name, group_records
+                            )
                         )
                 else:
                     st.session_state.stage_insights[group_name] = "No insights yet."
 
             # Show group insight ONLY if no stage is expanded (single insight display)
             if st.session_state.expanded_stage is None:
-                st.markdown(f'<div class="stage-insight">{st.session_state.stage_insights[group_name]}</div>',
-                            unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="stage-insight">{st.session_state.stage_insights[group_name]}</div>',
+                    unsafe_allow_html=True,
+                )
 
             # Nested stages
             for stage in stages:
-                stage_records = [r for r in records if stage in (r.get("fields", {}).get("Primary Stage") or "")]
+                stage_records = [
+                    r
+                    for r in records
+                    if stage in (r.get("fields", {}).get("Primary Stage") or "")
+                ]
                 stage_expanded = st.session_state.expanded_stage == stage
 
                 # Stage button (indented, no counter)
                 stage_icon = "▼" if stage_expanded else "▶"
                 col1, col2 = st.columns([0.1, 0.9])
                 with col2:
-                    if st.button(f"{stage_icon} {stage}", key=f"stage_{stage}",
-                                 use_container_width=True, type="tertiary" if hasattr(st, "tertiary") else "secondary"):
+                    if st.button(
+                        f"{stage_icon} {stage}",
+                        key=f"stage_{stage}",
+                        use_container_width=True,
+                        type="tertiary" if hasattr(st, "tertiary") else "secondary",
+                    ):
                         if stage_expanded:
                             st.session_state.expanded_stage = None
                         else:
@@ -738,14 +820,20 @@ def render_stages_sidebar(secrets: dict, records: list[dict]):
                     if stage_key not in st.session_state.stage_insights:
                         if stage_records:
                             with st.spinner("..."):
-                                st.session_state.stage_insights[stage_key] = synthesize_stage_insight(
-                                    secrets["anthropic_key"], stage, stage_records
+                                st.session_state.stage_insights[stage_key] = (
+                                    synthesize_stage_insight(
+                                        secrets["anthropic_key"], stage, stage_records
+                                    )
                                 )
                         else:
-                            st.session_state.stage_insights[stage_key] = "No insights yet."
+                            st.session_state.stage_insights[stage_key] = (
+                                "No insights yet."
+                            )
 
-                    st.markdown(f'<div class="stage-insight" style="padding-left: 2.5rem;">{st.session_state.stage_insights[stage_key]}</div>',
-                                unsafe_allow_html=True)
+                    st.markdown(
+                        f'<div class="stage-insight" style="padding-left: 2.5rem;">{st.session_state.stage_insights[stage_key]}</div>',
+                        unsafe_allow_html=True,
+                    )
 
 
 def main():
@@ -753,9 +841,12 @@ def main():
     # Get secrets
     secrets = get_secrets()
 
-    if not all([secrets["anthropic_key"], secrets["airtable_key"], secrets["airtable_base"]]):
+    if not all(
+        [secrets["anthropic_key"], secrets["airtable_key"], secrets["airtable_base"]]
+    ):
         st.error("Missing API credentials. Please configure secrets.")
-        st.markdown("""
+        st.markdown(
+            """
         **For Streamlit Cloud**: Add secrets in your app settings.
 
         **For local development**: Create a `.env` file with:
@@ -765,15 +856,14 @@ def main():
         AIRTABLE_BASE_ID=your_base_id
         AIRTABLE_TABLE_NAME=Sales Wisdom
         ```
-        """)
+        """
+        )
         return
 
     # Load records
     try:
         records = fetch_records(
-            secrets["airtable_key"],
-            secrets["airtable_base"],
-            secrets["airtable_table"]
+            secrets["airtable_key"], secrets["airtable_base"], secrets["airtable_table"]
         )
     except Exception as e:
         st.error(f"Failed to load Airtable data: {e}")
@@ -795,7 +885,9 @@ def main():
 
     # Minimal footer
     st.markdown("---")
-    st.caption(f"Powered by Claude AI • {len(records)} insights from {len(INFLUENCERS)} experts")
+    st.caption(
+        f"Powered by Claude AI • {len(records)} insights from {len(INFLUENCERS)} experts"
+    )
 
 
 if __name__ == "__main__":

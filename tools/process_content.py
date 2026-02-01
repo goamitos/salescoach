@@ -36,8 +36,7 @@ from config import (
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -84,14 +83,16 @@ def load_collected_content() -> list[dict]:
         with open(LINKEDIN_FILE) as f:
             data = json.load(f)
             for post in data.get("posts", []):
-                content_items.append({
-                    "id": f"li_{hash(post.get('url', ''))}",
-                    "content": post.get("content", ""),
-                    "influencer": post.get("influencer", "Unknown"),
-                    "source_type": "linkedin",
-                    "source_url": post.get("url", ""),
-                    "date_collected": post.get("date_collected", ""),
-                })
+                content_items.append(
+                    {
+                        "id": f"li_{hash(post.get('url', ''))}",
+                        "content": post.get("content", ""),
+                        "influencer": post.get("influencer", "Unknown"),
+                        "source_type": "linkedin",
+                        "source_url": post.get("url", ""),
+                        "date_collected": post.get("date_collected", ""),
+                    }
+                )
         logger.info(f"Loaded {len(data.get('posts', []))} LinkedIn posts")
 
     # Load YouTube transcripts
@@ -100,14 +101,16 @@ def load_collected_content() -> list[dict]:
             data = json.load(f)
             for video in data.get("videos", []):
                 for chunk in video.get("transcript_chunks", []):
-                    content_items.append({
-                        "id": f"yt_{video.get('video_id')}_{chunk.get('chunk_index')}",
-                        "content": chunk.get("content", ""),
-                        "influencer": video.get("influencer", "Unknown"),
-                        "source_type": "youtube",
-                        "source_url": video.get("url", ""),
-                        "date_collected": video.get("date_collected", ""),
-                    })
+                    content_items.append(
+                        {
+                            "id": f"yt_{video.get('video_id')}_{chunk.get('chunk_index')}",
+                            "content": chunk.get("content", ""),
+                            "influencer": video.get("influencer", "Unknown"),
+                            "source_type": "youtube",
+                            "source_url": video.get("url", ""),
+                            "date_collected": video.get("date_collected", ""),
+                        }
+                    )
         logger.info(f"Loaded {len(data.get('videos', []))} YouTube videos")
 
     return content_items
@@ -196,12 +199,16 @@ def process_all_content():
         logger.info("All content already processed, nothing new to do")
         return
 
-    logger.info(f"Found {len(new_items)} new items to process (skipping {len(content_items) - len(new_items)} already done)")
+    logger.info(
+        f"Found {len(new_items)} new items to process (skipping {len(content_items) - len(new_items)} already done)"
+    )
 
     # Estimate cost
     total_chars = sum(len(item["content"]) for item in new_items)
     estimated_tokens = total_chars // 4
-    logger.info(f"Processing {len(new_items)} items (~{estimated_tokens:,} input tokens)")
+    logger.info(
+        f"Processing {len(new_items)} items (~{estimated_tokens:,} input tokens)"
+    )
 
     processed = list(existing_processed)  # Start with existing data
     new_included = 0
@@ -236,7 +243,9 @@ def process_all_content():
     with open(OUTPUT_FILE, "w") as f:
         json.dump(output, f, indent=2)
 
-    logger.info(f"Processing complete: {new_included} new included, {skipped} skipped, {len(existing_processed)} preserved")
+    logger.info(
+        f"Processing complete: {new_included} new included, {skipped} skipped, {len(existing_processed)} preserved"
+    )
     logger.info(f"Total records: {len(processed)}")
     logger.info(f"Output: {OUTPUT_FILE}")
     return output

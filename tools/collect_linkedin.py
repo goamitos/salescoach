@@ -29,24 +29,63 @@ from config import (
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
 # Top 12 LinkedIn Sales Voices (from plan.md)
 INFLUENCERS = [
-    {"name": "Ian Koniak", "linkedin": "iankoniak", "focus": "enterprise sales, discovery"},
-    {"name": "Nate Nasralla", "linkedin": "natenasralla", "focus": "discovery questions, qualification"},
-    {"name": "Morgan J Ingram", "linkedin": "morganingram", "focus": "SDR, outbound, sequences"},
-    {"name": "Armand Farrokh", "linkedin": "armandfarrokh", "focus": "discovery, sales methodology"},
-    {"name": "Nick Cegelski", "linkedin": "nickcegelski", "focus": "cold calling, prospecting"},
-    {"name": "Will Aitken", "linkedin": "willaitken", "focus": "sales leadership, coaching"},
+    {
+        "name": "Ian Koniak",
+        "linkedin": "iankoniak",
+        "focus": "enterprise sales, discovery",
+    },
+    {
+        "name": "Nate Nasralla",
+        "linkedin": "natenasralla",
+        "focus": "discovery questions, qualification",
+    },
+    {
+        "name": "Morgan J Ingram",
+        "linkedin": "morganingram",
+        "focus": "SDR, outbound, sequences",
+    },
+    {
+        "name": "Armand Farrokh",
+        "linkedin": "armandfarrokh",
+        "focus": "discovery, sales methodology",
+    },
+    {
+        "name": "Nick Cegelski",
+        "linkedin": "nickcegelski",
+        "focus": "cold calling, prospecting",
+    },
+    {
+        "name": "Will Aitken",
+        "linkedin": "willaitken",
+        "focus": "sales leadership, coaching",
+    },
     {"name": "Devin Reed", "linkedin": "devinreed", "focus": "content, copywriting"},
-    {"name": "Florin Tatulea", "linkedin": "florin-tatulea", "focus": "LinkedIn selling, social selling"},
-    {"name": "Kyle Coleman", "linkedin": "kylecoleman", "focus": "messaging, copy, GTM"},
-    {"name": "Daniel Disney", "linkedin": "danieldisney", "focus": "LinkedIn selling, prospecting"},
-    {"name": "Samantha McKenna", "linkedin": "samsalesli", "focus": "enterprise sales, LinkedIn"},
+    {
+        "name": "Florin Tatulea",
+        "linkedin": "florin-tatulea",
+        "focus": "LinkedIn selling, social selling",
+    },
+    {
+        "name": "Kyle Coleman",
+        "linkedin": "kylecoleman",
+        "focus": "messaging, copy, GTM",
+    },
+    {
+        "name": "Daniel Disney",
+        "linkedin": "danieldisney",
+        "focus": "LinkedIn selling, prospecting",
+    },
+    {
+        "name": "Samantha McKenna",
+        "linkedin": "samsalesli",
+        "focus": "enterprise sales, LinkedIn",
+    },
     {"name": "Gal Aga", "linkedin": "galaga", "focus": "sales alignment, methodology"},
 ]
 
@@ -75,16 +114,9 @@ def search_serper(query: str, num_results: int = 10) -> list[dict]:
 
     url = "https://google.serper.dev/search"
 
-    headers = {
-        "X-API-KEY": SERPER_API_KEY,
-        "Content-Type": "application/json"
-    }
+    headers = {"X-API-KEY": SERPER_API_KEY, "Content-Type": "application/json"}
 
-    payload = {
-        "q": query,
-        "num": num_results,
-        "tbs": "qdr:y"  # Last year
-    }
+    payload = {"q": query, "num": num_results, "tbs": "qdr:y"}  # Last year
 
     try:
         response = requests.post(url, headers=headers, json=payload, timeout=15)
@@ -96,11 +128,13 @@ def search_serper(query: str, num_results: int = 10) -> list[dict]:
         for item in data.get("organic", []):
             link = item.get("link", "")
             if "linkedin.com/posts/" in link or "linkedin.com/pulse/" in link:
-                results.append({
-                    "url": link,
-                    "title": item.get("title", ""),
-                    "snippet": item.get("snippet", ""),
-                })
+                results.append(
+                    {
+                        "url": link,
+                        "title": item.get("title", ""),
+                        "snippet": item.get("snippet", ""),
+                    }
+                )
 
         return results
 
@@ -115,18 +149,22 @@ def build_influencer_queries() -> list[dict]:
 
     for inf in INFLUENCERS:
         # Primary query: influencer's posts
-        queries.append({
-            "query": f'site:linkedin.com/posts/ "{inf["linkedin"]}"',
-            "influencer": inf["name"],
-            "type": "profile"
-        })
+        queries.append(
+            {
+                "query": f'site:linkedin.com/posts/ "{inf["linkedin"]}"',
+                "influencer": inf["name"],
+                "type": "profile",
+            }
+        )
 
         # Secondary: influencer name + sales topic
-        queries.append({
-            "query": f'site:linkedin.com/posts/ "{inf["name"]}" sales',
-            "influencer": inf["name"],
-            "type": "name_topic"
-        })
+        queries.append(
+            {
+                "query": f'site:linkedin.com/posts/ "{inf["name"]}" sales',
+                "influencer": inf["name"],
+                "type": "name_topic",
+            }
+        )
 
     return queries
 
@@ -194,7 +232,9 @@ def collect_posts():
         return None
 
     queries = build_influencer_queries()
-    logger.info(f"Built {len(queries)} search queries for {len(INFLUENCERS)} influencers")
+    logger.info(
+        f"Built {len(queries)} search queries for {len(INFLUENCERS)} influencers"
+    )
 
     all_posts = []
     seen_urls = set()

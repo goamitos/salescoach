@@ -34,8 +34,7 @@ from config import (
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -69,60 +68,97 @@ TARGET_VIDEOS = [
     # =====================================================
     # TOP 12 LINKEDIN SALES VOICES (from plan.md)
     # =====================================================
-
     # 1. Ian Koniak - Enterprise sales, discovery (Popular videos)
-    ("f3pTqJ9yARU", "Ian Koniak", "Ian Koniak Sales Coaching"),  # FREE TRAINING: MAKE $500K-1M/YEAR
-    ("XUkgyemEbc0", "Ian Koniak", "Ian Koniak Sales Coaching"),  # How I became #1 Enterprise AE at Salesforce
-    ("MufIRTnXz1Y", "Ian Koniak", "Ian Koniak Sales Coaching"),  # How to Use Chat GPT for e-mail Prospecting
-    ("faFJ13Mdd3E", "Ian Koniak", "Ian Koniak Sales Coaching"),  # The Science of Selling: quota 42 months
-    ("Mefkm3F3BeU", "Ian Koniak", "Ian Koniak Sales Coaching"),  # How to Build an Effective Prospecting Sequence
-
+    (
+        "f3pTqJ9yARU",
+        "Ian Koniak",
+        "Ian Koniak Sales Coaching",
+    ),  # FREE TRAINING: MAKE $500K-1M/YEAR
+    (
+        "XUkgyemEbc0",
+        "Ian Koniak",
+        "Ian Koniak Sales Coaching",
+    ),  # How I became #1 Enterprise AE at Salesforce
+    (
+        "MufIRTnXz1Y",
+        "Ian Koniak",
+        "Ian Koniak Sales Coaching",
+    ),  # How to Use Chat GPT for e-mail Prospecting
+    (
+        "faFJ13Mdd3E",
+        "Ian Koniak",
+        "Ian Koniak Sales Coaching",
+    ),  # The Science of Selling: quota 42 months
+    (
+        "Mefkm3F3BeU",
+        "Ian Koniak",
+        "Ian Koniak Sales Coaching",
+    ),  # How to Build an Effective Prospecting Sequence
     # 3. Morgan J Ingram - SDR, outbound, sequences
     ("q0x1g0QFcFk", "Morgan Ingram", "The SDR Chronicles"),
     ("hTJi7pE9CVY", "Morgan Ingram", "The SDR Chronicles"),
-
     # 4 & 5. Armand Farrokh & Nick Cegelski - 30MPC
-    ("5pjUStm0pvo", "30MPC", "30 Minutes to President's Club"),  # Sales Email Elimination: 5 Cold Emails
+    (
+        "5pjUStm0pvo",
+        "30MPC",
+        "30 Minutes to President's Club",
+    ),  # Sales Email Elimination: 5 Cold Emails
     ("XvuWnvR0Mpc", "30MPC", "30 Minutes to President's Club"),  # The $1M Negotiation
-    ("2vivv2HeiBU", "30MPC", "30 Minutes to President's Club"),  # Cold Call Masterclass: The Perfect Script
+    (
+        "2vivv2HeiBU",
+        "30MPC",
+        "30 Minutes to President's Club",
+    ),  # Cold Call Masterclass: The Perfect Script
     ("r43V0YXGLhg", "30MPC", "30 Minutes to President's Club"),  # Cold Call 3v3
     ("Ag-6pB51s5o", "30MPC", "30 Minutes to President's Club"),  # Cold Email Showdown
-    ("foeXnJ1b0UE", "30MPC", "30 Minutes to President's Club"),  # The $30M Deal Sold With One Page
+    (
+        "foeXnJ1b0UE",
+        "30MPC",
+        "30 Minutes to President's Club",
+    ),  # The $30M Deal Sold With One Page
     ("w1_0co11VWk", "30MPC", "30 Minutes to President's Club"),  # #1 Sales Rep Demo
-    ("f-P8e2VSUnk", "30MPC", "30 Minutes to President's Club"),  # Negotiation Masterclass
+    (
+        "f-P8e2VSUnk",
+        "30MPC",
+        "30 Minutes to President's Club",
+    ),  # Negotiation Masterclass
     ("9WtOHUDgbIA", "30MPC", "30 Minutes to President's Club"),  # Live Cold Calls
-
     # 11. Samantha McKenna - #samsales, Show Me You Know Me
     ("h2872iUIXm4", "Samantha McKenna", "#samsales"),  # LinkedIn Algo Hacks
-    ("2K3Hddd3jkw", "Samantha McKenna", "#samsales"),  # Show Me You Know Me - Subject Lines
-    ("fz9Z_4PDLOQ", "Samantha McKenna", "#samsales"),  # From Cooked to Booked w/ Morgan Ingram
+    (
+        "2K3Hddd3jkw",
+        "Samantha McKenna",
+        "#samsales",
+    ),  # Show Me You Know Me - Subject Lines
+    (
+        "fz9Z_4PDLOQ",
+        "Samantha McKenna",
+        "#samsales",
+    ),  # From Cooked to Booked w/ Morgan Ingram
     ("S8g0nD-LARM", "Samantha McKenna", "#samsales"),  # Why the effort matters - SMYKM
-    ("9XvRJagw6ZA", "Samantha McKenna", "#samsales"),  # How to Break into an ENT Account
-
+    (
+        "9XvRJagw6ZA",
+        "Samantha McKenna",
+        "#samsales",
+    ),  # How to Break into an ENT Account
     # =====================================================
     # ADDITIONAL INFLUENCERS
     # =====================================================
-
     # John Barrows - JBarrows Sales Training
     ("Z5vxRC8dMvs", "John Barrows", "JBarrows Sales Training"),
     ("gOqL9-RCj94", "John Barrows", "JBarrows Sales Training"),
-
     # Josh Braun - Sales tips
     ("j5zRyXLvngg", "Josh Braun", "Josh Braun"),
     ("Kl2zmeHblmI", "Josh Braun", "Josh Braun"),
-
     # Jeb Blount - Sales Gravy
     ("n6mNxKAt9TU", "Jeb Blount", "Sales Gravy"),
     ("3y8nP8VnOp0", "Jeb Blount", "Sales Gravy"),
-
     # Chris Voss - Negotiation
     ("guZa7mQV1l0", "Chris Voss", "MasterClass"),
     ("llctqNJr2IU", "Chris Voss", "Big Think"),
-
     # Gong.io - Data-driven sales
     ("SHwGqFt3fkU", "Gong.io", "Gong"),
     ("tXrU8-S-F6U", "Gong.io", "Gong"),
-
     # Auto-discovered 2026-01-31
     ("K9ffRCbkrRc", "Ian Koniak", "Ian Koniak Channel"),
     ("_G-5i4HeO0Y", "Ian Koniak", "Ian Koniak Channel"),
@@ -191,10 +227,7 @@ def get_existing_video_urls() -> set:
         table = api.table(base_id, AIRTABLE_TABLE_NAME)
         records = table.all()
 
-        urls = {
-            record["fields"].get("Source URL", "")
-            for record in records
-        }
+        urls = {record["fields"].get("Source URL", "") for record in records}
         logger.info(f"Found {len(urls)} existing videos in Airtable (will skip)")
         return urls
 
@@ -204,7 +237,9 @@ def get_existing_video_urls() -> set:
         return set()
 
 
-def chunk_transcript(text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OVERLAP) -> list[dict]:
+def chunk_transcript(
+    text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OVERLAP
+) -> list[dict]:
     """Split transcript into overlapping chunks."""
     words = text.split()
     chunks = []
@@ -219,11 +254,13 @@ def chunk_transcript(text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHU
         end = min(start + chunk_size, len(words))
         chunk_words = words[start:end]
 
-        chunks.append({
-            "chunk_index": chunk_index,
-            "content": " ".join(chunk_words),
-            "start_word": start,
-        })
+        chunks.append(
+            {
+                "chunk_index": chunk_index,
+                "content": " ".join(chunk_words),
+                "start_word": start,
+            }
+        )
 
         chunk_index += 1
         start = end - overlap
@@ -267,15 +304,22 @@ def collect_transcripts():
 
     # Filter to only new videos
     videos_to_process = [
-        (vid, inf, ch) for vid, inf, ch in TARGET_VIDEOS
+        (vid, inf, ch)
+        for vid, inf, ch in TARGET_VIDEOS
         if f"https://youtube.com/watch?v={vid}" not in existing_urls
     ]
 
     if not videos_to_process:
         logger.info("No new videos to process")
-        return {"videos": [], "collection_date": datetime.now().isoformat(), "video_count": 0}
+        return {
+            "videos": [],
+            "collection_date": datetime.now().isoformat(),
+            "video_count": 0,
+        }
 
-    logger.info(f"Processing {len(videos_to_process)} new videos (skipping {len(TARGET_VIDEOS) - len(videos_to_process)} existing)")
+    logger.info(
+        f"Processing {len(videos_to_process)} new videos (skipping {len(TARGET_VIDEOS) - len(videos_to_process)} existing)"
+    )
 
     all_videos = []
 

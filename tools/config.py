@@ -1,6 +1,7 @@
 """
 Shared configuration for Sales Coach tools.
 """
+
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -68,4 +69,5 @@ USER_AGENTS = [
 def get_random_user_agent():
     """Return a random user agent string."""
     import random
+
     return random.choice(USER_AGENTS)
