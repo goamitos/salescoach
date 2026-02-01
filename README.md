@@ -133,7 +133,7 @@ See [docs/influencers.md](docs/influencers.md) for full profiles and links.
    ANTHROPIC_API_KEY = "sk-..."
    AIRTABLE_API_KEY = "pat..."
    AIRTABLE_BASE_ID = "app..."
-   AIRTABLE_TABLE_NAME = "Sales Insights"
+   AIRTABLE_TABLE_NAME = "Sales Wisdom"
    ```
 
 ## Project Structure
