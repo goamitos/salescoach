@@ -1,0 +1,32 @@
+# Environment and secrets
+.env
+.env.local
+credentials.json
+token.json
+# Note: .env.tpl is safe to commit - it only contains 1Password references, not actual secrets
+
+# Intermediate files
+.tmp/
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
