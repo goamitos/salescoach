@@ -31,119 +31,474 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# Custom CSS for Claude.ai-inspired styling
+# Custom CSS - Executive Coaching Studio Theme with Auto Dark/Light Mode
 st.markdown(
     """
 <style>
-/* Remove default Streamlit padding at top */
-.block-container {
-    padding-top: 2.5rem !important;
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap');
+
+/* CSS Variables - Light mode (default) */
+:root {
+    --bg-primary: #faf9f7;
+    --bg-secondary: #f0efed;
+    --bg-card: #ffffff;
+    --text-primary: #2d2d3a;
+    --text-secondary: #6b6b7a;
+    --accent: #2d2d3a;
+    --accent-highlight: #D4A574;
+    --accent-glow: rgba(212, 165, 116, 0.3);
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --user-msg-bg: linear-gradient(135deg, #2d2d3a 0%, #1a1a2e 100%);
+    --user-msg-text: #ffffff;
+    --assistant-msg-bg: #ffffff;
+    --assistant-msg-border: #D4A574;
 }
 
-/* Header styling */
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a1a2e;
+        --bg-secondary: #16162a;
+        --bg-card: rgba(30, 30, 50, 0.7);
+        --text-primary: #e8e8e8;
+        --text-secondary: #a0a0a0;
+        --accent: #D4A574;
+        --accent-highlight: #D4A574;
+        --accent-glow: rgba(212, 165, 116, 0.2);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --shadow-card: 0 0 20px rgba(212, 165, 116, 0.1);
+        --shadow-hover: 0 0 30px rgba(212, 165, 116, 0.15);
+        --user-msg-bg: linear-gradient(135deg, #D4A574 0%, #c49464 100%);
+        --user-msg-text: #1a1a2e;
+        --assistant-msg-bg: rgba(30, 30, 50, 0.7);
+        --assistant-msg-border: #D4A574;
+    }
+}
+
+/* Global Streamlit overrides */
+.stApp {
+    background-color: var(--bg-primary) !important;
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.stApp > header {
+    background-color: transparent !important;
+}
+
+/* Remove default padding - reduced whitespace */
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1200px !important;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    color: var(--text-primary) !important;
+}
+
+p, span, div, label {
+    color: var(--text-primary);
+}
+
+/* Header styling - compact */
+.header-container {
+    text-align: center;
+    padding: 0.5rem 0 0.25rem;
+}
+
 .header-title {
+    margin-bottom: 0.75rem;
+}
+
+.header-title h1 {
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+/* Expert selector - CW left, 8x2 grid right */
+.expert-selector {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 16px;
+    padding: 0.5rem 0;
+    margin: 0 auto;
+}
+
+/* Collective Wisdom - tall rectangular */
+.cw-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cw-avatar {
+    width: 72px;
+    height: 104px;
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid var(--border-subtle);
+    opacity: 0.85;
+}
+
+.cw-avatar:hover {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.cw-avatar.selected {
+    opacity: 1;
+    border: 3px solid var(--accent-highlight);
+    box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.cw-label {
+    font-size: 0.7rem;
+    text-align: center;
+    margin-top: 0.35rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Expert grid - 8 columns, 2 rows */
+.experts-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 48px);
+    grid-template-rows: repeat(2, 48px);
+    gap: 8px;
+}
+
+/* Individual expert avatars */
+.avatar-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid var(--border-subtle);
+    opacity: 0.7;
+}
+
+.avatar-img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.avatar-img.selected {
+    opacity: 1;
+    border: 3px solid var(--accent-highlight);
+    box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* Expert info panel */
+.expert-info-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent-highlight);
+    border-radius: 0 12px 12px 0;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem auto;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow-card);
+}
+
+.expert-info-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-highlight);
+    flex-shrink: 0;
+}
+
+.expert-info-details {
+    flex: 1;
+}
+
+.expert-info-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem 0;
+}
+
+.expert-info-specialty {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.25rem 0;
+    font-style: italic;
+}
+
+.expert-info-followers {
+    font-size: 0.85rem;
+    color: var(--accent-highlight);
+    margin: 0;
+    font-weight: 500;
+}
+
+.expert-info-badge {
+    background: var(--accent-highlight);
+    color: #1a1a2e;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Stage filter - compact dropdown style */
+.stage-filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 0.5rem 0;
     margin-bottom: 0.5rem;
 }
-.header-title h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-.header-title p {
-    margin: 0;
-    color: #888;
-    font-size: 0.9rem;
+
+.stage-filter-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
-/* Avatar image hover effects */
-.avatar-img:hover {
-    opacity: 1 !important;
-    transform: scale(1.1);
+/* Suggested questions grid */
+.suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .suggestions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.suggestion-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    box-shadow: var(--shadow-card);
+}
+
+.suggestion-card:hover {
+    border-color: var(--accent-highlight);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.suggestion-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+/* Chat messages */
+.stChatMessage {
+    border-radius: 16px !important;
+    margin-bottom: 1rem !important;
+    padding: 1rem 1.25rem !important;
+}
+
+[data-testid="stChatMessageContent"] {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* User messages */
+.stChatMessage[data-testid="user-message"],
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    background: var(--user-msg-bg) !important;
+    margin-left: 10% !important;
+    border: none !important;
+}
+
+.stChatMessage[data-testid="user-message"] p,
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) p {
+    color: var(--user-msg-text) !important;
+}
+
+/* Assistant messages */
+.stChatMessage[data-testid="assistant-message"],
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+    background: var(--assistant-msg-bg) !important;
+    border-left: 3px solid var(--assistant-msg-border) !important;
+    margin-right: 5% !important;
+    box-shadow: var(--shadow-card);
 }
 
 /* Conversation title */
 .conversation-title {
+    font-family: 'DM Sans', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #666;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
-/* Chat message styling - Claude.ai inspired */
-.stChatMessage {
-    padding: 0.75rem 1rem !important;
-    border-radius: 18px !important;
-    margin-bottom: 0.5rem !important;
-}
-.stChatMessage[data-testid="user-message"] {
-    background: linear-gradient(135deg, #2D5A3D 0%, #1E3F2B 100%) !important;
-    margin-left: 15% !important;
-}
-.stChatMessage[data-testid="assistant-message"] {
-    background: transparent !important;
-    margin-right: 10% !important;
+/* Chat input styling */
+.stChatInput {
+    border-color: var(--border-subtle) !important;
 }
 
-/* Sources link styling */
-.sources-toggle {
-    font-size: 0.85rem;
-    color: #666;
-    cursor: pointer;
-    margin-top: 0.5rem;
-}
-.sources-toggle:hover {
-    color: #4ECDC4;
+.stChatInput > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 12px !important;
 }
 
-/* Stage accordion styling */
-.stage-group-btn {
-    width: 100%;
-    text-align: left;
-    padding: 0.5rem 0.75rem;
-    background: transparent;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s;
-}
-.stage-group-btn:hover {
-    background: rgba(78, 205, 196, 0.1);
-}
-.stage-insight {
-    font-style: italic;
-    color: inherit;
-    opacity: 0.8;
-    font-size: 0.9rem;
-    padding: 0.25rem 0.75rem 0.5rem 1.5rem;
-}
-.nested-stage {
-    padding-left: 1.5rem;
-    font-size: 0.9rem;
+.stChatInput textarea {
+    color: var(--text-primary) !important;
 }
 
-/* Mindset callout - works in both light and dark mode */
+/* Mindset callout */
 .mindset-callout {
-    background: rgba(78, 205, 196, 0.1);
-    border-left: 4px solid #4ECDC4;
-    padding: 0.75rem 1rem;
-    border-radius: 0 8px 8px 0;
-    margin-bottom: 1rem;
-}
-.mindset-callout strong {
-    color: #4ECDC4;
+    background: var(--accent-glow);
+    border-left: 4px solid var(--accent-highlight);
+    padding: 1rem 1.25rem;
+    border-radius: 0 12px 12px 0;
+    margin: 1rem 0;
 }
 
-/* Clear chat button */
-.clear-chat-btn {
-    opacity: 0.6;
+.mindset-callout strong {
+    color: var(--accent-highlight);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.mindset-callout p {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* Sources expander */
+.stExpander {
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 8px !important;
+    background: var(--bg-secondary) !important;
+}
+
+.stExpander summary {
+    color: var(--text-secondary) !important;
     font-size: 0.85rem;
 }
-.clear-chat-btn:hover {
-    opacity: 1;
+
+/* Buttons */
+.stButton > button {
+    border-radius: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    padding: 0.75rem 1rem !important;
+    text-align: left !important;
+}
+
+.stButton > button:hover {
+    border-color: var(--accent-highlight) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+.stButton > button[kind="secondary"] {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-subtle) !important;
+    box-shadow: var(--shadow-card);
+}
+
+.stButton > button[kind="primary"] {
+    background: var(--accent-highlight) !important;
+    color: #1a1a2e !important;
+    border: 1px solid var(--accent-highlight) !important;
+    font-weight: 600 !important;
+}
+
+/* Suggestion buttons specifically */
+.welcome-container + div .stButton > button {
+    min-height: 60px !important;
+    font-size: 0.95rem !important;
+}
+
+/* Footer */
+.footer-text {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 2rem;
+}
+
+/* Horizontal dividers */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 1rem 0;
+}
+
+/* Hide default Streamlit elements */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-title h1 {
+        font-size: 1.75rem;
+    }
+
+    .expert-selector {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0.5rem 1rem;
+    }
+
+    .cw-avatar {
+        width: 100px;
+        height: 56px;
+        border-radius: 10px;
+    }
+
+    .experts-grid {
+        grid-template-columns: repeat(4, 40px);
+        grid-template-rows: repeat(4, 40px);
+        gap: 6px;
+    }
+
+    .avatar-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .expert-info-panel {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+        margin: 0.5rem 1rem;
+    }
 }
 </style>
 """,
@@ -152,12 +507,13 @@ st.markdown(
 
 # Constants
 PROJECT_ROOT = Path(__file__).parent
+REGISTRY_PATH = PROJECT_ROOT / "data" / "influencers.json"
 
 # Collective Wisdom avatar (displayed first, represents all experts)
 COLLECTIVE_WISDOM = {"name": "Collective Wisdom", "slug": "collective-wisdom"}
 
-# Influencer data for avatars
-INFLUENCERS = [
+# Legacy hardcoded influencer data (fallback)
+LEGACY_INFLUENCERS = [
     {"name": "30MPC", "slug": "30mpc"},
     {"name": "Armand Farrokh", "slug": "armand-farrokh"},
     {"name": "Nick Cegelski", "slug": "nick-cegelski"},
@@ -172,6 +528,50 @@ INFLUENCERS = [
     {"name": "Morgan J Ingram", "slug": "morgan-j-ingram"},
     {"name": "Kyle Coleman", "slug": "kyle-coleman"},
 ]
+
+
+@st.cache_data(ttl=600)
+def load_influencers_from_registry() -> list[dict]:
+    """Load influencers from the registry JSON file.
+
+    Returns list of dicts with name, slug, specialty, and followers for each influencer.
+    Falls back to legacy list if registry is not available.
+    """
+    try:
+        import json
+        if REGISTRY_PATH.exists():
+            with open(REGISTRY_PATH, "r") as f:
+                data = json.load(f)
+
+            influencers = []
+            for inf in data.get("influencers", []):
+                if inf.get("status") == "active":
+                    # Get followers from LinkedIn platform
+                    linkedin = inf.get("platforms", {}).get("linkedin", {})
+                    followers = linkedin.get("followers")
+
+                    # Get specialty from metadata.notes
+                    metadata = inf.get("metadata", {})
+                    specialty = metadata.get("notes", "")
+
+                    influencers.append({
+                        "name": inf["name"],
+                        "slug": inf["slug"],
+                        "specialty": specialty,
+                        "followers": followers,
+                    })
+
+            if influencers:
+                return influencers
+
+    except Exception as e:
+        st.warning(f"Could not load registry: {e}")
+
+    return LEGACY_INFLUENCERS
+
+
+# Dynamically load influencers (cached)
+INFLUENCERS = load_influencers_from_registry()
 
 # Stage groups for sidebar
 STAGE_GROUPS = {
@@ -520,8 +920,34 @@ def get_influencer_name(slug: str) -> str:
     return slug
 
 
+def get_influencer_details(slug: str) -> dict:
+    """Get full influencer details from slug."""
+    if slug == "collective-wisdom":
+        return {
+            "name": "Collective Wisdom",
+            "slug": "collective-wisdom",
+            "specialty": "Combined insights from all 16 experts",
+            "followers": None,
+        }
+    for inf in INFLUENCERS:
+        if inf["slug"] == slug:
+            return inf
+    return {"name": slug, "slug": slug, "specialty": "", "followers": None}
+
+
+def format_followers(count: int | None) -> str:
+    """Format follower count for display."""
+    if count is None:
+        return ""
+    if count >= 1000000:
+        return f"{count / 1000000:.1f}M"
+    if count >= 1000:
+        return f"{count / 1000:.0f}K"
+    return str(count)
+
+
 def render_header():
-    """Render header with title left, clickable avatar images on right."""
+    """Render centered header with title, tagline, and clickable avatar images."""
     # Initialize selected persona in session state
     if "selected_persona" not in st.session_state:
         st.session_state.selected_persona = None  # None = Collective Wisdom (all)
@@ -534,94 +960,258 @@ def render_header():
     if url_persona != st.session_state.selected_persona:
         st.session_state.selected_persona = url_persona
 
-    all_avatars = [COLLECTIVE_WISDOM] + INFLUENCERS  # 14 total
+    # Separate Collective Wisdom from individual experts
+    cw_path = PROJECT_ROOT / "assets" / "avatars" / "collective-wisdom.png"
+    cw_b64 = get_image_base64(cw_path) if cw_path.exists() else ""
+    cw_selected = st.session_state.selected_persona is None
+    cw_selected_class = "selected" if cw_selected else ""
 
-    # Build avatar HTML - images with onclick JavaScript
-    avatar_html = ""
-    for avatar in all_avatars:
-        avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{avatar['slug']}.png"
+    # Build individual expert avatars HTML
+    experts_html = ""
+    for inf in INFLUENCERS:
+        avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
         if not avatar_path.exists():
             continue
 
         b64 = get_image_base64(avatar_path)
-        is_selected = (
-            avatar["slug"] == "collective-wisdom"
-            and st.session_state.selected_persona is None
-        ) or st.session_state.selected_persona == avatar["slug"]
+        is_selected = st.session_state.selected_persona == inf["slug"]
+        selected_class = "selected" if is_selected else ""
+        onclick = f"window.location.search = '?persona={inf['slug']}'"
 
-        # Styling
-        border = "3px solid #4ECDC4" if is_selected else "2px solid #555"
-        opacity = "1" if is_selected else "0.6"
-
-        # JavaScript onclick - update query param
-        if avatar["slug"] == "collective-wisdom":
-            onclick = "window.location.search = ''"
-        else:
-            onclick = f"window.location.search = '?persona={avatar['slug']}'"
-
-        avatar_html += f"""<img src="data:image/png;base64,{b64}"
+        experts_html += f"""<img src="data:image/png;base64,{b64}"
             onclick="{onclick}"
-            class="avatar-img"
-            style="width:52px; height:52px; border-radius:50%;
-                   border:{border}; opacity:{opacity}; cursor:pointer;
-                   transition: all 0.15s ease;"
-            title="{avatar['name']}">"""
+            class="avatar-img {selected_class}"
+            title="{inf['name']}">"""
 
-    # Layout: title left, avatars right
-    col1, col2 = st.columns([1, 3])
-    with col1:
-        st.markdown(
-            """
-        <div class="header-title">
-            <h1>Sales Coach AI</h1>
-            <p>Elite sales wisdom on demand</p>
+    # Centered header layout - CW rectangle left, 8x2 grid right
+    st.markdown(
+        f"""
+        <div class="header-container">
+            <div class="header-title">
+                <h1>Sales Coach AI</h1>
+            </div>
+            <div class="expert-selector">
+                <div class="cw-container">
+                    <img src="data:image/png;base64,{cw_b64}"
+                        onclick="window.location.search = ''"
+                        class="cw-avatar {cw_selected_class}"
+                        title="Collective Wisdom - All Experts">
+                    <span class="cw-label">All Experts</span>
+                </div>
+                <div class="experts-grid">
+                    {experts_html}
+                </div>
+            </div>
         </div>
         """,
-            unsafe_allow_html=True,
-        )
-    with col2:
+        unsafe_allow_html=True,
+    )
+
+    # Show expert info panel when an individual expert is selected
+    if st.session_state.selected_persona:
+        details = get_influencer_details(st.session_state.selected_persona)
+        avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{details['slug']}.png"
+        avatar_b64 = get_image_base64(avatar_path) if avatar_path.exists() else ""
+
+        followers_html = ""
+        if details.get("followers"):
+            followers_html = f'<p class="expert-info-followers">👥 {format_followers(details["followers"])} followers</p>'
+
+        specialty_html = ""
+        if details.get("specialty"):
+            specialty_html = f'<p class="expert-info-specialty">"{details["specialty"]}"</p>'
+
         st.markdown(
             f"""
-        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-content:center; gap:8px 0; align-items:center; padding:12px 0;">
-            {avatar_html}
-        </div>
-        """,
+            <div class="expert-info-panel">
+                <img src="data:image/png;base64,{avatar_b64}" class="expert-info-avatar">
+                <div class="expert-info-details">
+                    <p class="expert-info-name">{details['name']}</p>
+                    {specialty_html}
+                    {followers_html}
+                </div>
+                <span class="expert-info-badge">Selected ✓</span>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
+
+
+def get_stage_counts(records: list[dict]) -> dict:
+    """Count records per stage group."""
+    counts = {"All": len(records)}
+    for group_name, stages in STAGE_GROUPS.items():
+        group_records = get_records_for_stage_group(records, stages)
+        counts[group_name] = len(group_records)
+    # Count General Sales Mindset
+    mindset_records = get_records_for_stage_group(records, ["General Sales Mindset"])
+    counts["Mindset"] = len(mindset_records)
+    return counts
+
+
+def render_stage_tabs(records: list[dict]):
+    """Render stage filter as a compact selectbox."""
+    # Initialize selected stage in session state
+    if "selected_stage_group" not in st.session_state:
+        st.session_state.selected_stage_group = "All"
+
+    counts = get_stage_counts(records)
+
+    # Options with counts
+    options = [
+        f"All stages ({counts.get('All', 0)})",
+        f"Planning & Research ({counts.get('Planning & Research', 0)})",
+        f"Outreach & Contact ({counts.get('Outreach & Contact', 0)})",
+        f"Discovery & Analysis ({counts.get('Discovery & Analysis', 0)})",
+        f"Present & Prove Value ({counts.get('Present & Prove Value', 0)})",
+        f"Close & Grow ({counts.get('Close & Grow', 0)})",
+        f"Mindset ({counts.get('Mindset', 0)})",
+    ]
+
+    # Map display values to internal values
+    value_map = {
+        options[0]: "All",
+        options[1]: "Planning & Research",
+        options[2]: "Outreach & Contact",
+        options[3]: "Discovery & Analysis",
+        options[4]: "Present & Prove Value",
+        options[5]: "Close & Grow",
+        options[6]: "General Sales Mindset",
+    }
+
+    # Reverse map to get current display value
+    reverse_map = {v: k for k, v in value_map.items()}
+    current_display = reverse_map.get(st.session_state.selected_stage_group, options[0])
+
+    # Centered layout with label
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        selected = st.selectbox(
+            "Filter by deal stage:",
+            options=options,
+            index=options.index(current_display) if current_display in options else 0,
+            key="stage_filter_select",
+            label_visibility="collapsed",
+        )
+
+        # Update state if changed
+        new_value = value_map.get(selected, "All")
+        if new_value != st.session_state.selected_stage_group:
+            st.session_state.selected_stage_group = new_value
+            st.rerun()
+
+
+def render_welcome_state():
+    """Render the welcome/empty state with suggested questions - minimal, no headers."""
+    # Suggested questions as Streamlit buttons in a 2x2 grid
+    # No header needed - the chat input and cards are self-explanatory
+    suggestions = [
+        ("💰", "How do I handle price objections?"),
+        ("👻", "My prospect went silent after the demo"),
+        ("🎯", "Discovery questions for a CFO meeting"),
+        ("⏰", "Creating urgency without being pushy"),
+    ]
+
+    # Add small vertical spacer
+    st.markdown("<div style='height: 0.5rem'></div>", unsafe_allow_html=True)
+
+    col1, col2 = st.columns(2)
+    for i, (icon, question) in enumerate(suggestions):
+        with col1 if i % 2 == 0 else col2:
+            if st.button(
+                f"{icon} {question}",
+                key=f"suggestion_{i}",
+                use_container_width=True,
+                type="secondary",
+            ):
+                st.session_state.prefill_question = question
+                st.rerun()
 
 
 def render_chat_interface(secrets: dict, records: list[dict]):
-    """Render Claude.ai-style chat interface with conversation title and persona filtering."""
+    """Render chat interface with conversation title, persona filtering, and stage filtering."""
     # Initialize session state
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "conversation_title" not in st.session_state:
         st.session_state.conversation_title = "New Conversation"
+    if "selected_stage_group" not in st.session_state:
+        st.session_state.selected_stage_group = "All"
 
     # Filter records based on selected persona
+    filtered_records = records
     if st.session_state.get("selected_persona"):
         filtered_records = [
             r
-            for r in records
+            for r in filtered_records
             if st.session_state.selected_persona.lower()
             in (r.get("fields", {}).get("Influencer") or "").lower()
         ]
-        persona_name = get_influencer_name(st.session_state.selected_persona)
-        st.info(f"💬 Channeling **{persona_name}**'s coaching style")
-    else:
-        filtered_records = records
+        # Note: Expert info panel is now shown in header, no need to duplicate here
 
-    # Display conversation title
-    if st.session_state.messages:
+    # Filter records based on selected stage group
+    stage_group = st.session_state.get("selected_stage_group", "All")
+    if stage_group != "All":
+        if stage_group == "General Sales Mindset":
+            stages = ["General Sales Mindset"]
+        else:
+            stages = STAGE_GROUPS.get(stage_group, [])
+        if stages:
+            filtered_records = get_records_for_stage_group(filtered_records, stages)
+
+    # Handle prefilled question from suggestion buttons
+    prefill = st.session_state.pop("prefill_question", None)
+
+    # Show welcome state if no messages
+    if not st.session_state.messages and not prefill:
+        render_welcome_state()
+    elif prefill:
+        # Process prefilled question immediately
+        st.session_state.messages.append({"role": "user", "content": prefill})
+        # Generate title
+        try:
+            st.session_state.conversation_title = generate_conversation_title(
+                secrets["anthropic_key"], prefill
+            )
+        except Exception:
+            words = prefill.split()[:5]
+            st.session_state.conversation_title = " ".join(words) + "..."
+        # Get response
+        relevant = find_relevant_records(filtered_records, prefill)
+        if relevant:
+            context = build_context(relevant)
+            response = get_coaching_advice(
+                secrets["anthropic_key"],
+                prefill,
+                context,
+                [],
+                st.session_state.get("selected_persona"),
+            )
+            sources = [
+                {
+                    "influencer": r.get("fields", {}).get("Influencer", "Unknown"),
+                    "stage": r.get("fields", {}).get("Primary Stage", "General"),
+                    "url": r.get("fields", {}).get("Source URL", ""),
+                }
+                for r in relevant
+            ]
+        else:
+            response = "I couldn't find specific insights matching your question."
+            sources = []
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": response,
+            "sources": sources,
+        })
+        st.rerun()
+    else:
+        # Display conversation title
         st.markdown(
             f'<div class="conversation-title">{st.session_state.conversation_title}</div>',
             unsafe_allow_html=True,
         )
 
-    # Create a fixed-height container for chat messages
-    chat_container = st.container(height=450)
-    with chat_container:
-        # Display chat history
+        # Chat messages container (flexible height)
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
@@ -634,7 +1224,7 @@ def render_chat_interface(secrets: dict, records: list[dict]):
                             if source.get("url"):
                                 st.markdown(f"[View source]({source['url']})")
 
-    # Chat input (outside container, stays at bottom)
+    # Chat input
     if prompt := st.chat_input("Describe your sales situation or ask a question..."):
         # Add user message
         st.session_state.messages.append({"role": "user", "content": prompt})
@@ -707,23 +1297,17 @@ def render_chat_interface(secrets: dict, records: list[dict]):
                 st.rerun()
 
 
-def render_stages_sidebar(secrets: dict, records: list[dict]):
-    """Render single-accordion stages sidebar with 1-line insights."""
-    st.markdown("### Sales Stages")
-
+def render_mindset_callout(secrets: dict, records: list[dict]):
+    """Render the always-visible mindset callout."""
     # Initialize session state
     if "stage_insights" not in st.session_state:
         st.session_state.stage_insights = {}
-    if "expanded_group" not in st.session_state:
-        st.session_state.expanded_group = None
-    if "expanded_stage" not in st.session_state:
-        st.session_state.expanded_stage = None
 
     # General Sales Mindset - always visible callout
     general_records = get_records_for_stage_group(records, ["General Sales Mindset"])
     if "General Sales Mindset" not in st.session_state.stage_insights:
         if general_records:
-            with st.spinner("..."):
+            with st.spinner("Loading mindset..."):
                 st.session_state.stage_insights["General Sales Mindset"] = (
                     synthesize_stage_insight(
                         secrets["anthropic_key"],
@@ -738,102 +1322,13 @@ def render_stages_sidebar(secrets: dict, records: list[dict]):
 
     st.markdown(
         f"""
-    <div class="mindset-callout">
-        <strong>Mindset:</strong> {st.session_state.stage_insights['General Sales Mindset']}
-    </div>
-    """,
+        <div class="mindset-callout">
+            <strong>💡 Mindset:</strong>
+            <p>{st.session_state.stage_insights['General Sales Mindset']}</p>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
-
-    st.markdown("---")
-
-    # Stage groups - single accordion behavior
-    for group_name, stages in STAGE_GROUPS.items():
-        group_records = get_records_for_stage_group(records, stages)
-        is_expanded = st.session_state.expanded_group == group_name
-
-        # Group header button (no counter)
-        icon = "▼" if is_expanded else "▶"
-        if st.button(
-            f"{icon} {group_name}",
-            key=f"group_{group_name}",
-            use_container_width=True,
-            type="secondary",
-        ):
-            if is_expanded:
-                st.session_state.expanded_group = None
-                st.session_state.expanded_stage = None
-            else:
-                st.session_state.expanded_group = group_name
-                st.session_state.expanded_stage = None
-            st.rerun()
-
-        # Show content if expanded
-        if is_expanded:
-            # Synthesize group insight if not cached
-            if group_name not in st.session_state.stage_insights:
-                if group_records:
-                    with st.spinner("..."):
-                        st.session_state.stage_insights[group_name] = (
-                            synthesize_stage_insight(
-                                secrets["anthropic_key"], group_name, group_records
-                            )
-                        )
-                else:
-                    st.session_state.stage_insights[group_name] = "No insights yet."
-
-            # Show group insight ONLY if no stage is expanded (single insight display)
-            if st.session_state.expanded_stage is None:
-                st.markdown(
-                    f'<div class="stage-insight">{st.session_state.stage_insights[group_name]}</div>',
-                    unsafe_allow_html=True,
-                )
-
-            # Nested stages
-            for stage in stages:
-                stage_records = [
-                    r
-                    for r in records
-                    if stage in (r.get("fields", {}).get("Primary Stage") or "")
-                ]
-                stage_expanded = st.session_state.expanded_stage == stage
-
-                # Stage button (indented, no counter)
-                stage_icon = "▼" if stage_expanded else "▶"
-                col1, col2 = st.columns([0.1, 0.9])
-                with col2:
-                    if st.button(
-                        f"{stage_icon} {stage}",
-                        key=f"stage_{stage}",
-                        use_container_width=True,
-                        type="tertiary" if hasattr(st, "tertiary") else "secondary",
-                    ):
-                        if stage_expanded:
-                            st.session_state.expanded_stage = None
-                        else:
-                            st.session_state.expanded_stage = stage
-                        st.rerun()
-
-                # Show stage insight if expanded (this is now the ONLY visible insight)
-                if stage_expanded:
-                    stage_key = f"stage_{stage}"
-                    if stage_key not in st.session_state.stage_insights:
-                        if stage_records:
-                            with st.spinner("..."):
-                                st.session_state.stage_insights[stage_key] = (
-                                    synthesize_stage_insight(
-                                        secrets["anthropic_key"], stage, stage_records
-                                    )
-                                )
-                        else:
-                            st.session_state.stage_insights[stage_key] = (
-                                "No insights yet."
-                            )
-
-                    st.markdown(
-                        f'<div class="stage-insight" style="padding-left: 2.5rem;">{st.session_state.stage_insights[stage_key]}</div>',
-                        unsafe_allow_html=True,
-                    )
 
 
 def main():
@@ -869,24 +1364,32 @@ def main():
         st.error(f"Failed to load Airtable data: {e}")
         return
 
-    # Render compact header with avatars
+    # Render centered header with avatars
     render_header()
 
-    st.markdown("---")
+    # Only show stage tabs and mindset when there's an active conversation
+    # In welcome state, they're confusing and take up space
+    has_conversation = bool(st.session_state.get("messages"))
 
-    # Two-column layout (wider chat area)
-    chat_col, sidebar_col = st.columns([2.5, 1])
+    if has_conversation:
+        # Render horizontal stage tabs
+        render_stage_tabs(records)
 
-    with chat_col:
-        render_chat_interface(secrets, records)
+        # Render mindset callout
+        render_mindset_callout(secrets, records)
 
-    with sidebar_col:
-        render_stages_sidebar(secrets, records)
+    # Chat interface (full width)
+    render_chat_interface(secrets, records)
 
     # Minimal footer
-    st.markdown("---")
-    st.caption(
-        f"Powered by Claude AI • {len(records)} insights from {len(INFLUENCERS)} experts"
+    influencer_count = len(load_influencers_from_registry())
+    st.markdown(
+        f"""
+        <div class="footer-text">
+            Powered by Claude AI • {len(records)} insights from {influencer_count} experts
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
 
