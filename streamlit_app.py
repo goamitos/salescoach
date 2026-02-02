@@ -35,8 +35,8 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap');
+/* Google Fonts - Distinctive typography */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 /* CSS Variables - Light mode (default) */
 :root {
@@ -81,7 +81,7 @@ st.markdown(
 /* Global Streamlit overrides */
 .stApp {
     background-color: var(--bg-primary) !important;
-    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 .stApp > header {
@@ -97,7 +97,7 @@ st.markdown(
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-family: 'Fraunces', Georgia, serif !important;
     color: var(--text-primary) !important;
 }
 
@@ -116,12 +116,12 @@ p, span, div, label {
 }
 
 .header-title h1 {
-    font-family: 'DM Sans', sans-serif !important;
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.75rem;
+    font-weight: 600;
     color: var(--text-primary) !important;
     margin: 0 0 0.5rem 0;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 /* Expert selector - CW left, 8x2 grid right */
@@ -319,14 +319,23 @@ p, span, div, label {
 
 /* Chat messages */
 .stChatMessage {
-    border-radius: 16px !important;
-    margin-bottom: 1rem !important;
-    padding: 1rem 1.25rem !important;
+    border-radius: 12px !important;
+    margin-bottom: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
 }
 
 [data-testid="stChatMessageContent"] {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+}
+
+[data-testid="stChatMessageContent"] p {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+[data-testid="stChatMessageContent"] li {
+    font-size: 0.875rem !important;
 }
 
 /* User messages */
@@ -408,7 +417,23 @@ p, span, div, label {
     font-size: 0.85rem;
 }
 
-/* Buttons */
+/* Avatar selector buttons - minimal */
+.stColumn .stButton > button {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.65rem !important;
+    border-radius: 8px !important;
+    min-height: auto !important;
+    background: transparent !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: var(--text-secondary) !important;
+}
+
+.stColumn .stButton > button:hover {
+    background: var(--accent-glow) !important;
+    border-color: var(--accent-highlight) !important;
+}
+
+/* Regular buttons */
 .stButton > button {
     border-radius: 12px !important;
     font-weight: 500 !important;
@@ -947,65 +972,88 @@ def format_followers(count: int | None) -> str:
 
 
 def render_header():
-    """Render centered header with title, tagline, and clickable avatar images."""
+    """Render centered header with title and expert selector using Streamlit buttons."""
     # Initialize selected persona in session state
     if "selected_persona" not in st.session_state:
         st.session_state.selected_persona = None  # None = Collective Wisdom (all)
 
-    # Sync from query params (on page load after click)
-    params = st.query_params
-    url_persona = params.get("persona", None)
-    if url_persona == "":
-        url_persona = None
-    if url_persona != st.session_state.selected_persona:
-        st.session_state.selected_persona = url_persona
-
-    # Separate Collective Wisdom from individual experts
-    cw_path = PROJECT_ROOT / "assets" / "avatars" / "collective-wisdom.png"
-    cw_b64 = get_image_base64(cw_path) if cw_path.exists() else ""
-    cw_selected = st.session_state.selected_persona is None
-    cw_selected_class = "selected" if cw_selected else ""
-
-    # Build individual expert avatars HTML
-    experts_html = ""
-    for inf in INFLUENCERS:
-        avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
-        if not avatar_path.exists():
-            continue
-
-        b64 = get_image_base64(avatar_path)
-        is_selected = st.session_state.selected_persona == inf["slug"]
-        selected_class = "selected" if is_selected else ""
-        onclick = f"window.location.search = '?persona={inf['slug']}'"
-
-        experts_html += f"""<img src="data:image/png;base64,{b64}"
-            onclick="{onclick}"
-            class="avatar-img {selected_class}"
-            title="{inf['name']}">"""
-
-    # Centered header layout - CW rectangle left, 8x2 grid right
+    # Header title
     st.markdown(
-        f"""
+        """
         <div class="header-container">
             <div class="header-title">
                 <h1>Sales Coach AI</h1>
-            </div>
-            <div class="expert-selector">
-                <div class="cw-container">
-                    <img src="data:image/png;base64,{cw_b64}"
-                        onclick="window.location.search = ''"
-                        class="cw-avatar {cw_selected_class}"
-                        title="Collective Wisdom - All Experts">
-                    <span class="cw-label">All Experts</span>
-                </div>
-                <div class="experts-grid">
-                    {experts_html}
-                </div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    # Expert selector using Streamlit columns and buttons
+    all_experts = [{"name": "All Experts", "slug": None}] + INFLUENCERS
+
+    # Create a row of image buttons
+    # First row: CW + first 8 experts
+    cols_row1 = st.columns([1.5] + [1] * 8)
+
+    # CW button (larger)
+    with cols_row1[0]:
+        cw_path = PROJECT_ROOT / "assets" / "avatars" / "collective-wisdom.png"
+        if cw_path.exists():
+            cw_selected = st.session_state.selected_persona is None
+            border_style = "3px solid #D4A574" if cw_selected else "2px solid rgba(255,255,255,0.1)"
+            st.markdown(
+                f"""<div style="text-align:center;">
+                    <img src="data:image/png;base64,{get_image_base64(cw_path)}"
+                        style="width:72px;height:104px;border-radius:12px;border:{border_style};cursor:pointer;object-fit:cover;">
+                    <div style="font-size:0.7rem;color:#a0a0a0;margin-top:4px;">All Experts</div>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+            if st.button("All", key="select_cw", use_container_width=True):
+                st.session_state.selected_persona = None
+                st.rerun()
+
+    # First 8 experts
+    for i, inf in enumerate(INFLUENCERS[:8]):
+        with cols_row1[i + 1]:
+            avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
+            if avatar_path.exists():
+                is_selected = st.session_state.selected_persona == inf["slug"]
+                border_style = "3px solid #D4A574" if is_selected else "2px solid rgba(255,255,255,0.1)"
+                st.markdown(
+                    f"""<div style="text-align:center;">
+                        <img src="data:image/png;base64,{get_image_base64(avatar_path)}"
+                            style="width:48px;height:48px;border-radius:50%;border:{border_style};object-fit:cover;">
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
+                if st.button(inf["name"].split()[0][:6], key=f"select_{inf['slug']}", use_container_width=True):
+                    st.session_state.selected_persona = inf["slug"]
+                    st.rerun()
+
+    # Second row: remaining 8 experts (with spacer for CW column)
+    if len(INFLUENCERS) > 8:
+        cols_row2 = st.columns([1.5] + [1] * 8)
+        with cols_row2[0]:
+            st.write("")  # Spacer
+
+        for i, inf in enumerate(INFLUENCERS[8:16]):
+            with cols_row2[i + 1]:
+                avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
+                if avatar_path.exists():
+                    is_selected = st.session_state.selected_persona == inf["slug"]
+                    border_style = "3px solid #D4A574" if is_selected else "2px solid rgba(255,255,255,0.1)"
+                    st.markdown(
+                        f"""<div style="text-align:center;">
+                            <img src="data:image/png;base64,{get_image_base64(avatar_path)}"
+                                style="width:48px;height:48px;border-radius:50%;border:{border_style};object-fit:cover;">
+                        </div>""",
+                        unsafe_allow_html=True,
+                    )
+                    if st.button(inf["name"].split()[0][:6], key=f"select_{inf['slug']}", use_container_width=True):
+                        st.session_state.selected_persona = inf["slug"]
+                        st.rerun()
 
     # Show expert info panel when an individual expert is selected
     if st.session_state.selected_persona:
@@ -1226,53 +1274,60 @@ def render_chat_interface(secrets: dict, records: list[dict]):
 
     # Chat input
     if prompt := st.chat_input("Describe your sales situation or ask a question..."):
-        # Add user message
+        # Add user message and display it immediately
         st.session_state.messages.append({"role": "user", "content": prompt})
 
-        # Generate conversation title from first message
-        if len(st.session_state.messages) == 1:
-            try:
-                st.session_state.conversation_title = generate_conversation_title(
-                    secrets["anthropic_key"], prompt
-                )
-            except Exception:
-                # Fallback: use first 5 words
-                words = prompt.split()[:5]
-                st.session_state.conversation_title = " ".join(words) + (
-                    "..." if len(prompt.split()) > 5 else ""
-                )
+        # Show the user message
+        with st.chat_message("user"):
+            st.markdown(prompt)
 
-        # Find relevant records from filtered set
-        relevant = find_relevant_records(filtered_records, prompt)
+        # Show loading indicator while processing
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                # Generate conversation title from first message
+                if len(st.session_state.messages) == 1:
+                    try:
+                        st.session_state.conversation_title = generate_conversation_title(
+                            secrets["anthropic_key"], prompt
+                        )
+                    except Exception:
+                        # Fallback: use first 5 words
+                        words = prompt.split()[:5]
+                        st.session_state.conversation_title = " ".join(words) + (
+                            "..." if len(prompt.split()) > 5 else ""
+                        )
 
-        if not relevant:
-            if st.session_state.get("selected_persona"):
-                persona_name = get_influencer_name(st.session_state.selected_persona)
-                response = f"I couldn't find specific insights from {persona_name} matching your question. Try switching to 'Collective Wisdom' for broader advice, or ask about a different topic."
-            else:
-                response = "I couldn't find specific insights matching your question. Try rephrasing or asking about: discovery, objections, closing, negotiation, or prospecting."
-            sources = []
-        else:
-            # Get advice with conversation context
-            context = build_context(relevant)
+                # Find relevant records from filtered set
+                relevant = find_relevant_records(filtered_records, prompt)
 
-            # Modify system prompt for persona if selected
-            selected_persona = st.session_state.get("selected_persona")
-            response = get_coaching_advice(
-                secrets["anthropic_key"],
-                prompt,
-                context,
-                st.session_state.messages[:-1],  # Exclude current message
-                selected_persona,
-            )
-            sources = [
-                {
-                    "influencer": r.get("fields", {}).get("Influencer", "Unknown"),
-                    "stage": r.get("fields", {}).get("Primary Stage", "General"),
-                    "url": r.get("fields", {}).get("Source URL", ""),
-                }
-                for r in relevant
-            ]
+                if not relevant:
+                    if st.session_state.get("selected_persona"):
+                        persona_name = get_influencer_name(st.session_state.selected_persona)
+                        response = f"I couldn't find specific insights from {persona_name} matching your question. Try switching to 'All Experts' for broader advice, or ask about a different topic."
+                    else:
+                        response = "I couldn't find specific insights matching your question. Try rephrasing or asking about: discovery, objections, closing, negotiation, or prospecting."
+                    sources = []
+                else:
+                    # Get advice with conversation context
+                    context = build_context(relevant)
+
+                    # Modify system prompt for persona if selected
+                    selected_persona = st.session_state.get("selected_persona")
+                    response = get_coaching_advice(
+                        secrets["anthropic_key"],
+                        prompt,
+                        context,
+                        st.session_state.messages[:-1],  # Exclude current message
+                        selected_persona,
+                    )
+                    sources = [
+                        {
+                            "influencer": r.get("fields", {}).get("Influencer", "Unknown"),
+                            "stage": r.get("fields", {}).get("Primary Stage", "General"),
+                            "url": r.get("fields", {}).get("Source URL", ""),
+                        }
+                        for r in relevant
+                    ]
 
         # Add assistant response
         st.session_state.messages.append(
@@ -1367,16 +1422,12 @@ def main():
     # Render centered header with avatars
     render_header()
 
-    # Only show stage tabs and mindset when there's an active conversation
-    # In welcome state, they're confusing and take up space
+    # Only show stage filter when there's an active conversation
     has_conversation = bool(st.session_state.get("messages"))
 
     if has_conversation:
-        # Render horizontal stage tabs
+        # Render stage filter dropdown
         render_stage_tabs(records)
-
-        # Render mindset callout
-        render_mindset_callout(secrets, records)
 
     # Chat interface (full width)
     render_chat_interface(secrets, records)
