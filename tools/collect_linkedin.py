@@ -19,6 +19,7 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from config import (
     TMP_DIR,
@@ -103,6 +104,19 @@ OUTPUT_FILE = TMP_DIR / "linkedin_raw.json"
 ERROR_LOG = TMP_DIR / "linkedin_errors.log"
 
 
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((requests.exceptions.RequestException, requests.exceptions.Timeout)),
+    reraise=True,
+)
+def _serper_request(url: str, headers: dict[str, str], payload: dict[str, any]) -> dict[str, any]:
+    """Make HTTP request to Serper API with retry logic."""
+    response = requests.post(url, headers=headers, json=payload, timeout=15)
+    response.raise_for_status()
+    return response.json()
+
+
 def search_serper(query: str, num_results: int = 10) -> list[dict]:
     """
     Perform Google search via Serper.dev API.
@@ -119,10 +133,7 @@ def search_serper(query: str, num_results: int = 10) -> list[dict]:
     payload = {"q": query, "num": num_results, "tbs": "qdr:y"}  # Last year
 
     try:
-        response = requests.post(url, headers=headers, json=payload, timeout=15)
-        response.raise_for_status()
-
-        data = response.json()
+        data = _serper_request(url, headers, payload)
         results = []
 
         for item in data.get("organic", []):
@@ -143,7 +154,7 @@ def search_serper(query: str, num_results: int = 10) -> list[dict]:
         return []
 
 
-def build_influencer_queries() -> list[dict]:
+def build_influencer_queries() -> list[dict[str, str]]:
     """Generate search queries for each influencer."""
     queries = []
 
@@ -169,6 +180,19 @@ def build_influencer_queries() -> list[dict]:
     return queries
 
 
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((requests.exceptions.RequestException, requests.exceptions.Timeout)),
+    reraise=True,
+)
+def _fetch_url(url: str, headers: dict[str, str]) -> str:
+    """Fetch URL content with retry logic."""
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()
+    return response.text
+
+
 def fetch_post_preview(url: str) -> dict | None:
     """
     Fetch LinkedIn post preview content.
@@ -176,10 +200,9 @@ def fetch_post_preview(url: str) -> dict | None:
     """
     try:
         headers = {"User-Agent": get_random_user_agent()}
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
+        html_content = _fetch_url(url, headers)
 
-        soup = BeautifulSoup(response.text, "html.parser")
+        soup = BeautifulSoup(html_content, "html.parser")
 
         # Extract content from meta tags (LinkedIn previews)
         content_parts = []
@@ -220,7 +243,7 @@ def fetch_post_preview(url: str) -> dict | None:
         return None
 
 
-def collect_posts():
+def collect_posts() -> dict[str, any] | None:
     """Main collection function."""
     logger.info("=" * 60)
     logger.info("LINKEDIN COLLECTION VIA SERPER.DEV")

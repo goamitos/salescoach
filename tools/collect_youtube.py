@@ -21,6 +21,7 @@ from youtube_transcript_api._errors import (
     TranscriptsDisabled,
     NoTranscriptFound,
 )
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from pyairtable import Api
 
@@ -215,7 +216,7 @@ CHUNK_SIZE = 500  # words
 CHUNK_OVERLAP = 50  # words
 
 
-def get_existing_video_urls() -> set:
+def get_existing_video_urls() -> set[str]:
     """Fetch existing video URLs from Airtable to skip re-processing."""
     if not AIRTABLE_API_KEY or not AIRTABLE_BASE_ID or not AIRTABLE_TABLE_NAME:
         logger.info("Airtable not configured, processing all videos")
@@ -239,7 +240,7 @@ def get_existing_video_urls() -> set:
 
 def chunk_transcript(
     text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OVERLAP
-) -> list[dict]:
+) -> list[dict[str, any]]:
     """Split transcript into overlapping chunks."""
     words = text.split()
     chunks = []
@@ -271,12 +272,22 @@ def chunk_transcript(
     return chunks
 
 
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type(Exception),
+    reraise=True,
+)
+def _fetch_transcript(video_id: str) -> list[any]:
+    """Fetch transcript with retry logic."""
+    ytt_api = YouTubeTranscriptApi()
+    return ytt_api.fetch(video_id)
+
+
 def get_transcript(video_id: str) -> str | None:
     """Fetch transcript for a YouTube video."""
     try:
-        # New API: instantiate class and call fetch()
-        ytt_api = YouTubeTranscriptApi()
-        transcript_list = ytt_api.fetch(video_id)
+        transcript_list = _fetch_transcript(video_id)
         full_text = " ".join([entry.text for entry in transcript_list])
         return full_text
 
@@ -295,7 +306,7 @@ def get_transcript(video_id: str) -> str | None:
         return None
 
 
-def collect_transcripts():
+def collect_transcripts() -> dict[str, any]:
     """Main collection function."""
     logger.info("Starting YouTube transcript collection...")
 

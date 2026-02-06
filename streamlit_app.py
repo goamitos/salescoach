@@ -615,7 +615,7 @@ STAGE_KEYWORDS = {
 }
 
 
-def get_secrets():
+def get_secrets() -> dict[str, str | None]:
     """Get secrets from Streamlit secrets or environment."""
     try:
         return {
@@ -638,7 +638,7 @@ def get_secrets():
 
 
 @st.cache_data(ttl=300)
-def fetch_records(_airtable_key: str, _base_id: str, _table_name: str):
+def fetch_records(_airtable_key: str, _base_id: str, _table_name: str) -> list[dict[str, any]]:
     """Fetch all records from Airtable (cached)."""
     base_id = _base_id.split("/")[0]
     api = Api(_airtable_key)
@@ -701,7 +701,7 @@ def find_relevant_records(
     return [record for record, _ in scored[:top_n]]
 
 
-def build_context(records: list[dict]) -> str:
+def build_context(records: list[dict[str, any]]) -> str:
     """Build context string from relevant records."""
     parts = []
     for record in records:
@@ -793,7 +793,7 @@ Provide specific, actionable coaching advice. Reference which expert's wisdom yo
     return response.content[0].text
 
 
-def get_records_for_stage_group(records: list[dict], stages: list[str]) -> list[dict]:
+def get_records_for_stage_group(records: list[dict[str, any]], stages: list[str]) -> list[dict[str, any]]:
     """Get all records that match any of the given stages."""
     matching = []
     for record in records:
@@ -809,7 +809,7 @@ def get_records_for_stage_group(records: list[dict], stages: list[str]) -> list[
 
 
 def synthesize_stage_insight(
-    anthropic_key: str, group_name: str, records: list[dict]
+    anthropic_key: str, group_name: str, records: list[dict[str, any]]
 ) -> str:
     """Synthesize a golden insight for a stage group (max 15 words)."""
     if not records:
@@ -881,10 +881,23 @@ Return ONLY the title, no quotes or punctuation. Examples:
 
 
 def get_image_base64(image_path: Path) -> str:
-    """Convert image to base64 for inline HTML."""
+    """Convert image to base64 for inline HTML, with session state caching."""
+    # Initialize cache in session state if not present
+    if "avatar_base64_cache" not in st.session_state:
+        st.session_state.avatar_base64_cache = {}
+
+    cache_key = str(image_path)
+
+    # Return cached value if available
+    if cache_key in st.session_state.avatar_base64_cache:
+        return st.session_state.avatar_base64_cache[cache_key]
+
+    # Encode and cache
     if image_path.exists():
         with open(image_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
+            encoded = base64.b64encode(f.read()).decode()
+            st.session_state.avatar_base64_cache[cache_key] = encoded
+            return encoded
     return ""
 
 
@@ -924,7 +937,7 @@ def format_followers(count: int | None) -> str:
     return str(count)
 
 
-def render_header():
+def render_header() -> None:
     """Render centered header with title and expert selector using Streamlit buttons."""
     # Initialize selected persona in session state
     if "selected_persona" not in st.session_state:
@@ -1038,7 +1051,7 @@ def render_header():
         )
 
 
-def get_stage_counts(records: list[dict]) -> dict:
+def get_stage_counts(records: list[dict[str, any]]) -> dict[str, int]:
     """Count records per stage group."""
     counts = {"All": len(records)}
     for group_name, stages in STAGE_GROUPS.items():
@@ -1050,7 +1063,7 @@ def get_stage_counts(records: list[dict]) -> dict:
     return counts
 
 
-def render_stage_tabs(records: list[dict]):
+def render_stage_tabs(records: list[dict[str, any]]) -> None:
     """Render stage filter as a compact selectbox."""
     # Initialize selected stage in session state
     if "selected_stage_group" not in st.session_state:
@@ -1102,7 +1115,7 @@ def render_stage_tabs(records: list[dict]):
             st.rerun()
 
 
-def render_welcome_state():
+def render_welcome_state() -> None:
     """Render the welcome/empty state with suggested questions - minimal, no headers."""
     # Suggested questions as Streamlit buttons in a 2x2 grid
     # No header needed - the chat input and cards are self-explanatory
@@ -1129,7 +1142,7 @@ def render_welcome_state():
                 st.rerun()
 
 
-def render_chat_interface(secrets: dict, records: list[dict]):
+def render_chat_interface(secrets: dict[str, str | None], records: list[dict[str, any]]) -> None:
     """Render chat interface with conversation title, persona filtering, and stage filtering."""
     # Initialize session state
     if "messages" not in st.session_state:
@@ -1142,11 +1155,12 @@ def render_chat_interface(secrets: dict, records: list[dict]):
     # Filter records based on selected persona
     filtered_records = records
     if st.session_state.get("selected_persona"):
+        # Get the actual influencer name from the slug for exact matching
+        persona_name = get_influencer_name(st.session_state.selected_persona)
         filtered_records = [
             r
             for r in filtered_records
-            if st.session_state.selected_persona.lower()
-            in (r.get("fields", {}).get("Influencer") or "").lower()
+            if (r.get("fields", {}).get("Influencer") or "").lower() == persona_name.lower()
         ]
         # Note: Expert info panel is now shown in header, no need to duplicate here
 
@@ -1305,7 +1319,7 @@ def render_chat_interface(secrets: dict, records: list[dict]):
                 st.rerun()
 
 
-def render_mindset_callout(secrets: dict, records: list[dict]):
+def render_mindset_callout(secrets: dict[str, str | None], records: list[dict[str, any]]) -> None:
     """Render the always-visible mindset callout."""
     # Initialize session state
     if "stage_insights" not in st.session_state:
@@ -1339,7 +1353,7 @@ def render_mindset_callout(secrets: dict, records: list[dict]):
     )
 
 
-def main():
+def main() -> None:
     """Main app entry point."""
     # Get secrets
     secrets = get_secrets()

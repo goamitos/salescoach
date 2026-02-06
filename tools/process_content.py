@@ -15,6 +15,7 @@ Input:
 Output:
     .tmp/processed_content.json
 """
+import hashlib
 import json
 import time
 import logging
@@ -83,13 +84,15 @@ def load_collected_content() -> list[dict]:
         with open(LINKEDIN_FILE) as f:
             data = json.load(f)
             for post in data.get("posts", []):
+                url = post.get("url", "")
+                url_hash = hashlib.md5(url.encode()).hexdigest()[:12]
                 content_items.append(
                     {
-                        "id": f"li_{hash(post.get('url', ''))}",
+                        "id": f"li_{url_hash}",
                         "content": post.get("content", ""),
                         "influencer": post.get("influencer", "Unknown"),
                         "source_type": "linkedin",
-                        "source_url": post.get("url", ""),
+                        "source_url": url,
                         "date_collected": post.get("date_collected", ""),
                     }
                 )
@@ -116,7 +119,7 @@ def load_collected_content() -> list[dict]:
     return content_items
 
 
-def analyze_content(client: anthropic.Anthropic, item: dict) -> dict | None:
+def analyze_content(client: anthropic.Anthropic, item: dict[str, str]) -> dict[str, any] | None:
     """Send content to Claude for analysis."""
     prompt = ANALYSIS_PROMPT.format(
         content=item["content"][:3000],  # Limit content length
@@ -155,7 +158,7 @@ def analyze_content(client: anthropic.Anthropic, item: dict) -> dict | None:
         return None
 
 
-def load_existing_processed() -> tuple[list[dict], set[str]]:
+def load_existing_processed() -> tuple[list[dict[str, any]], set[str]]:
     """Load existing processed content to avoid reprocessing and preserve data."""
     existing = []
     seen_ids = set()
@@ -173,7 +176,7 @@ def load_existing_processed() -> tuple[list[dict], set[str]]:
     return existing, seen_ids
 
 
-def process_all_content():
+def process_all_content() -> dict[str, any] | None:
     """Main processing function."""
     logger.info("Starting content processing...")
 

@@ -16,6 +16,7 @@ Output:
 """
 import json
 import logging
+import time
 from pyairtable import Api
 from pyairtable.formulas import match
 
@@ -36,21 +37,21 @@ logger = logging.getLogger(__name__)
 INPUT_FILE = TMP_DIR / "processed_content.json"
 
 
-def format_list_field(items: list) -> str:
+def format_list_field(items: list[str] | None) -> str:
     """Format list as comma-separated string for Airtable multi-select."""
     if not items:
         return ""
     return ", ".join(str(item) for item in items)
 
 
-def format_multiline_field(items: list) -> str:
+def format_multiline_field(items: list[str] | None) -> str:
     """Format list as newline-separated string for Airtable long text."""
     if not items:
         return ""
     return "\n".join(f"• {item}" for item in items)
 
 
-def push_to_airtable():
+def push_to_airtable() -> None:
     """Push processed content to Airtable via API."""
     logger.info("Starting Airtable push...")
 
@@ -100,50 +101,66 @@ def push_to_airtable():
     created = 0
     updated = 0
     errors = 0
+    failed_ids: list[str] = []
 
-    for item in processed:
-        source_id = item.get("source_id", "")
-        source_url = item.get("source_url", "")
+    # Process in batches of 10 to avoid rate limits
+    BATCH_SIZE = 10
+    BATCH_DELAY = 1.0  # seconds between batches
 
-        # Map source type to match Airtable options exactly
-        source_type_map = {"youtube": "Youtube", "linkedin": "LinkedIn"}
-        source_type_raw = item.get("source_type", "")
-        source_type = source_type_map.get(source_type_raw, source_type_raw)
+    for batch_start in range(0, len(processed), BATCH_SIZE):
+        batch = processed[batch_start : batch_start + BATCH_SIZE]
+        batch_num = batch_start // BATCH_SIZE + 1
+        total_batches = (len(processed) + BATCH_SIZE - 1) // BATCH_SIZE
+        logger.info(f"Processing batch {batch_num}/{total_batches} ({len(batch)} records)")
 
-        record_data = {
-            "Source ID": source_id,
-            "Influencer": item.get("influencer", ""),
-            "Source Type": source_type,
-            "Source URL": source_url,
-            "Date Collected": item.get("date_collected", "")[:10],
-            "Primary Stage": item.get("primary_stage", ""),
-            "Secondary Stages": format_list_field(item.get("secondary_stages", [])),
-            "Key Insight": item.get("key_insight", ""),
-            "Tactical Steps": format_multiline_field(item.get("tactical_steps", [])),
-            "Keywords": format_list_field(item.get("keywords", [])),
-            "Situation Examples": format_multiline_field(
-                item.get("situation_examples", [])
-            ),
-            "Best Quote": item.get("best_quote", ""),
-            "Relevance Score": item.get("relevance_score", 0),
-        }
+        for item in batch:
+            source_id = item.get("source_id", "")
+            source_url = item.get("source_url", "")
 
-        try:
-            if source_id in existing_ids:
-                # Update existing record
-                record_id = existing_ids[source_id]
-                table.update(record_id, record_data)
-                updated += 1
-                logger.debug(f"Updated: {source_id}")
-            else:
-                # Create new record
-                table.create(record_data)
-                created += 1
-                logger.debug(f"Created: {source_id}")
+            # Map source type to match Airtable options exactly
+            source_type_map = {"youtube": "Youtube", "linkedin": "LinkedIn"}
+            source_type_raw = item.get("source_type", "")
+            source_type = source_type_map.get(source_type_raw, source_type_raw)
 
-        except Exception as e:
-            logger.error(f"Error pushing record {source_url[:50]}: {e}")
-            errors += 1
+            record_data = {
+                "Source ID": source_id,
+                "Influencer": item.get("influencer", ""),
+                "Source Type": source_type,
+                "Source URL": source_url,
+                "Date Collected": item.get("date_collected", "")[:10],
+                "Primary Stage": item.get("primary_stage", ""),
+                "Secondary Stages": format_list_field(item.get("secondary_stages", [])),
+                "Key Insight": item.get("key_insight", ""),
+                "Tactical Steps": format_multiline_field(item.get("tactical_steps", [])),
+                "Keywords": format_list_field(item.get("keywords", [])),
+                "Situation Examples": format_multiline_field(
+                    item.get("situation_examples", [])
+                ),
+                "Best Quote": item.get("best_quote", ""),
+                "Relevance Score": item.get("relevance_score", 0),
+            }
+
+            try:
+                if source_id in existing_ids:
+                    # Update existing record
+                    record_id = existing_ids[source_id]
+                    table.update(record_id, record_data)
+                    updated += 1
+                    logger.debug(f"Updated: {source_id}")
+                else:
+                    # Create new record
+                    table.create(record_data)
+                    created += 1
+                    logger.debug(f"Created: {source_id}")
+
+            except Exception as e:
+                logger.error(f"Error pushing record {source_url[:50]}: {e}")
+                errors += 1
+                failed_ids.append(source_id)
+
+        # Delay between batches to respect rate limits
+        if batch_start + BATCH_SIZE < len(processed):
+            time.sleep(BATCH_DELAY)
 
     # Summary
     print("\n" + "=" * 50)
@@ -153,6 +170,8 @@ def push_to_airtable():
     print(f"Records updated: {updated}")
     print(f"Errors: {errors}")
     print(f"Total processed: {len(processed)}")
+    if failed_ids:
+        print(f"Failed IDs: {', '.join(failed_ids[:10])}" + ("..." if len(failed_ids) > 10 else ""))
     print("=" * 50)
 
     logger.info(f"Push complete: {created} created, {updated} updated, {errors} errors")
