@@ -15,9 +15,11 @@ Deploy to Streamlit Cloud:
     2. Connect repo at share.streamlit.io
     3. Add secrets in Streamlit Cloud dashboard
 """
+from __future__ import annotations
 
 import base64
 import re
+from typing import Optional
 from pathlib import Path
 import streamlit as st
 from pyairtable import Api
@@ -617,7 +619,7 @@ STAGE_KEYWORDS = {
 }
 
 
-def get_secrets() -> dict[str, str | None]:
+def get_secrets() -> dict[str, Optional[str]]:
     """Get secrets from Streamlit secrets or environment."""
     try:
         return {
@@ -1133,7 +1135,7 @@ def render_welcome_state() -> None:
                 st.rerun()
 
 
-def render_chat_interface(secrets: dict[str, str | None], records: list[dict[str, any]]) -> None:
+def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[str, any]]) -> None:
     """Render chat interface with conversation title, persona filtering, and stage filtering."""
     # Initialize session state
     if "messages" not in st.session_state:
@@ -1310,7 +1312,7 @@ def render_chat_interface(secrets: dict[str, str | None], records: list[dict[str
                 st.rerun()
 
 
-def render_mindset_callout(secrets: dict[str, str | None], records: list[dict[str, any]]) -> None:
+def render_mindset_callout(secrets: dict[str, Optional[str]], records: list[dict[str, any]]) -> None:
     """Render the always-visible mindset callout."""
     # Initialize session state
     if "stage_insights" not in st.session_state:
@@ -1346,6 +1348,9 @@ def render_mindset_callout(secrets: dict[str, str | None], records: list[dict[st
 
 def main() -> None:
     """Main app entry point."""
+    # Render centered header with avatars (always visible, even without secrets)
+    render_header()
+
     # Get secrets
     secrets = get_secrets()
 
@@ -1376,9 +1381,6 @@ def main() -> None:
     except Exception as e:
         st.error(f"Failed to load Airtable data: {e}")
         return
-
-    # Render centered header with avatars
-    render_header()
 
     # Only show stage filter when there's an active conversation
     has_conversation = bool(st.session_state.get("messages"))
