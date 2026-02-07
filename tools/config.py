@@ -15,6 +15,7 @@ AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY")
 AIRTABLE_BASE_ID = os.getenv("AIRTABLE_BASE_ID")
 AIRTABLE_TABLE_NAME = os.getenv("AIRTABLE_TABLE_NAME", "Sales Wisdom")
 SERPER_API_KEY = os.getenv("SERPER_API_KEY")
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent
