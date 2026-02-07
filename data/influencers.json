@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-01T17:35:49.479171",
+  "last_updated": "2026-02-06T18:16:18.147711",
   "influencers": [
     {
       "id": "30mpc",
@@ -7350,6 +7350,1205 @@
       },
       "added_date": "2026-02-01",
       "last_scraped": "2026-02-01T10:08:57.416947"
+    },
+    {
+      "id": "anthony-iannarino",
+      "name": "Anthony Iannarino",
+      "slug": "anthony-iannarino",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "iannarino",
+          "url": "https://www.linkedin.com/in/iannarino/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "B2B effectiveness",
+          "sales leadership",
+          "mindset"
+        ],
+        "avatar_color": "#E67E22",
+        "notes": "B2B effectiveness, sales leadership author (The Only Sales Guide You'll Ever Need)"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "giulio-segantini",
+      "name": "Giulio Segantini",
+      "slug": "giulio-segantini",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "underdogsales",
+          "url": "https://www.linkedin.com/in/underdogsales/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "cold calling",
+          "outbound",
+          "SDR mastery"
+        ],
+        "avatar_color": "#1ABC9C",
+        "notes": "Cold calling mastery, Underdog Sales"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "mark-hunter",
+      "name": "Mark Hunter",
+      "slug": "mark-hunter",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "markhunter",
+          "url": "https://www.linkedin.com/in/markhunter/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "prospecting",
+          "pricing",
+          "sales leadership"
+        ],
+        "avatar_color": "#2ECC71",
+        "notes": "Prospecting, pricing, and sales leadership (The Sales Hunter)"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "jill-konrath",
+      "name": "Jill Konrath",
+      "slug": "jill-konrath",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "jillkonrath",
+          "url": "https://www.linkedin.com/in/jillkonrath/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "busy buyers",
+          "enterprise selling",
+          "agile selling"
+        ],
+        "avatar_color": "#9B59B6",
+        "notes": "Winning busy buyer attention, SNAP Selling author"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "shari-levitin",
+      "name": "Shari Levitin",
+      "slug": "shari-levitin",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "sharilevitin",
+          "url": "https://www.linkedin.com/in/sharilevitin/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "human-centered selling",
+          "storytelling",
+          "emotional intelligence"
+        ],
+        "avatar_color": "#E74C3C",
+        "notes": "Human-centered selling and storytelling in sales"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "jim-keenan",
+      "name": "Jim Keenan",
+      "slug": "jim-keenan",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "jimkeenan",
+          "url": "https://www.linkedin.com/in/jimkeenan/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "gap selling",
+          "discovery",
+          "problem-centric sales"
+        ],
+        "avatar_color": "#3498DB",
+        "notes": "Gap Selling methodology, problem-centric discovery"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "tiffani-bova",
+      "name": "Tiffani Bova",
+      "slug": "tiffani-bova",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "tiffanibova",
+          "url": "https://www.linkedin.com/in/tiffanibova/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "GTM strategy",
+          "growth",
+          "customer experience"
+        ],
+        "avatar_color": "#F39C12",
+        "notes": "GTM and growth strategy, former Salesforce evangelist"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "amy-volas",
+      "name": "Amy Volas",
+      "slug": "amy-volas",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "amyvolas",
+          "url": "https://www.linkedin.com/in/amyvolas/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "executive sales hiring",
+          "GTM leadership",
+          "sales strategy"
+        ],
+        "avatar_color": "#8E44AD",
+        "notes": "Executive sales hiring and GTM strategy, Avenue Talent Partners"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "ron-kimhi",
+      "name": "Ron Kimhi",
+      "slug": "ron-kimhi",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "ron-kimhi",
+          "url": "https://www.linkedin.com/in/ron-kimhi/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "CRM insights",
+          "GTM guidance",
+          "sales strategy"
+        ],
+        "avatar_color": "#16A085",
+        "notes": "CRM insights and GTM guidance"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "chris-orlob",
+      "name": "Chris Orlob",
+      "slug": "chris-orlob",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "chrisorlob",
+          "url": "https://www.linkedin.com/in/chrisorlob/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "deal mechanics",
+          "urgency creation",
+          "data-driven selling"
+        ],
+        "avatar_color": "#D35400",
+        "notes": "Deal mechanics and urgency creation, pclub.io founder"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "becc-holland",
+      "name": "Becc Holland",
+      "slug": "becc-holland",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "beccholland-flipthescript",
+          "url": "https://www.linkedin.com/in/beccholland-flipthescript/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "personalization at scale",
+          "messaging",
+          "outbound"
+        ],
+        "avatar_color": "#C0392B",
+        "notes": "Personalization-at-scale messaging, Flip the Script founder"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "jen-allen-knuth",
+      "name": "Jen Allen-Knuth",
+      "slug": "jen-allen-knuth",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "demandjen1",
+          "url": "https://www.linkedin.com/in/demandjen1/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "enterprise discovery",
+          "no-decision prevention",
+          "demand creation"
+        ],
+        "avatar_color": "#27AE60",
+        "notes": "Enterprise discovery and no-decision prevention, DemandJen"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "alexandra-carter",
+      "name": "Alexandra Carter",
+      "slug": "alexandra-carter",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "alexandrabcarter",
+          "url": "https://www.linkedin.com/in/alexandrabcarter/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "negotiation",
+          "frameworks",
+          "relationship building"
+        ],
+        "avatar_color": "#2980B9",
+        "notes": "Negotiation frameworks, Ask for More author"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "kwame-christian",
+      "name": "Kwame Christian",
+      "slug": "kwame-christian",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "kwamechristian",
+          "url": "https://www.linkedin.com/in/kwamechristian/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "difficult conversations",
+          "negotiation",
+          "conflict resolution"
+        ],
+        "avatar_color": "#7D3C98",
+        "notes": "Difficult conversation playbooks, American Negotiation Institute"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "mo-bunnell",
+      "name": "Mo Bunnell",
+      "slug": "mo-bunnell",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "mobunnell",
+          "url": "https://www.linkedin.com/in/mobunnell/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "business development",
+          "relationship building",
+          "growth strategy"
+        ],
+        "avatar_color": "#117A65",
+        "notes": "Relationship-driven business development, The Snowball System author"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "rosalyn-santa-elena",
+      "name": "Rosalyn Santa Elena",
+      "slug": "rosalyn-santa-elena",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "rosalyn-santa-elena",
+          "url": "https://www.linkedin.com/in/rosalyn-santa-elena/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "RevOps",
+          "metrics",
+          "revenue operations"
+        ],
+        "avatar_color": "#AF7AC5",
+        "notes": "RevOps structure and metrics, The Revenue Engine podcast"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "mark-kosoglow",
+      "name": "Mark Kosoglow",
+      "slug": "mark-kosoglow",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "mkosoglow",
+          "url": "https://www.linkedin.com/in/mkosoglow/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "sales leadership",
+          "forecasting",
+          "pipeline management"
+        ],
+        "avatar_color": "#5DADE2",
+        "notes": "Sales leadership and forecasting, former Outreach VP Sales"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "scott-leese",
+      "name": "Scott Leese",
+      "slug": "scott-leese",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "scottleese",
+          "url": "https://www.linkedin.com/in/scottleese/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "pipeline building",
+          "team scaling",
+          "startup sales"
+        ],
+        "avatar_color": "#F1948A",
+        "notes": "Pipeline building and team scaling, Surf & Sales podcast"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "sarah-brazier",
+      "name": "Sarah Brazier",
+      "slug": "sarah-brazier",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "sjbrazier",
+          "url": "https://www.linkedin.com/in/sjbrazier/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "sales strategy",
+          "economic downturns",
+          "resilience"
+        ],
+        "avatar_color": "#48C9B0",
+        "notes": "Sales strategy and selling in economic downturns"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "jesse-gittler",
+      "name": "Jesse Gittler",
+      "slug": "jesse-gittler",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "jesse-gittler-40019483",
+          "url": "https://www.linkedin.com/in/jesse-gittler-40019483/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "SDR training",
+          "development",
+          "outbound"
+        ],
+        "avatar_color": "#EB984E",
+        "notes": "SDR training and development"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "chantel-george",
+      "name": "Chantel George",
+      "slug": "chantel-george",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "chantelgeorge",
+          "url": "https://www.linkedin.com/in/chantelgeorge/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "diversity in sales",
+          "women of color advancement",
+          "leadership"
+        ],
+        "avatar_color": "#A569BD",
+        "notes": "Women of color advancement in sales, Sistas in Sales founder"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "bryan-tucker",
+      "name": "Bryan Tucker",
+      "slug": "bryan-tucker",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "bryandtucker",
+          "url": "https://www.linkedin.com/in/bryandtucker/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "sales team scaling",
+          "employee advocacy",
+          "leadership"
+        ],
+        "avatar_color": "#5499C7",
+        "notes": "Sales team scaling and employee advocacy"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "colin-specter",
+      "name": "Colin Specter",
+      "slug": "colin-specter",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "colinspecter",
+          "url": "https://www.linkedin.com/in/colinspecter/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "AI-powered cold calling",
+          "sales tech",
+          "automation"
+        ],
+        "avatar_color": "#45B39D",
+        "notes": "AI-powered cold calling, Orum VP Sales"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "kevin-dorsey",
+      "name": "Kevin Dorsey",
+      "slug": "kevin-dorsey",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "kddorsey3",
+          "url": "https://www.linkedin.com/in/kddorsey3/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "inside sales",
+          "revenue team training",
+          "coaching"
+        ],
+        "avatar_color": "#DC7633",
+        "notes": "Inside sales and revenue team training, KD"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "belal-batrawy",
+      "name": "Belal Batrawy",
+      "slug": "belal-batrawy",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "belbatrawy",
+          "url": "https://www.linkedin.com/in/belbatrawy/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "cold outreach",
+          "messaging",
+          "no-fluff sales"
+        ],
+        "avatar_color": "#CB4335",
+        "notes": "Cold outreach and messaging, Death to Fluff founder"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "caroline-celis",
+      "name": "Caroline Celis",
+      "slug": "caroline-celis",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "caroline-celis",
+          "url": "https://www.linkedin.com/in/caroline-celis/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "Latinx representation",
+          "sales leadership",
+          "tech sales"
+        ],
+        "avatar_color": "#F5B041",
+        "notes": "Latinx representation in sales and tech"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "julie-hansen",
+      "name": "Julie Hansen",
+      "slug": "julie-hansen",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "juliehansensalestraining",
+          "url": "https://www.linkedin.com/in/juliehansensalestraining/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "virtual selling",
+          "video communication",
+          "relationship building"
+        ],
+        "avatar_color": "#85C1E9",
+        "notes": "Virtual relationship building via video, Sales Presentation for Dummies author"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "hannah-ajikawo",
+      "name": "Hannah Ajikawo",
+      "slug": "hannah-ajikawo",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "hannah-ajikawo",
+          "url": "https://www.linkedin.com/in/hannah-ajikawo/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "GTM strategy",
+          "EMEA market",
+          "sales enablement"
+        ],
+        "avatar_color": "#58D68D",
+        "notes": "GTM strategy and EMEA market, Skaled Consulting"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "justin-michael",
+      "name": "Justin Michael",
+      "slug": "justin-michael",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "michaeljustin",
+          "url": "https://www.linkedin.com/in/michaeljustin/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "cold calling",
+          "B2B demand acceleration",
+          "outbound"
+        ],
+        "avatar_color": "#7FB3D8",
+        "notes": "Cold calling and B2B demand acceleration, HYPCCCYCL methodology"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "erica-franklin",
+      "name": "Erica Franklin",
+      "slug": "erica-franklin",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "erica-franklin",
+          "url": "https://www.linkedin.com/in/erica-franklin/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "DEI advocacy",
+          "enterprise account management",
+          "leadership"
+        ],
+        "avatar_color": "#D7BDE2",
+        "notes": "DEI advocacy and enterprise account management"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "maria-bross",
+      "name": "Maria Bross",
+      "slug": "maria-bross",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "mariabross",
+          "url": "https://www.linkedin.com/in/mariabross/",
+          "followers": null
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "SDR coaching",
+          "call reluctance",
+          "sales training"
+        ],
+        "avatar_color": "#F0B27A",
+        "notes": "SDR call reluctance and coaching"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
+    },
+    {
+      "id": "niraj-kapur",
+      "name": "Niraj Kapur",
+      "slug": "niraj-kapur",
+      "status": "active",
+      "platforms": {
+        "linkedin": {
+          "handle": "nkapur",
+          "url": "https://www.linkedin.com/in/nkapur/",
+          "followers": null
+        },
+        "youtube": {
+          "channel_id": null,
+          "handle": null,
+          "url": null,
+          "subscribers": null,
+          "video_ids": []
+        }
+      },
+      "metadata": {
+        "focus_areas": [
+          "trust building",
+          "prospect relationships",
+          "authenticity"
+        ],
+        "avatar_color": "#82E0AA",
+        "notes": "Building trust with prospects, Everyone's a Winner author"
+      },
+      "scores": {
+        "composite": 5.0,
+        "reach": 5.0,
+        "engagement": 5.0,
+        "frequency": 5.0,
+        "relevance": 5.0,
+        "originality": 5.0
+      },
+      "added_date": "2026-02-06",
+      "last_scraped": null
     }
   ],
   "candidates": [],

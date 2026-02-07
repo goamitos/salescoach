@@ -26,6 +26,46 @@ INFLUENCERS = [
     ("Nate Nasralla", "nate-nasralla", "#F8B500"),
     ("Morgan J Ingram", "morgan-j-ingram", "#E74C3C"),
     ("Kyle Coleman", "kyle-coleman", "#3498DB"),
+    # Additional existing experts
+    ("John Barrows", "john-barrows", "#2C3E50"),
+    ("Josh Braun", "josh-braun", "#F39C12"),
+    ("Jeb Blount", "jeb-blount", "#E67E22"),
+    ("Chris Voss", "chris-voss", "#C0392B"),
+    ("Gong.io", "gong-io", "#6C3483"),
+    # --- Monday CRM Top 25 (18 new) ---
+    ("Anthony Iannarino", "anthony-iannarino", "#E67E22"),
+    ("Giulio Segantini", "giulio-segantini", "#1ABC9C"),
+    ("Mark Hunter", "mark-hunter", "#2ECC71"),
+    ("Jill Konrath", "jill-konrath", "#9B59B6"),
+    ("Shari Levitin", "shari-levitin", "#E74C3C"),
+    ("Jim Keenan", "jim-keenan", "#3498DB"),
+    ("Tiffani Bova", "tiffani-bova", "#F39C12"),
+    ("Amy Volas", "amy-volas", "#8E44AD"),
+    ("Ron Kimhi", "ron-kimhi", "#16A085"),
+    ("Chris Orlob", "chris-orlob", "#D35400"),
+    ("Becc Holland", "becc-holland", "#C0392B"),
+    ("Jen Allen-Knuth", "jen-allen-knuth", "#27AE60"),
+    ("Alexandra Carter", "alexandra-carter", "#2980B9"),
+    ("Kwame Christian", "kwame-christian", "#7D3C98"),
+    ("Mo Bunnell", "mo-bunnell", "#117A65"),
+    ("Rosalyn Santa Elena", "rosalyn-santa-elena", "#AF7AC5"),
+    ("Mark Kosoglow", "mark-kosoglow", "#5DADE2"),
+    ("Scott Leese", "scott-leese", "#F1948A"),
+    # --- Proposify Best Sales Voices (14 new) ---
+    ("Sarah Brazier", "sarah-brazier", "#48C9B0"),
+    ("Jesse Gittler", "jesse-gittler", "#EB984E"),
+    ("Chantel George", "chantel-george", "#A569BD"),
+    ("Bryan Tucker", "bryan-tucker", "#5499C7"),
+    ("Colin Specter", "colin-specter", "#45B39D"),
+    ("Kevin Dorsey", "kevin-dorsey", "#DC7633"),
+    ("Belal Batrawy", "belal-batrawy", "#CB4335"),
+    ("Caroline Celis", "caroline-celis", "#F5B041"),
+    ("Julie Hansen", "julie-hansen", "#85C1E9"),
+    ("Hannah Ajikawo", "hannah-ajikawo", "#58D68D"),
+    ("Justin Michael", "justin-michael", "#7FB3D8"),
+    ("Erica Franklin", "erica-franklin", "#D7BDE2"),
+    ("Maria Bross", "maria-bross", "#F0B27A"),
+    ("Niraj Kapur", "niraj-kapur", "#82E0AA"),
     # Special avatar for combined wisdom (not tied to individual influencer)
     ("Collective Wisdom", "collective-wisdom", "#9B59B6"),
 ]
@@ -92,10 +132,18 @@ def main():
 
     print(f"Generating avatars in: {output_dir}")
 
+    generated = 0
+    skipped = 0
     for name, slug, color in INFLUENCERS:
+        output_path = output_dir / f"{slug}.png"
+        if output_path.exists():
+            print(f"Skipped (exists): {output_path}")
+            skipped += 1
+            continue
         create_avatar(name, slug, color, output_dir)
+        generated += 1
 
-    print(f"\nGenerated {len(INFLUENCERS)} placeholder avatars.")
+    print(f"\nGenerated {generated} placeholder avatars, skipped {skipped} existing.")
 
 if __name__ == "__main__":
     main()

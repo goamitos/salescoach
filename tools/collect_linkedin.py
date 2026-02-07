@@ -34,7 +34,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Top 12 LinkedIn Sales Voices (from plan.md)
+# Sales Influencers (44 individual experts)
 INFLUENCERS = [
     {
         "name": "Ian Koniak",
@@ -88,6 +88,40 @@ INFLUENCERS = [
         "focus": "enterprise sales, LinkedIn",
     },
     {"name": "Gal Aga", "linkedin": "galaga", "focus": "sales alignment, methodology"},
+    # --- Monday CRM Top 25 (18 new) ---
+    {"name": "Anthony Iannarino", "linkedin": "iannarino", "focus": "B2B effectiveness, sales leadership"},
+    {"name": "Giulio Segantini", "linkedin": "underdogsales", "focus": "cold calling mastery"},
+    {"name": "Mark Hunter", "linkedin": "markhunter", "focus": "prospecting, pricing, leadership"},
+    {"name": "Jill Konrath", "linkedin": "jillkonrath", "focus": "busy buyers, agile selling"},
+    {"name": "Shari Levitin", "linkedin": "sharilevitin", "focus": "human-centered selling, storytelling"},
+    {"name": "Jim Keenan", "linkedin": "jimkeenan", "focus": "Gap Selling, problem-centric discovery"},
+    {"name": "Tiffani Bova", "linkedin": "tiffanibova", "focus": "GTM and growth strategy"},
+    {"name": "Amy Volas", "linkedin": "amyvolas", "focus": "executive sales hiring, GTM"},
+    {"name": "Ron Kimhi", "linkedin": "ron-kimhi", "focus": "CRM insights, GTM guidance"},
+    {"name": "Chris Orlob", "linkedin": "chrisorlob", "focus": "deal mechanics, urgency creation"},
+    {"name": "Becc Holland", "linkedin": "beccholland-flipthescript", "focus": "personalization-at-scale messaging"},
+    {"name": "Jen Allen-Knuth", "linkedin": "demandjen1", "focus": "enterprise discovery, no-decision prevention"},
+    {"name": "Alexandra Carter", "linkedin": "alexandrabcarter", "focus": "negotiation frameworks"},
+    {"name": "Kwame Christian", "linkedin": "kwamechristian", "focus": "difficult conversation playbooks"},
+    {"name": "Mo Bunnell", "linkedin": "mobunnell", "focus": "relationship-driven business development"},
+    {"name": "Rosalyn Santa Elena", "linkedin": "rosalyn-santa-elena", "focus": "RevOps structure, metrics"},
+    {"name": "Mark Kosoglow", "linkedin": "mkosoglow", "focus": "sales leadership, forecasting"},
+    {"name": "Scott Leese", "linkedin": "scottleese", "focus": "pipeline building, team scaling"},
+    # --- Proposify Best Sales Voices (14 new) ---
+    {"name": "Sarah Brazier", "linkedin": "sjbrazier", "focus": "sales strategy, economic downturns"},
+    {"name": "Jesse Gittler", "linkedin": "jesse-gittler-40019483", "focus": "SDR training and development"},
+    {"name": "Chantel George", "linkedin": "chantelgeorge", "focus": "women of color advancement in sales"},
+    {"name": "Bryan Tucker", "linkedin": "bryandtucker", "focus": "sales team scaling, employee advocacy"},
+    {"name": "Colin Specter", "linkedin": "colinspecter", "focus": "AI-powered cold calling"},
+    {"name": "Kevin Dorsey", "linkedin": "kddorsey3", "focus": "inside sales, revenue team training"},
+    {"name": "Belal Batrawy", "linkedin": "belbatrawy", "focus": "cold outreach, messaging"},
+    {"name": "Caroline Celis", "linkedin": "caroline-celis", "focus": "Latinx representation in sales/tech"},
+    {"name": "Julie Hansen", "linkedin": "juliehansensalestraining", "focus": "virtual selling via video"},
+    {"name": "Hannah Ajikawo", "linkedin": "hannah-ajikawo", "focus": "GTM strategy, EMEA market"},
+    {"name": "Justin Michael", "linkedin": "michaeljustin", "focus": "cold calling, B2B demand acceleration"},
+    {"name": "Erica Franklin", "linkedin": "erica-franklin", "focus": "DEI advocacy, enterprise account mgmt"},
+    {"name": "Maria Bross", "linkedin": "mariabross", "focus": "SDR call reluctance, coaching"},
+    {"name": "Niraj Kapur", "linkedin": "nkapur", "focus": "building trust with prospects"},
 ]
 
 # Sales keywords for enhanced searches

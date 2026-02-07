@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 # YouTube Channels Reference (for manual video discovery)
 # =====================================================
-# TOP 12 LINKEDIN SALES VOICES
+# ORIGINAL 12 LINKEDIN SALES VOICES
 # =====================================================
 # 1. Ian Koniak: youtube.com/channel/UCKwbDwBK_adh4AgzprZb5FQ (enterprise sales, discovery)
 # 2. Nate Nasralla: No dedicated channel (discovery questions, qualification)
@@ -56,12 +56,51 @@ logger = logging.getLogger(__name__)
 # 11. Samantha McKenna: youtube.com/channel/UCHLjEOsdrKQna86DToBSUkw (#samsales, Show Me You Know Me)
 # 12. Gal Aga: Various appearances (Aligned, buyer enablement)
 #
-# ADDITIONAL INFLUENCERS
+# ADDITIONAL INFLUENCERS (existing)
 # - John Barrows: youtube.com/@JBarrowsSalesTraining
 # - Josh Braun: youtube.com/@JoshBraun
 # - Jeb Blount: youtube.com/@SalesGravy
 # - Chris Voss: various (MasterClass, Big Think)
 # - Gong.io: youtube.com/@Gong
+#
+# =====================================================
+# NEW EXPERTS (32 added 2026-02-06) - Videos to be curated
+# =====================================================
+# Monday CRM Top 25:
+# - Anthony Iannarino: Has YouTube channel (B2B sales leadership)
+# - Giulio Segantini: Underdog Sales YouTube channel (cold calling)
+# - Mark Hunter: The Sales Hunter YouTube channel (prospecting)
+# - Jill Konrath: Limited YouTube (talks/appearances)
+# - Shari Levitin: Has YouTube channel (human-centered selling)
+# - Jim Keenan: A Sales Guy YouTube channel (Gap Selling)
+# - Tiffani Bova: Limited YouTube (keynote talks)
+# - Amy Volas: Guest appearances (GTM hiring)
+# - Ron Kimhi: Unknown YouTube presence
+# - Chris Orlob: pclub.io YouTube (deal mechanics)
+# - Becc Holland: Flip the Script YouTube (personalization)
+# - Jen Allen-Knuth: Guest appearances (enterprise discovery)
+# - Alexandra Carter: Talks/appearances (negotiation)
+# - Kwame Christian: Has YouTube channel (difficult conversations)
+# - Mo Bunnell: Has YouTube channel (business development)
+# - Rosalyn Santa Elena: Guest appearances (RevOps)
+# - Mark Kosoglow: Guest appearances (sales leadership)
+# - Scott Leese: Surf & Sales YouTube (pipeline, team scaling)
+#
+# Proposify Best Sales Voices:
+# - Sarah Brazier: Guest appearances (sales strategy)
+# - Jesse Gittler: Unknown YouTube presence
+# - Chantel George: Sistas in Sales YouTube
+# - Bryan Tucker: Unknown YouTube presence
+# - Colin Specter: Guest appearances (AI cold calling)
+# - Kevin Dorsey: Talks/podcast YouTube (inside sales)
+# - Belal Batrawy: Death to Fluff YouTube (cold outreach)
+# - Caroline Celis: Unknown YouTube presence
+# - Julie Hansen: Has YouTube channel (virtual selling)
+# - Hannah Ajikawo: Guest appearances (GTM, EMEA)
+# - Justin Michael: Unknown YouTube presence
+# - Erica Franklin: Unknown YouTube presence
+# - Maria Bross: Unknown YouTube presence
+# - Niraj Kapur: Has YouTube channel (trust building)
 
 # Target video IDs (curated list)
 # Format: (video_id, influencer, channel)
@@ -206,6 +245,45 @@ TARGET_VIDEOS = [
     ("XQGMeJf-Kmg", "Gong.io", "Gong.io Channel"),
     ("LnwiL2ymMgE", "Gong.io", "Gong.io Channel"),
     ("nL24YCoXw3Y", "Gong.io", "Gong.io Channel"),
+    # =====================================================
+    # NEW EXPERTS (32 added 2026-02-06)
+    # TODO: Curate 5-15 video IDs per expert
+    # Search: "{Expert Name}" sales on YouTube
+    # For experts without channels, check: 30MPC, Gong Labs,
+    # Pavilion, SaaStr, Sales Hacker for guest appearances
+    # =====================================================
+    # Anthony Iannarino - Has own channel
+    # Giulio Segantini - Underdog Sales channel
+    # Mark Hunter - The Sales Hunter channel
+    # Jill Konrath - Limited; check guest appearances
+    # Shari Levitin - Has own channel
+    # Jim Keenan - A Sales Guy channel
+    # Tiffani Bova - Limited; keynote talks
+    # Amy Volas - Guest appearances
+    # Ron Kimhi - Check for appearances
+    # Chris Orlob - pclub.io channel
+    # Becc Holland - Flip the Script channel
+    # Jen Allen-Knuth - Guest appearances
+    # Alexandra Carter - Talks/appearances
+    # Kwame Christian - Has own channel
+    # Mo Bunnell - Has own channel
+    # Rosalyn Santa Elena - Guest appearances
+    # Mark Kosoglow - Guest appearances
+    # Scott Leese - Surf & Sales channel
+    # Sarah Brazier - Guest appearances
+    # Jesse Gittler - Check for appearances
+    # Chantel George - Sistas in Sales channel
+    # Bryan Tucker - Check for appearances
+    # Colin Specter - Guest appearances
+    # Kevin Dorsey - Talks/podcast
+    # Belal Batrawy - Death to Fluff channel
+    # Caroline Celis - Check for appearances
+    # Julie Hansen - Has own channel
+    # Hannah Ajikawo - Guest appearances
+    # Justin Michael - Check for appearances
+    # Erica Franklin - Check for appearances
+    # Maria Bross - Check for appearances
+    # Niraj Kapur - Has own channel
 ]
 
 OUTPUT_FILE = TMP_DIR / "youtube_raw.json"

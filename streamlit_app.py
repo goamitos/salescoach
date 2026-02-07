@@ -158,12 +158,31 @@ p, span, div, label, li {
     text-transform: uppercase;
 }
 
-/* Expert Grid */
+/* Expert Grid - Scrollable horizontal strip */
 .experts-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 44px);
-    grid-template-rows: repeat(2, 44px);
+    display: flex;
+    flex-wrap: nowrap;
     gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 8px 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+}
+
+.experts-grid::-webkit-scrollbar {
+    height: 4px;
+}
+
+.experts-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.experts-grid::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
 }
 
 .avatar-wrap {
@@ -172,13 +191,14 @@ p, span, div, label, li {
 }
 
 .avatar-img {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--border);
     opacity: 0.6;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .avatar-img:hover {
@@ -446,14 +466,13 @@ button[kind="secondary"]:hover {
     }
 
     .experts-grid {
-        grid-template-columns: repeat(4, 40px);
-        grid-template-rows: repeat(4, 40px);
-        gap: 6px;
+        gap: 4px;
+        padding: 4px 4px 20px;
     }
 
     .avatar-img {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
     }
 
     .cw-avatar {
@@ -490,30 +509,13 @@ REGISTRY_PATH = PROJECT_ROOT / "data" / "influencers.json"
 # Collective Wisdom avatar (displayed first, represents all experts)
 COLLECTIVE_WISDOM = {"name": "Collective Wisdom", "slug": "collective-wisdom"}
 
-# Legacy hardcoded influencer data (fallback)
-LEGACY_INFLUENCERS = [
-    {"name": "30MPC", "slug": "30mpc"},
-    {"name": "Armand Farrokh", "slug": "armand-farrokh"},
-    {"name": "Nick Cegelski", "slug": "nick-cegelski"},
-    {"name": "Samantha McKenna", "slug": "samantha-mckenna"},
-    {"name": "Ian Koniak", "slug": "ian-koniak"},
-    {"name": "Daniel Disney", "slug": "daniel-disney"},
-    {"name": "Will Aitken", "slug": "will-aitken"},
-    {"name": "Devin Reed", "slug": "devin-reed"},
-    {"name": "Florin Tatulea", "slug": "florin-tatulea"},
-    {"name": "Gal Aga", "slug": "gal-aga"},
-    {"name": "Nate Nasralla", "slug": "nate-nasralla"},
-    {"name": "Morgan J Ingram", "slug": "morgan-j-ingram"},
-    {"name": "Kyle Coleman", "slug": "kyle-coleman"},
-]
-
 
 @st.cache_data(ttl=600)
 def load_influencers_from_registry() -> list[dict]:
     """Load influencers from the registry JSON file.
 
-    Returns list of dicts with name, slug, specialty, and followers for each influencer.
-    Falls back to legacy list if registry is not available.
+    Returns list of dicts with name, slug, specialty, and followers for each active influencer.
+    The registry (data/influencers.json) is the sole source of truth.
     """
     try:
         import json
@@ -545,7 +547,7 @@ def load_influencers_from_registry() -> list[dict]:
     except Exception as e:
         st.warning(f"Could not load registry: {e}")
 
-    return LEGACY_INFLUENCERS
+    return []
 
 
 # Dynamically load influencers (cached)
@@ -917,7 +919,7 @@ def get_influencer_details(slug: str) -> dict:
         return {
             "name": "Collective Wisdom",
             "slug": "collective-wisdom",
-            "specialty": "Combined insights from all 16 experts",
+            "specialty": f"Combined insights from all {len(INFLUENCERS)} experts",
             "followers": None,
         }
     for inf in INFLUENCERS:
@@ -938,7 +940,7 @@ def format_followers(count: int | None) -> str:
 
 
 def render_header() -> None:
-    """Render centered header with title and expert selector using Streamlit buttons."""
+    """Render header with title and scrollable expert selector."""
     # Initialize selected persona in session state
     if "selected_persona" not in st.session_state:
         st.session_state.selected_persona = None  # None = Collective Wisdom (all)
@@ -955,71 +957,60 @@ def render_header() -> None:
         unsafe_allow_html=True,
     )
 
-    # Expert selector using Streamlit columns and buttons
-    all_experts = [{"name": "All Experts", "slug": None}] + INFLUENCERS
+    # Build HTML for scrollable avatar strip
+    # CW avatar first, then all experts in a horizontal scroll
+    cw_path = PROJECT_ROOT / "assets" / "avatars" / "collective-wisdom.png"
+    cw_selected = "selected" if st.session_state.selected_persona is None else ""
+    cw_b64 = get_image_base64(cw_path) if cw_path.exists() else ""
 
-    # Create a row of image buttons
-    # First row: CW + first 8 experts
-    cols_row1 = st.columns([1.5] + [1] * 8)
+    avatar_html_parts = []
 
-    # CW button (larger)
-    with cols_row1[0]:
-        cw_path = PROJECT_ROOT / "assets" / "avatars" / "collective-wisdom.png"
-        if cw_path.exists():
-            cw_selected = st.session_state.selected_persona is None
-            border_style = "3px solid #D4A574" if cw_selected else "2px solid rgba(255,255,255,0.1)"
-            st.markdown(
-                f"""<div style="text-align:center;">
-                    <img src="data:image/png;base64,{get_image_base64(cw_path)}"
-                        style="width:72px;height:104px;border-radius:12px;border:{border_style};cursor:pointer;object-fit:cover;">
-                    <div style="font-size:0.7rem;color:#a0a0a0;margin-top:4px;">All Experts</div>
-                </div>""",
-                unsafe_allow_html=True,
-            )
-            if st.button("All", key="select_cw", use_container_width=True):
-                st.session_state.selected_persona = None
-                st.rerun()
+    # Collective Wisdom (larger, first)
+    avatar_html_parts.append(
+        f'<div class="cw-avatar-wrap">'
+        f'<img src="data:image/png;base64,{cw_b64}" class="cw-avatar {cw_selected}">'
+        f'<span class="cw-label">All</span>'
+        f'</div>'
+    )
 
-    # First 8 experts
-    for i, inf in enumerate(INFLUENCERS[:8]):
-        with cols_row1[i + 1]:
-            avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
-            if avatar_path.exists():
-                is_selected = st.session_state.selected_persona == inf["slug"]
-                border_style = "3px solid #D4A574" if is_selected else "2px solid rgba(255,255,255,0.1)"
-                st.markdown(
-                    f"""<div style="text-align:center;">
-                        <img src="data:image/png;base64,{get_image_base64(avatar_path)}"
-                            style="width:48px;height:48px;border-radius:50%;border:{border_style};object-fit:cover;">
-                    </div>""",
-                    unsafe_allow_html=True,
-                )
-                if st.button(inf["name"].split()[0][:6], key=f"select_{inf['slug']}", use_container_width=True):
-                    st.session_state.selected_persona = inf["slug"]
+    # All expert avatars
+    for inf in INFLUENCERS:
+        avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
+        if not avatar_path.exists():
+            continue
+        b64 = get_image_base64(avatar_path)
+        is_selected = "selected" if st.session_state.selected_persona == inf["slug"] else ""
+        first_name = inf["name"].split()[0]
+        avatar_html_parts.append(
+            f'<div class="avatar-wrap">'
+            f'<img src="data:image/png;base64,{b64}" class="avatar-img {is_selected}" title="{inf["name"]}">'
+            f'<span class="tooltip">{inf["name"]}</span>'
+            f'</div>'
+        )
+
+    # Render the scrollable container
+    st.markdown(
+        f'<div class="expert-selector"><div class="experts-grid">{"".join(avatar_html_parts)}</div></div>',
+        unsafe_allow_html=True,
+    )
+
+    # Hidden selection buttons (Streamlit needs real buttons for state changes)
+    # Use compact columns - batch them in groups to reduce visual footprint
+    BATCH_SIZE = 12
+    all_items = [COLLECTIVE_WISDOM] + INFLUENCERS
+
+    for batch_start in range(0, len(all_items), BATCH_SIZE):
+        batch = all_items[batch_start:batch_start + BATCH_SIZE]
+        cols = st.columns(len(batch))
+        for i, item in enumerate(batch):
+            with cols[i]:
+                slug = item.get("slug")
+                is_cw = slug == "collective-wisdom"
+                key = "select_cw" if is_cw else f"select_{slug}"
+                label = "All" if is_cw else item["name"].split()[0][:5]
+                if st.button(label, key=key, use_container_width=True):
+                    st.session_state.selected_persona = None if is_cw else slug
                     st.rerun()
-
-    # Second row: remaining 8 experts (with spacer for CW column)
-    if len(INFLUENCERS) > 8:
-        cols_row2 = st.columns([1.5] + [1] * 8)
-        with cols_row2[0]:
-            st.write("")  # Spacer
-
-        for i, inf in enumerate(INFLUENCERS[8:16]):
-            with cols_row2[i + 1]:
-                avatar_path = PROJECT_ROOT / "assets" / "avatars" / f"{inf['slug']}.png"
-                if avatar_path.exists():
-                    is_selected = st.session_state.selected_persona == inf["slug"]
-                    border_style = "3px solid #D4A574" if is_selected else "2px solid rgba(255,255,255,0.1)"
-                    st.markdown(
-                        f"""<div style="text-align:center;">
-                            <img src="data:image/png;base64,{get_image_base64(avatar_path)}"
-                                style="width:48px;height:48px;border-radius:50%;border:{border_style};object-fit:cover;">
-                        </div>""",
-                        unsafe_allow_html=True,
-                    )
-                    if st.button(inf["name"].split()[0][:6], key=f"select_{inf['slug']}", use_container_width=True):
-                        st.session_state.selected_persona = inf["slug"]
-                        st.rerun()
 
     # Show expert info panel when an individual expert is selected
     if st.session_state.selected_persona:
@@ -1029,7 +1020,7 @@ def render_header() -> None:
 
         followers_html = ""
         if details.get("followers"):
-            followers_html = f'<p class="expert-info-followers">👥 {format_followers(details["followers"])} followers</p>'
+            followers_html = f'<p class="expert-info-followers">{format_followers(details["followers"])} followers</p>'
 
         specialty_html = ""
         if details.get("specialty"):
@@ -1044,7 +1035,7 @@ def render_header() -> None:
                     {specialty_html}
                     {followers_html}
                 </div>
-                <span class="expert-info-badge">Selected ✓</span>
+                <span class="expert-info-badge">Selected</span>
             </div>
             """,
             unsafe_allow_html=True,
