@@ -24,7 +24,20 @@ OUTPUTS_DIR = PROJECT_ROOT / "outputs"
 WORKFLOWS_DIR = PROJECT_ROOT / "workflows"
 DATA_DIR = PROJECT_ROOT / "data"
 INFLUENCERS_PATH = DATA_DIR / "influencers.json"
+INFLUENCERS_JSON = INFLUENCERS_PATH  # alias used by collect scripts
 PERSONAS_PATH = DATA_DIR / "personas.json"
+
+
+def load_influencer_registry():
+    """Load the influencer registry from data/influencers.json.
+
+    Returns the list of expert dicts (both active and company profiles).
+    """
+    import json
+
+    with open(INFLUENCERS_PATH) as f:
+        data = json.load(f)
+    return data["influencers"]
 
 # Ensure directories exist
 TMP_DIR.mkdir(exist_ok=True)
