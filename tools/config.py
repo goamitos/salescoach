@@ -22,6 +22,9 @@ PROJECT_ROOT = Path(__file__).parent.parent
 TMP_DIR = PROJECT_ROOT / ".tmp"
 OUTPUTS_DIR = PROJECT_ROOT / "outputs"
 WORKFLOWS_DIR = PROJECT_ROOT / "workflows"
+DATA_DIR = PROJECT_ROOT / "data"
+INFLUENCERS_PATH = DATA_DIR / "influencers.json"
+PERSONAS_PATH = DATA_DIR / "personas.json"
 
 # Ensure directories exist
 TMP_DIR.mkdir(exist_ok=True)
@@ -39,6 +42,18 @@ RELEVANCE_THRESHOLD = 7
 CLAUDE_MODEL = "claude-haiku-4-5-20251001"
 CLAUDE_MAX_TOKENS = 1500
 CLAUDE_TEMPERATURE = 0.3
+
+# Persona generation settings (Sonnet for voice analysis nuance)
+PERSONA_CLAUDE_MODEL = "claude-sonnet-4-20250514"
+PERSONA_MAX_TOKENS = 4000
+PERSONA_TEMPERATURE = 0.4
+PERSONA_POLL_INTERVAL = 30
+
+# Persona confidence thresholds
+PERSONA_HIGH_INSIGHTS = 20
+PERSONA_HIGH_CHARS = 30_000
+PERSONA_MEDIUM_INSIGHTS = 10
+PERSONA_MEDIUM_CHARS = 10_000
 
 # Deal stages for categorization
 DEAL_STAGES = [
