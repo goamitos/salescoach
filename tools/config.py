@@ -22,10 +22,13 @@ PROJECT_ROOT = Path(__file__).parent.parent
 TMP_DIR = PROJECT_ROOT / ".tmp"
 OUTPUTS_DIR = PROJECT_ROOT / "outputs"
 WORKFLOWS_DIR = PROJECT_ROOT / "workflows"
+DATA_DIR = PROJECT_ROOT / "data"
+DB_PATH = DATA_DIR / "sales_coach.db"
 
 # Ensure directories exist
 TMP_DIR.mkdir(exist_ok=True)
 OUTPUTS_DIR.mkdir(exist_ok=True)
+DATA_DIR.mkdir(exist_ok=True)
 
 # Rate limiting (seconds)
 RATE_LIMIT_CLAUDE = 2.0

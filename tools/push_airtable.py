@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Airtable API Push
+Airtable & SQLite Push
 
-Pushes processed content directly to Airtable via API.
-Handles deduplication by Source URL.
+Pushes processed content to both Airtable (via API) and SQLite (local DB).
+Handles deduplication by Source ID.
 
 Usage:
     python tools/push_airtable.py
@@ -12,10 +12,11 @@ Input:
     .tmp/processed_content.json
 
 Output:
-    Records created/updated in Airtable
+    Records created/updated in Airtable and SQLite
 """
 import json
 import logging
+import re
 import time
 from typing import Optional
 from pyairtable import Api
@@ -28,6 +29,7 @@ from config import (
     AIRTABLE_TABLE_NAME,
     DEAL_STAGES,
 )
+from db import get_connection, init_db, upsert_insight
 
 # Configure logging
 logging.basicConfig(
@@ -205,5 +207,73 @@ def push_to_airtable() -> None:
     logger.info(f"Push complete: {created} created, {updated} updated, {errors} errors")
 
 
+def _slugify(name: str) -> str:
+    """Convert influencer name to slug: 'John Smith' -> 'john-smith'."""
+    slug = name.lower().strip()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    return slug.strip("-")
+
+
+def push_to_sqlite() -> None:
+    """Push processed content to SQLite database (dual-write alongside Airtable)."""
+    logger.info("Starting SQLite push...")
+
+    if not INPUT_FILE.exists():
+        logger.error(f"Input file not found: {INPUT_FILE}")
+        return
+
+    with open(INPUT_FILE) as f:
+        data = json.load(f)
+
+    processed = data.get("processed", [])
+    if not processed:
+        logger.warning("No processed content to push to SQLite")
+        return
+
+    init_db()
+    conn = get_connection()
+
+    try:
+        pushed = 0
+        errors = 0
+
+        for item in processed:
+            try:
+                influencer = item.get("influencer", "Unknown")
+                upsert_insight(conn, {
+                    "id": item.get("source_id", ""),
+                    "influencer_slug": _slugify(influencer),
+                    "influencer_name": influencer,
+                    "source_type": item.get("source_type", ""),
+                    "source_url": item.get("source_url", ""),
+                    "date_collected": item.get("date_collected", "")[:10],
+                    "primary_stage": item.get("primary_stage", "General Sales Mindset"),
+                    "secondary_stages": item.get("secondary_stages", []),
+                    "key_insight": item.get("key_insight", ""),
+                    "tactical_steps": item.get("tactical_steps", []),
+                    "keywords": item.get("keywords", []),
+                    "situation_examples": item.get("situation_examples", []),
+                    "best_quote": item.get("best_quote", ""),
+                    "relevance_score": item.get("relevance_score", 0),
+                })
+                pushed += 1
+            except Exception as e:
+                logger.error(f"SQLite error for {item.get('source_id', '?')}: {e}")
+                errors += 1
+
+        conn.commit()
+
+        print("\n" + "=" * 50)
+        print("SQLITE PUSH SUMMARY")
+        print("=" * 50)
+        print(f"Records upserted: {pushed}")
+        print(f"Errors: {errors}")
+        print("=" * 50)
+
+    finally:
+        conn.close()
+
+
 if __name__ == "__main__":
     push_to_airtable()
+    push_to_sqlite()
