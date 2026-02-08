@@ -8,8 +8,10 @@ synthesize personalized coaching advice.
 
 Usage:
     python tools/ask_coach.py
+    python tools/ask_coach.py --persona chris-voss "How do I handle objections?"
     # or via run.sh:
     ./run.sh ask_coach
+    ./run.sh ask_coach --persona chris-voss "How do I handle objections?"
 
 Requires:
     - ANTHROPIC_API_KEY
@@ -17,6 +19,7 @@ Requires:
     - AIRTABLE_BASE_ID
     - AIRTABLE_TABLE_NAME
 """
+import argparse
 import re
 import sys
 from pyairtable import Api
@@ -28,6 +31,14 @@ from config import (
     AIRTABLE_BASE_ID,
     AIRTABLE_TABLE_NAME,
     CLAUDE_MODEL,
+)
+from personas import (
+    load_personas,
+    load_influencer_meta,
+    build_persona_system_prompt,
+    build_persona_context_prefix,
+    adjust_top_n,
+    GENERAL_COACH_SYSTEM_PROMPT,
 )
 
 # Stage-related keywords for better matching
@@ -167,37 +178,38 @@ def build_context(records: list[dict]) -> str:
     return "\n\n---\n\n".join(parts)
 
 
-def get_coaching_advice(scenario: str, context: str) -> str:
-    """Call Claude API to synthesize coaching advice."""
+def get_coaching_advice(scenario: str, context: str, persona_slug: str = None) -> str:
+    """Call Claude API to synthesize coaching advice.
+
+    When persona_slug is provided, responds as that expert using their
+    voice profile, frameworks, and signature phrases.
+    """
     if not ANTHROPIC_API_KEY:
         print("Error: ANTHROPIC_API_KEY not configured")
         sys.exit(1)
 
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
-    system_prompt = """You are an expert sales coach who synthesizes wisdom from top sales leaders to provide actionable advice.
-
-Your role is to:
-1. Understand the salesperson's specific situation
-2. Draw from the provided expert insights to craft personalized advice
-3. Give concrete, actionable steps (not generic platitudes)
-4. Reference which expert's approach you're drawing from
-5. Keep advice focused and practical (3-5 key points)
-
-Format your response with:
-- A brief acknowledgment of their situation
-- Numbered actionable recommendations
-- Brief attribution to the relevant experts"""
+    if persona_slug:
+        personas = load_personas()
+        persona = personas.get(persona_slug)
+        if not persona:
+            print(f"Error: persona '{persona_slug}' not found in personas.json")
+            sys.exit(1)
+        influencer_meta = load_influencer_meta().get(persona_slug)
+        system_prompt = build_persona_system_prompt(persona, context, influencer_meta)
+    else:
+        system_prompt = GENERAL_COACH_SYSTEM_PROMPT
 
     user_prompt = f"""A salesperson describes their situation:
 
 "{scenario}"
 
-Based on these expert insights from top sales leaders:
+Based on these expert insights:
 
 {context}
 
-Provide specific, actionable coaching advice. Reference which expert's wisdom you're drawing from when relevant."""
+Provide specific, actionable coaching advice."""
 
     response = client.messages.create(
         model=CLAUDE_MODEL,
@@ -231,22 +243,50 @@ def print_sources(records: list[dict]):
 
 def main():
     """Main function."""
+    parser = argparse.ArgumentParser(
+        description="Ask the Coach - Sales Wisdom Q&A",
+        usage="%(prog)s [--persona SLUG] [question ...]",
+    )
+    parser.add_argument(
+        "--persona", type=str, default=None,
+        help="Expert slug to coach as (e.g., chris-voss, john-barrows)",
+    )
+    parser.add_argument(
+        "question", nargs="*",
+        help="Your sales question (or omit for interactive mode)",
+    )
+    args = parser.parse_args()
+
+    persona_slug = args.persona
+    persona_name = None
+
+    # Resolve persona name for display
+    if persona_slug:
+        personas = load_personas()
+        if persona_slug not in personas:
+            print(f"Error: unknown persona '{persona_slug}'")
+            print(f"Available: {', '.join(sorted(personas.keys()))}")
+            sys.exit(1)
+        persona_name = personas[persona_slug]["name"]
+
     print("=" * 50)
-    print("ASK THE COACH - Sales Wisdom Q&A")
+    if persona_name:
+        print(f"ASK {persona_name.upper()}")
+    else:
+        print("ASK THE COACH - Sales Wisdom Q&A")
     print("=" * 50)
     print()
 
-    # Check for CLI argument first
-    if len(sys.argv) > 1:
-        scenario = " ".join(sys.argv[1:]).strip()
+    # Get the question
+    if args.question:
+        scenario = " ".join(args.question).strip()
         print(f"Question: {scenario}")
         print()
     else:
-        # Interactive mode (existing behavior)
-        print("Describe your sales situation or question:")
+        prompt_text = f"Ask {persona_name}" if persona_name else "Describe your sales situation or question"
+        print(f"{prompt_text}:")
         print("(Type your question and press Enter)")
         print()
-
         try:
             scenario = input("> ").strip()
         except (EOFError, KeyboardInterrupt):
@@ -264,15 +304,32 @@ def main():
     records = fetch_records()
     print(f"Found {len(records)} total records")
 
-    relevant = find_relevant_records(records, scenario)
+    # Filter to persona's records if in persona mode
+    if persona_slug:
+        records = [
+            r for r in records
+            if r.get("fields", {}).get("Influencer") == persona_name
+        ]
+        print(f"Filtered to {len(records)} records from {persona_name}")
+
+        # Adjust top_n based on data density
+        persona = load_personas()[persona_slug]
+        top_n = adjust_top_n(persona, len(records))
+    else:
+        top_n = 5
+
+    relevant = find_relevant_records(records, scenario, top_n=top_n)
 
     if not relevant:
         print("\nNo matching insights found. Try:")
         print("- Using different keywords")
         print("- Being more specific about the sales stage")
-        print(
-            "- Asking about: discovery, objections, closing, negotiation, prospecting"
-        )
+        if persona_slug:
+            print(f"- This expert may have limited coverage on this topic")
+        else:
+            print(
+                "- Asking about: discovery, objections, closing, negotiation, prospecting"
+            )
         return
 
     print(f"Found {len(relevant)} relevant insights")
@@ -280,13 +337,20 @@ def main():
     print("Synthesizing coaching advice...")
     print()
 
-    # Get advice from Claude
+    # Build context with optional persona prefix
     context = build_context(relevant)
-    advice = get_coaching_advice(scenario, context)
+    if persona_slug:
+        prefix = build_persona_context_prefix(load_personas()[persona_slug])
+        context = prefix + context
+
+    advice = get_coaching_advice(scenario, context, persona_slug=persona_slug)
 
     # Display results
     print("=" * 50)
-    print("COACHING ADVICE")
+    if persona_name:
+        print(f"COACHING FROM {persona_name.upper()}")
+    else:
+        print("COACHING ADVICE")
     print("=" * 50)
     print()
     print(advice)

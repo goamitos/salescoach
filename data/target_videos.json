@@ -1,0 +1,2946 @@
+{
+  "description": "Curated YouTube videos for transcript collection. Source of truth for which videos to process.",
+  "video_count": 588,
+  "videos": [
+    {
+      "video_id": "f3pTqJ9yARU",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "XUkgyemEbc0",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "MufIRTnXz1Y",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "faFJ13Mdd3E",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "Mefkm3F3BeU",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "q0x1g0QFcFk",
+      "influencer": "Morgan J Ingram",
+      "channel": "The SDR Chronicles"
+    },
+    {
+      "video_id": "hTJi7pE9CVY",
+      "influencer": "Morgan J Ingram",
+      "channel": "The SDR Chronicles"
+    },
+    {
+      "video_id": "5pjUStm0pvo",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "XvuWnvR0Mpc",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "2vivv2HeiBU",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "r43V0YXGLhg",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "Ag-6pB51s5o",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "foeXnJ1b0UE",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "w1_0co11VWk",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "f-P8e2VSUnk",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "9WtOHUDgbIA",
+      "influencer": "30MPC",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "h2872iUIXm4",
+      "influencer": "Samantha McKenna",
+      "channel": "#samsales"
+    },
+    {
+      "video_id": "2K3Hddd3jkw",
+      "influencer": "Samantha McKenna",
+      "channel": "#samsales"
+    },
+    {
+      "video_id": "fz9Z_4PDLOQ",
+      "influencer": "Samantha McKenna",
+      "channel": "#samsales"
+    },
+    {
+      "video_id": "S8g0nD-LARM",
+      "influencer": "Samantha McKenna",
+      "channel": "#samsales"
+    },
+    {
+      "video_id": "9XvRJagw6ZA",
+      "influencer": "Samantha McKenna",
+      "channel": "#samsales"
+    },
+    {
+      "video_id": "Z5vxRC8dMvs",
+      "influencer": "John Barrows",
+      "channel": "JBarrows Sales Training"
+    },
+    {
+      "video_id": "gOqL9-RCj94",
+      "influencer": "John Barrows",
+      "channel": "JBarrows Sales Training"
+    },
+    {
+      "video_id": "j5zRyXLvngg",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "Kl2zmeHblmI",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "n6mNxKAt9TU",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "3y8nP8VnOp0",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "guZa7mQV1l0",
+      "influencer": "Chris Voss",
+      "channel": "MasterClass"
+    },
+    {
+      "video_id": "llctqNJr2IU",
+      "influencer": "Chris Voss",
+      "channel": "Big Think"
+    },
+    {
+      "video_id": "SHwGqFt3fkU",
+      "influencer": "Gong.io",
+      "channel": "Gong"
+    },
+    {
+      "video_id": "tXrU8-S-F6U",
+      "influencer": "Gong.io",
+      "channel": "Gong"
+    },
+    {
+      "video_id": "K9ffRCbkrRc",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "_G-5i4HeO0Y",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "PwPriX_cmVo",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "2FRu6gXfXvM",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "inPr-Hxe_4k",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "iQKYPZE9MKk",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "FN8zG1Xm8OQ",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "US4va6fXUUo",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "e36YdbEyOb4",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "9sHMs3s-jRk",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "qxWI06O1Mr4",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "FjDfipbnd1Y",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "15pdWDG5eaw",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "uqTCYF53dUg",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "-BYCegr0tiQ",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Channel"
+    },
+    {
+      "video_id": "KNtpGkD_Mkw",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "AFL9_niYyok",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "VXg15KLlKO8",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "o_uDR792gKk",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "aQWpaLWOZIg",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "sqhtOhW0NbU",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "cDLzOXPM58k",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "_4ybWNKcGM4",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "rBNHyj0OdMg",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "EGi8nJgdXmA",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "Tr5Hs2ERej0",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "O7lrrp3S80c",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "V6MnoIYMeFE",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "-uP1HyZ2V80",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "s5Md43JBt-U",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna Channel"
+    },
+    {
+      "video_id": "OCe4dtXlUKI",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "bVWJml2otH0",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "u2SOTGzL3xU",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "n_QMW-QD9dQ",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "tNB3pHLoaM0",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "MUMy99Ae2kE",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "s9ZaTt9gFD8",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "EcLtC5552rU",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "4en_TsXhtzY",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "zsgjOOsAlf8",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "6kzdhtglrRY",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "-Hpv3hqpG-c",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "XQGMeJf-Kmg",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "LnwiL2ymMgE",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "nL24YCoXw3Y",
+      "influencer": "Gong.io",
+      "channel": "Gong.io Channel"
+    },
+    {
+      "video_id": "z45in7xwtVk",
+      "influencer": "Alexandra Carter",
+      "channel": "Seth Dechtman - Keynote Speaker Expert"
+    },
+    {
+      "video_id": "1igeDnw9rF4",
+      "influencer": "Alexandra Carter",
+      "channel": "CNBC Events"
+    },
+    {
+      "video_id": "2Mw-PApyRbU",
+      "influencer": "Alexandra Carter",
+      "channel": "BigSpeak Speakers Bureau"
+    },
+    {
+      "video_id": "6n34O_ZIebM",
+      "influencer": "Alexandra Carter",
+      "channel": "CNBC Events"
+    },
+    {
+      "video_id": "O6WWp7IH4eI",
+      "influencer": "Alexandra Carter",
+      "channel": "PepTalkHer"
+    },
+    {
+      "video_id": "tEitwtzuvyo",
+      "influencer": "Alexandra Carter",
+      "channel": "PIX11 News"
+    },
+    {
+      "video_id": "cKagoibllok",
+      "influencer": "Alexandra Carter",
+      "channel": "CBS New York"
+    },
+    {
+      "video_id": "a4XOg6YqDTo",
+      "influencer": "Alexandra Carter",
+      "channel": "Banking On Cultura"
+    },
+    {
+      "video_id": "HtU-jpt3i_A",
+      "influencer": "Alexandra Carter",
+      "channel": "Banking On Cultura"
+    },
+    {
+      "video_id": "HiGlavlCi9o",
+      "influencer": "Alexandra Carter",
+      "channel": "Google Play Books"
+    },
+    {
+      "video_id": "6m9M_ybKQRU",
+      "influencer": "Alexandra Carter",
+      "channel": "SnapTale Audiobook Summaries"
+    },
+    {
+      "video_id": "WyZez_MtlNI",
+      "influencer": "Alexandra Carter",
+      "channel": "5 Minute Mastermind"
+    },
+    {
+      "video_id": "TUTQhKsCCA0",
+      "influencer": "Alexandra Carter",
+      "channel": "Joan Kuhl"
+    },
+    {
+      "video_id": "D6OwdLvggYI",
+      "influencer": "Alexandra Carter",
+      "channel": "Carmine Gallo TV"
+    },
+    {
+      "video_id": "ybMIF1Y2NV0",
+      "influencer": "Alexandra Carter",
+      "channel": "Seth Dechtman - Keynote Speaker Expert"
+    },
+    {
+      "video_id": "51vb2QHq4mw",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "0FY1P5CmMng",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "vHDHOXib2cM",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "P0X93OiRto4",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "lu1_s7rDyBg",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "wF87TlHStbM",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "BEEqLYCyD0o",
+      "influencer": "Amy Volas",
+      "channel": "Amy Volas Avenue Talent Partners"
+    },
+    {
+      "video_id": "sZjQhcH1YF0",
+      "influencer": "Amy Volas",
+      "channel": "Daily Sales Tips"
+    },
+    {
+      "video_id": "6obMvJI7SLg",
+      "influencer": "Amy Volas",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "vw4iQViTgBI",
+      "influencer": "Amy Volas",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "3I92yyXawrk",
+      "influencer": "Amy Volas",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "eh9W97x-JHg",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "17SF_CBE2Pg",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "EASwmKL6HRI",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "jcRM_GXOUaY",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "D_WX-FBJyZY",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "dU1Cqd0B7wE",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "jLr4Q3wPfE4",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "j2JSn5a3yog",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "CUUbwgiGGRM",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "2GSeAbfk2Ug",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "kV_BuChm5no",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "lrVXWaNOv94",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "QpoodOd4B-8",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "6ktbWi8B7b0",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "tXP_ghG_Vuk",
+      "influencer": "Anthony Iannarino",
+      "channel": "Anthony Iannarino"
+    },
+    {
+      "video_id": "0Ud8KGh5ZWo",
+      "influencer": "Armand Farrokh",
+      "channel": "Emblaze | Revenue Community by Corporate Visions"
+    },
+    {
+      "video_id": "0ryH7Z0dkyI",
+      "influencer": "Armand Farrokh",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "9nslW2ADMyo",
+      "influencer": "Armand Farrokh",
+      "channel": "Accord"
+    },
+    {
+      "video_id": "DLOGxz_Wmuo",
+      "influencer": "Armand Farrokh",
+      "channel": "Pipedrive"
+    },
+    {
+      "video_id": "Cvwha9306V4",
+      "influencer": "Armand Farrokh",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "DnCTiHMp9PA",
+      "influencer": "Armand Farrokh",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "-NAT1cJeQ_A",
+      "influencer": "Armand Farrokh",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "8NtaPHOxAEU",
+      "influencer": "Armand Farrokh",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "sga6s21dJW0",
+      "influencer": "Armand Farrokh",
+      "channel": "Jump 450"
+    },
+    {
+      "video_id": "z_JohGi_i7k",
+      "influencer": "Armand Farrokh",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "xB5jHQV0FpE",
+      "influencer": "Armand Farrokh",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "La0ZRGE9NN8",
+      "influencer": "Armand Farrokh",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "VX-aAirPJy4",
+      "influencer": "Armand Farrokh",
+      "channel": "SnapTale Audiobook Summaries"
+    },
+    {
+      "video_id": "xO8TAX0kYys",
+      "influencer": "Armand Farrokh",
+      "channel": "Evolve With Books"
+    },
+    {
+      "video_id": "iwojDBYmTY0",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "_ghxMac2LUg",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "3KtlJo59vfg",
+      "influencer": "Becc Holland",
+      "channel": "Connor Shulstad"
+    },
+    {
+      "video_id": "PltwHHbWMVo",
+      "influencer": "Becc Holland",
+      "channel": "Chili Piper"
+    },
+    {
+      "video_id": "RLzYlvn0vmg",
+      "influencer": "Becc Holland",
+      "channel": "Tenbound Now Powered by Cience"
+    },
+    {
+      "video_id": "7Q3X1X1Kw7s",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "2uikGuUO5Wc",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "L1Ex68YHz7A",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "z7Q3wFN4Cy0",
+      "influencer": "Becc Holland",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "P3TP9p528mk",
+      "influencer": "Becc Holland",
+      "channel": "Tenbound Now Powered by Cience"
+    },
+    {
+      "video_id": "_qBaTsS2cr4",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "N5cwhSoyJGM",
+      "influencer": "Becc Holland",
+      "channel": "Tenbound Now Powered by Cience"
+    },
+    {
+      "video_id": "S5Xx38wV3RU",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "tRaXa6cU24Y",
+      "influencer": "Becc Holland",
+      "channel": "Chorus by ZoomInfo"
+    },
+    {
+      "video_id": "HhKcAIU2pYg",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "VvyiYKpVXGg",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "I9sqaqSOUXg",
+      "influencer": "Belal Batrawy",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "z5C-WNlzJ1Q",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "qRkksjpPy1I",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "rxu5J66VCxM",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "eeffalHYUqY",
+      "influencer": "Belal Batrawy",
+      "channel": "learntosell"
+    },
+    {
+      "video_id": "NdIPxKIPVc0",
+      "influencer": "Belal Batrawy",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "4OweikRF7bg",
+      "influencer": "Belal Batrawy",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "lQlFDr20Z30",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "WmqF4bu46zs",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "vmm4FirCscs",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "37eYwN7OKaY",
+      "influencer": "Belal Batrawy",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "XZRFfagFzRk",
+      "influencer": "Belal Batrawy",
+      "channel": "Drift"
+    },
+    {
+      "video_id": "0_e47Ys2Fb4",
+      "influencer": "Belal Batrawy",
+      "channel": "Mixmax"
+    },
+    {
+      "video_id": "8L4_1tcg0o8",
+      "influencer": "Bryan Tucker",
+      "channel": "Ambition"
+    },
+    {
+      "video_id": "o_0-rEyWiRY",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "6pH3Sa1KJsI",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "-FEGxacgsqY",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "yJg4KEJMF2E",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "yRhe2ryQsT8",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "clQP6x9QFFU",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "zx-NmhD8uI0",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "02oGY8FNXaM",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "EPgeioDTWpA",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "3HfnncbNXhc",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "W-iTBdH4Ghs",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "OFVJCis5rRs",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "CIM1Q-kVlbc",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "Dv4ZrSsqsys",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "wTATVbIIbXU",
+      "influencer": "Chris Orlob",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "pxNwYTXkooU",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "zlqCrmy6p2k",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "Y6oHQZQzeEI",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "3mkPEOok3os",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "qV_d7HSrpP0",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "l1y1K52MzDY",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "UMDW7HuvKM8",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "M5SWaVHuEGM",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "YhxoaptRsvE",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "LHRAhXI617M",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "PBynqAi9FaU",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "pTguRFIJFRs",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "bLf81MBqTJ4",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "EptMTDy4rG0",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "c7IMj88FCMg",
+      "influencer": "Chris Voss",
+      "channel": "Chris Voss & The Black Swan Group"
+    },
+    {
+      "video_id": "vyAc_Fb718s",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "A2GsBG4ZZFY",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "ZFZ3TWheWNE",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "gh2qt5VyV3s",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "MtuzDl9itvY",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "nxh2Rn81nCo",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "bpfzOUKVI14",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "71PToWWiytY",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "U2gV1cPiU58",
+      "influencer": "Colin Specter",
+      "channel": "Colin Specter"
+    },
+    {
+      "video_id": "Gfxh8A2xV0o",
+      "influencer": "Colin Specter",
+      "channel": "Heavybit"
+    },
+    {
+      "video_id": "p6tFAfls15A",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "xzETSTsj7JI",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "A1ja3U3Ap20",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "Hq9ZP-fmERU",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "rJRhkIY0YrE",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "moFpYNa5Mhc",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "KxD31qNZ7lg",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "ZQutGSa9sT0",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "jqaSPxsBn1Y",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "CRVlD1AgCBs",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "vf2DrQKIRfs",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "U3hHm3sM9Dg",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "5zvOvFCyrAs",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "Mc_a6_FbJj8",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "GXyvjJGE_SE",
+      "influencer": "Chantel George",
+      "channel": "Sistas in Sales"
+    },
+    {
+      "video_id": "molWx_GTIfo",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "kz5v-YYEXiY",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "AOIF2J0AmzU",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "alb6Otavsgc",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "ad5ZdbkBayA",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "DS5RkENG1uE",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "Ytfv-g0eMdc",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "lgjyE464NGU",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "zbrPZb1Wuxg",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "RvuK0w6uBEo",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "bLZETdn_vSM",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "Nsypouk_kUU",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "63w8N7fONFk",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "ysvMEEGaRKs",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "z-KBeqMZBtc",
+      "influencer": "Daniel Disney",
+      "channel": "Daniel Disney"
+    },
+    {
+      "video_id": "yAtHtlOK9XM",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "qp1tYQeNx9w",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "oj0FfP6ZBlo",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "iG4bXiXLDP4",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "pQP4MJQ6oig",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "NEKOFx_oEbk",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "xP404n_8T7g",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "lUI_XsuR39o",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "5NR1z5SQMj0",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "8ae-XWrEHkM",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "5DOdtKR_FtE",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "chXGJnQWHw8",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "ZPiL-iEnIok",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "npif3-jsZAw",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "bGUaqbCQzbQ",
+      "influencer": "Devin Reed",
+      "channel": "Devin Reed | The Reeder"
+    },
+    {
+      "video_id": "Ckbi1TDMlTA",
+      "influencer": "Florin Tatulea",
+      "channel": "Florin Tatulea"
+    },
+    {
+      "video_id": "aaFjjDBBEzk",
+      "influencer": "Florin Tatulea",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "lWsmoVoLDno",
+      "influencer": "Florin Tatulea",
+      "channel": "Mailshake"
+    },
+    {
+      "video_id": "AbJ3qspYBM0",
+      "influencer": "Florin Tatulea",
+      "channel": "Mailshake"
+    },
+    {
+      "video_id": "eIREmyKcdUQ",
+      "influencer": "Florin Tatulea",
+      "channel": "Mixmax"
+    },
+    {
+      "video_id": "wZM6Ak37vjE",
+      "influencer": "Florin Tatulea",
+      "channel": "Elric Legloire"
+    },
+    {
+      "video_id": "wr80cPORfYc",
+      "influencer": "Florin Tatulea",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "8Fo8nsfNZxQ",
+      "influencer": "Florin Tatulea",
+      "channel": "Woodpecker.co"
+    },
+    {
+      "video_id": "2emA2W5vblA",
+      "influencer": "Florin Tatulea",
+      "channel": "Full Audiobook"
+    },
+    {
+      "video_id": "ihQsFSsTMZs",
+      "influencer": "Florin Tatulea",
+      "channel": "Free Audiobook"
+    },
+    {
+      "video_id": "KNGpuWN5zQE",
+      "influencer": "Florin Tatulea",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "S5aGQtdc1RE",
+      "influencer": "Gal Aga",
+      "channel": "Project Moneyball"
+    },
+    {
+      "video_id": "8TxbBik48dY",
+      "influencer": "Gal Aga",
+      "channel": "Steve Pugh"
+    },
+    {
+      "video_id": "3gvrjBFOnZw",
+      "influencer": "Giulio Segantini",
+      "channel": "Nazim Agabekov"
+    },
+    {
+      "video_id": "K8m3u_LfZFA",
+      "influencer": "Giulio Segantini",
+      "channel": "The Jason Marc Campbell Podcast"
+    },
+    {
+      "video_id": "rrgIHKGDJVg",
+      "influencer": "Giulio Segantini",
+      "channel": "The Jason Marc Campbell Podcast"
+    },
+    {
+      "video_id": "mr_tmkTY8IY",
+      "influencer": "Giulio Segantini",
+      "channel": "Predictable Revenue"
+    },
+    {
+      "video_id": "WXEX2_3Is3s",
+      "influencer": "Giulio Segantini",
+      "channel": "ManyMangoes"
+    },
+    {
+      "video_id": "8g6r7eP6y-Y",
+      "influencer": "Giulio Segantini",
+      "channel": "TripleSession"
+    },
+    {
+      "video_id": "8Sq1tOLuOi4",
+      "influencer": "Giulio Segantini",
+      "channel": "Trellus"
+    },
+    {
+      "video_id": "sFqnX7SzgGk",
+      "influencer": "Giulio Segantini",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "VGY2lfQv_Ss",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "jLjxLfidRsg",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "qF1VoaSQMks",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "NsrKZRiVfZA",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "ThAHsjA3ftk",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "I0__U9LGrpY",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "YM72vSFEm2U",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "RkUgqvYUGVo",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "9hAtf21mP00",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "hrm74a8BX2M",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "3jmwzzWUxYg",
+      "influencer": "Hannah Ajikawo",
+      "channel": "Mixmax"
+    },
+    {
+      "video_id": "7UmGN-TNPsM",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "swPC7Gu1Ktc",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "1aRKVQ_Mo3M",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "HSn8vOo0to8",
+      "influencer": "Hannah Ajikawo",
+      "channel": "by Hannah Ajikawo"
+    },
+    {
+      "video_id": "6EvD-v9wkn8",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "uCJx-hrsQR0",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "3Abv6uMaou8",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "voHyTd7GJK8",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "gDYHNhk-gOM",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "5QgtcZrFilc",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "4_nNabWIDb8",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "LDJLdK3VyW8",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "llkVkn_RHHc",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "cbaKYn-t7ZQ",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "ycDRpN8wN3Y",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "rqWsKS7e-o4",
+      "influencer": "Ian Koniak",
+      "channel": "Ian Koniak Sales Coaching"
+    },
+    {
+      "video_id": "R8zDSgiW6I4",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "LYXmf0V1FLk",
+      "influencer": "Jeb Blount",
+      "channel": "7 Figure Squad"
+    },
+    {
+      "video_id": "fqDiCZS-tpo",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "v64DAlH8NCo",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "a58ULtqf4s8",
+      "influencer": "Jeb Blount",
+      "channel": "Jeff Shore Real Estate Sales Training"
+    },
+    {
+      "video_id": "J7dOBVvYHCs",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "NFqBpmOvte0",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "zCN1ciXHdh4",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "8KeF3Xt7p1E",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "ON37QYTh4Cs",
+      "influencer": "Jeb Blount",
+      "channel": "Sales Gravy"
+    },
+    {
+      "video_id": "TqnwZxqLdEg",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Heinz Marketing"
+    },
+    {
+      "video_id": "Tss-AZgd9Cg",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Lavender"
+    },
+    {
+      "video_id": "ZyI87JEoDhg",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Close"
+    },
+    {
+      "video_id": "vvwENiAWtLM",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Ecosystems"
+    },
+    {
+      "video_id": "6iemMb56soI",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Mailshake"
+    },
+    {
+      "video_id": "8v2I_dax0Q0",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Mailshake"
+    },
+    {
+      "video_id": "1CTnbjDelD8",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Lavender"
+    },
+    {
+      "video_id": "l0x9kwDFF2I",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Close"
+    },
+    {
+      "video_id": "rbqMozfJkqg",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "TYbDZlHCDqw",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Sales Players"
+    },
+    {
+      "video_id": "OBObvYd7HXc",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "Sales Players"
+    },
+    {
+      "video_id": "IsBJI0_4prU",
+      "influencer": "Jen Allen-Knuth",
+      "channel": "RevPartners"
+    },
+    {
+      "video_id": "JICP4nOtx50",
+      "influencer": "Jesse Gittler",
+      "channel": "Tony Clyde Official"
+    },
+    {
+      "video_id": "6vAewD2LEo0",
+      "influencer": "Jesse Gittler",
+      "channel": "Sales Leader Forums"
+    },
+    {
+      "video_id": "FcK0Q9s8Wh0",
+      "influencer": "Kevin Dorsey",
+      "channel": "Tech Journey with The Warthens"
+    },
+    {
+      "video_id": "f12z0SfNR9U",
+      "influencer": "Kevin Dorsey",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "JVdB2Zl3--w",
+      "influencer": "Kevin Dorsey",
+      "channel": "Tech Journey with The Warthens"
+    },
+    {
+      "video_id": "ywddVzglGG0",
+      "influencer": "Kevin Dorsey",
+      "channel": "SaaStock"
+    },
+    {
+      "video_id": "7Tm2blzPyHA",
+      "influencer": "Kevin Dorsey",
+      "channel": "CoRecruit (formerly Quil)"
+    },
+    {
+      "video_id": "mKhcPYAEPYM",
+      "influencer": "Kevin Dorsey",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "7avhPtcj4aA",
+      "influencer": "Kevin Dorsey",
+      "channel": "Mailshake"
+    },
+    {
+      "video_id": "NhHfYp3IoRs",
+      "influencer": "Kevin Dorsey",
+      "channel": "RevGenius"
+    },
+    {
+      "video_id": "EAiIhQkTWAc",
+      "influencer": "Kevin Dorsey",
+      "channel": "Ambition"
+    },
+    {
+      "video_id": "eSMWeOXedms",
+      "influencer": "Kevin Dorsey",
+      "channel": "RevGenius"
+    },
+    {
+      "video_id": "TbGkiNzgJoQ",
+      "influencer": "Kevin Dorsey",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "kLg_wlmmsU4",
+      "influencer": "Kevin Dorsey",
+      "channel": "Anirudh Ram"
+    },
+    {
+      "video_id": "qRBvVlG0vhU",
+      "influencer": "Kevin Dorsey",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "9ViMDJfxRq0",
+      "influencer": "Kevin Dorsey",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "i_oD6AfraaM",
+      "influencer": "Kevin Dorsey",
+      "channel": "Calendly"
+    },
+    {
+      "video_id": "pJxe_v86efI",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "FMJHG_8nhKo",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "8PbSrkK51JY",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "HJFhJF9TX4U",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "J7PwgNdwcEE",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "urNEX6lfZ48",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "EUqzpoeb6pQ",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "ociYUqzORqw",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "5cSXt9wkNLE",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "1vJ8-2RfAN4",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "jGLxaPIzc2E",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "PVl_Fxal2mc",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "eJWtOOcoysA",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "MYTDPKFbuOw",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "RioDKIbJ_KU",
+      "influencer": "Jill Konrath",
+      "channel": "Jill Konrath"
+    },
+    {
+      "video_id": "fo3BVAbX7e4",
+      "influencer": "Jim Keenan",
+      "channel": "Roland Toth"
+    },
+    {
+      "video_id": "pklGXJ0Q1wQ",
+      "influencer": "Jim Keenan",
+      "channel": "Audiobooks Summary"
+    },
+    {
+      "video_id": "DxfTCgrmRmw",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "1Drso1jAoWQ",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "lrGQkCol8Gw",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "XF19qAJ41Nk",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "4_JQQoMBp1I",
+      "influencer": "Jim Keenan",
+      "channel": "Provement"
+    },
+    {
+      "video_id": "OCcmy6gUEns",
+      "influencer": "Jim Keenan",
+      "channel": "Sales for Life"
+    },
+    {
+      "video_id": "hbn75sng0Es",
+      "influencer": "Jim Keenan",
+      "channel": "Kerry Sullivan"
+    },
+    {
+      "video_id": "SxD4vHKZsXw",
+      "influencer": "Jim Keenan",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "aqxm68tR59M",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "sey54Hu7O4c",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "Qns0rsE4Ojw",
+      "influencer": "Jim Keenan",
+      "channel": "Keenan"
+    },
+    {
+      "video_id": "HePENL6liYA",
+      "influencer": "Jim Keenan",
+      "channel": "CNBC Television"
+    },
+    {
+      "video_id": "E6XT502Ot98",
+      "influencer": "Justin Michael",
+      "channel": "FunnelFLARE"
+    },
+    {
+      "video_id": "42wvhFemn2E",
+      "influencer": "Justin Michael",
+      "channel": "HYPCCCYCL"
+    },
+    {
+      "video_id": "rY2ob3fcphE",
+      "influencer": "Justin Michael",
+      "channel": "Outbound Business Development"
+    },
+    {
+      "video_id": "qpUnYwqSw5Q",
+      "influencer": "Justin Michael",
+      "channel": "Oren Klaff"
+    },
+    {
+      "video_id": "PbdvDL7ZBwU",
+      "influencer": "Justin Michael",
+      "channel": "Trent Dressel"
+    },
+    {
+      "video_id": "GkrZau1w4g4",
+      "influencer": "Justin Michael",
+      "channel": "Gerhard Gschwandtner"
+    },
+    {
+      "video_id": "4Od3fn2Of7U",
+      "influencer": "Justin Michael",
+      "channel": "RightBound"
+    },
+    {
+      "video_id": "HLouBf1OcVg",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "d5UnXlfS3ok",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "Zszw1GwT170",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "dPk9Wra5Fgw",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "-aPvDOs0nuA",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "1Fa1__jqBGY",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "Ax95JI2JkBI",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "eu3mTn9Qt2k",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "r4gCTo2PtkY",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "SvKDqwtajOQ",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "fvQ94TeDrLU",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "IbKn80AA6r8",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "-9d5frqRwcQ",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "0r4o16UxL9M",
+      "influencer": "John Barrows",
+      "channel": "John Barrows"
+    },
+    {
+      "video_id": "bEOwAPnyT1A",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "-yWiaoxvKQE",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "PWZlC5ZuGLg",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "rYPksXxSgL8",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "emBwLDiH5zU",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "OUEAdHEbzZU",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "L0gZMLjLXyc",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "JR-SFQ-DqV8",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "iRnKXu0cFvE",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "M_YqXiBAJKE",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "cq1kr-DuW3c",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "EwgNC3LHkbQ",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "XCCu-UvcjeQ",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "B5GsJ459jYY",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "cKMMLzKQsdc",
+      "influencer": "Josh Braun",
+      "channel": "Josh Braun"
+    },
+    {
+      "video_id": "5Ellizrf2Vk",
+      "influencer": "Julie Hansen",
+      "channel": "Crystal Knows"
+    },
+    {
+      "video_id": "YaStBdLeoSo",
+      "influencer": "Julie Hansen",
+      "channel": "Heinz Marketing"
+    },
+    {
+      "video_id": "evSqkcPtGRw",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "8xCff2r7L4k",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "5twTXNbM1Tc",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "-qGXxiMjMc8",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "CgLGdnCbdds",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "0QpFc6vtc8c",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "jHutBJvsCyg",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "sSYkhv3Cm5U",
+      "influencer": "Kwame Christian",
+      "channel": "Negotiate Anything (Audio Podcast)"
+    },
+    {
+      "video_id": "ikS8slduv78",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "vrDzCpa_FqQ",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "Vy6mkXQzndo",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "DQzABaUfxX4",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "w_AcIkg3eNM",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "kyVlmH90nAw",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "4-fooQl6o4s",
+      "influencer": "Kwame Christian",
+      "channel": "Kwame Christian Esq., M.A."
+    },
+    {
+      "video_id": "rUxnsGKsDfk",
+      "influencer": "Kyle Coleman",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "0v1OQ-kHbwE",
+      "influencer": "Kyle Coleman",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "7rTaZTl3GE4",
+      "influencer": "Kyle Coleman",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "UJ0_n5fyXWg",
+      "influencer": "Kyle Coleman",
+      "channel": "CopyAI"
+    },
+    {
+      "video_id": "R55Vo3kRqak",
+      "influencer": "Kyle Coleman",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "TdrSrTT9Ucw",
+      "influencer": "Kyle Coleman",
+      "channel": "Team Sales Assembly"
+    },
+    {
+      "video_id": "J5wHcbea9Sg",
+      "influencer": "Kyle Coleman",
+      "channel": "Clari"
+    },
+    {
+      "video_id": "LnuVJpTfAyw",
+      "influencer": "Kyle Coleman",
+      "channel": "Mark Allen"
+    },
+    {
+      "video_id": "iiWRSOu3G9g",
+      "influencer": "Kyle Coleman",
+      "channel": "Wynter"
+    },
+    {
+      "video_id": "mofpSi8_f-8",
+      "influencer": "Kyle Coleman",
+      "channel": "SaaStock"
+    },
+    {
+      "video_id": "abb4Sp0N1_g",
+      "influencer": "Kyle Coleman",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "F3J7iToDZKQ",
+      "influencer": "Kyle Coleman",
+      "channel": "Sales Unfiltered"
+    },
+    {
+      "video_id": "sqmpbYdI4XY",
+      "influencer": "Maria Bross",
+      "channel": "Atonom"
+    },
+    {
+      "video_id": "NNjonkz57lY",
+      "influencer": "Maria Bross",
+      "channel": "Tom Alaimo"
+    },
+    {
+      "video_id": "iSQjuzCKuwo",
+      "influencer": "Maria Bross",
+      "channel": "Sales Stories IRL"
+    },
+    {
+      "video_id": "SxoHAglVurw",
+      "influencer": "Maria Bross",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "AMIZUy8p-7A",
+      "influencer": "Maria Bross",
+      "channel": "Tom Alaimo"
+    },
+    {
+      "video_id": "d9z5xmsxQz4",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "XbzETYDIQrQ",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "ked62MGpMro",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "kBqzdWalJcc",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "BSMFhS7KuxM",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "47SxDM96WyU",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "I8zYY5iYEEc",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "iZQWRHZ2roU",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "IJOrD93a540",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "YecPE0Ooidc",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "Yw_UhfsLoe0",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "Q2ZmMGeHC-U",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "nKdbRslJDKA",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "D-4em6j4HOw",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "NTqIy090q6w",
+      "influencer": "Mark Hunter",
+      "channel": "Mark Hunter"
+    },
+    {
+      "video_id": "iQ7iTcajcUU",
+      "influencer": "Mark Kosoglow",
+      "channel": "Inside Sales Excellence"
+    },
+    {
+      "video_id": "XWR6nnrZgZk",
+      "influencer": "Mark Kosoglow",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "Jv4b1lYmd5k",
+      "influencer": "Mark Kosoglow",
+      "channel": "Emblaze | Revenue Community by Corporate Visions"
+    },
+    {
+      "video_id": "BqXAarQoGZk",
+      "influencer": "Mo Bunnell",
+      "channel": "Mo Bunnell"
+    },
+    {
+      "video_id": "-a1XP51SDMU",
+      "influencer": "Mo Bunnell",
+      "channel": "Mo Bunnell"
+    },
+    {
+      "video_id": "uzMTnYy6nvs",
+      "influencer": "Mo Bunnell",
+      "channel": "Michael Gionta"
+    },
+    {
+      "video_id": "ZjU4yoxyZd8",
+      "influencer": "Mo Bunnell",
+      "channel": "Manny Talks TV"
+    },
+    {
+      "video_id": "zCZsOYoAf8s",
+      "influencer": "Mo Bunnell",
+      "channel": "Mickey Mellen"
+    },
+    {
+      "video_id": "JOX7dAtc0uc",
+      "influencer": "Mo Bunnell",
+      "channel": "Google Play Books"
+    },
+    {
+      "video_id": "1gKZduRZS2E",
+      "influencer": "Mo Bunnell",
+      "channel": "John Wooten"
+    },
+    {
+      "video_id": "A_pf_qJ7HMo",
+      "influencer": "Mo Bunnell",
+      "channel": "Arke"
+    },
+    {
+      "video_id": "gY2RPCbEnvU",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "vxsyN2vCUVk",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "Z1CkDVQY16w",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "l-UKwVS8ENc",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "Ukn80m3Uyrc",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "8HYeeMvodbE",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "53lGAJBwkyE",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "HAhtO6fdbfY",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "IOszR23F5Pk",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "qktFZmgMJ3U",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "xiK6u1NWgoo",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "JOeeMAt6J_w",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "nUe5IpnleRc",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "pVeDwWmUELw",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "3uFGRAfosA8",
+      "influencer": "Morgan J Ingram",
+      "channel": "Morgan J Ingram"
+    },
+    {
+      "video_id": "eqrczCp3WCE",
+      "influencer": "Nate Nasralla",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "U6h9sF3NaTg",
+      "influencer": "Nate Nasralla",
+      "channel": "NaNLABS"
+    },
+    {
+      "video_id": "7rTaZTl3GE4",
+      "influencer": "Nate Nasralla",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "rhG2M4zmwAY",
+      "influencer": "Nate Nasralla",
+      "channel": "Sandler By Jabulani"
+    },
+    {
+      "video_id": "V3KlbC0Mx2Y",
+      "influencer": "Nate Nasralla",
+      "channel": "Salesloft"
+    },
+    {
+      "video_id": "ogJCAF0UDCk",
+      "influencer": "Nate Nasralla",
+      "channel": "Joe Milnes"
+    },
+    {
+      "video_id": "N96guscBWR4",
+      "influencer": "Nate Nasralla",
+      "channel": "Sales Players"
+    },
+    {
+      "video_id": "OBObvYd7HXc",
+      "influencer": "Nate Nasralla",
+      "channel": "Sales Players"
+    },
+    {
+      "video_id": "TYbDZlHCDqw",
+      "influencer": "Nate Nasralla",
+      "channel": "Sales Players"
+    },
+    {
+      "video_id": "JOr5JmXnaaI",
+      "influencer": "Nate Nasralla",
+      "channel": "Chris Orlob at pclub"
+    },
+    {
+      "video_id": "nL9kQEZBiTI",
+      "influencer": "Nate Nasralla",
+      "channel": "Mixmax"
+    },
+    {
+      "video_id": "x3-bX9DtSRE",
+      "influencer": "Nate Nasralla",
+      "channel": "Sales Stories IRL"
+    },
+    {
+      "video_id": "oW6fnZC_tFQ",
+      "influencer": "Nick Cegelski",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "cykZ1WU5Se4",
+      "influencer": "Nick Cegelski",
+      "channel": "Mor Assouline"
+    },
+    {
+      "video_id": "84ozb-o4qVE",
+      "influencer": "Nick Cegelski",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "hVtfsq0McNQ",
+      "influencer": "Nick Cegelski",
+      "channel": "Insightly CRM by Unbounce"
+    },
+    {
+      "video_id": "4e2kEQ_VbV8",
+      "influencer": "Nick Cegelski",
+      "channel": "The Sales Topics Podcast"
+    },
+    {
+      "video_id": "WMTEW8R0voo",
+      "influencer": "Nick Cegelski",
+      "channel": "Emblaze | Revenue Community by Corporate Visions"
+    },
+    {
+      "video_id": "q0B8FB3GMDk",
+      "influencer": "Nick Cegelski",
+      "channel": "Woodpecker.co"
+    },
+    {
+      "video_id": "BppUJZ6HmxY",
+      "influencer": "Nick Cegelski",
+      "channel": "30 Minutes to President's Club"
+    },
+    {
+      "video_id": "3_ZLJT1BfyE",
+      "influencer": "Niraj Kapur",
+      "channel": "Everybody Works In Sales"
+    },
+    {
+      "video_id": "K-BbUwEtTXU",
+      "influencer": "Niraj Kapur",
+      "channel": "Victor Antonio"
+    },
+    {
+      "video_id": "-NvuW_K7d6Y",
+      "influencer": "Niraj Kapur",
+      "channel": "Janice B Gordon"
+    },
+    {
+      "video_id": "2fl4Y7_cA-Q",
+      "influencer": "Niraj Kapur",
+      "channel": "Revel Movement - StartUp School"
+    },
+    {
+      "video_id": "6YQAqXm_cHc",
+      "influencer": "Niraj Kapur",
+      "channel": "The Effective Marketing Company"
+    },
+    {
+      "video_id": "-FSyeSWZ9mM",
+      "influencer": "Niraj Kapur",
+      "channel": "Jordan Stupar"
+    },
+    {
+      "video_id": "iFsxtnTp7ZI",
+      "influencer": "Niraj Kapur",
+      "channel": "Gerhard Gschwandtner"
+    },
+    {
+      "video_id": "u4I2pWdW2xM",
+      "influencer": "Niraj Kapur",
+      "channel": "Lane Ethridge"
+    },
+    {
+      "video_id": "MXR586ODQEY",
+      "influencer": "Niraj Kapur",
+      "channel": "Kenny Casimir"
+    },
+    {
+      "video_id": "RPvyx26u4Ww",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "More SaaStr"
+    },
+    {
+      "video_id": "Wv2hUJQCfHo",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Traction Complete"
+    },
+    {
+      "video_id": "-sm3Pw9BcaU",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Revenue Operations and Enablement"
+    },
+    {
+      "video_id": "rSSiHL_XTKQ",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Orchestrate Sales"
+    },
+    {
+      "video_id": "F85JRP2kmVY",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Revenue Operations and Enablement"
+    },
+    {
+      "video_id": "ZGQsthni89s",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Ebsta"
+    },
+    {
+      "video_id": "W5XqM58INgM",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "DemandMatrix"
+    },
+    {
+      "video_id": "os4qnXd3dVM",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Traction Complete"
+    },
+    {
+      "video_id": "n-nWuOH0I-k",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Salesloft"
+    },
+    {
+      "video_id": "LImwstg5lrg",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Salesloft"
+    },
+    {
+      "video_id": "MWefaz8uN5U",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Revenue Enablement Institute"
+    },
+    {
+      "video_id": "Y4EUbUgMIuc",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Nasdaq"
+    },
+    {
+      "video_id": "IfrjdMgGze0",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "Market Recruitment"
+    },
+    {
+      "video_id": "Gz4ofLoz45E",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "CS2 - GTM Ops"
+    },
+    {
+      "video_id": "fQoEcH19USY",
+      "influencer": "Rosalyn Santa Elena",
+      "channel": "TalkDataToMe Clips"
+    },
+    {
+      "video_id": "nDdNPHNHPCg",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna - #samsales"
+    },
+    {
+      "video_id": "jwEAi3A7PGM",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna - #samsales"
+    },
+    {
+      "video_id": "s2lU71vX6j8",
+      "influencer": "Samantha McKenna",
+      "channel": "Samantha McKenna - #samsales"
+    },
+    {
+      "video_id": "6P4ixkCJWlQ",
+      "influencer": "Sarah Brazier",
+      "channel": "Daily Sales Tips"
+    },
+    {
+      "video_id": "D_249H9nY2k",
+      "influencer": "Sarah Brazier",
+      "channel": "Flow State Sales"
+    },
+    {
+      "video_id": "C4ezQreS9fU",
+      "influencer": "Sarah Brazier",
+      "channel": "Solomon Thimothy"
+    },
+    {
+      "video_id": "oL4WMMVSLko",
+      "influencer": "Sarah Brazier",
+      "channel": "SDR Nation"
+    },
+    {
+      "video_id": "0v1OQ-kHbwE",
+      "influencer": "Sarah Brazier",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "ndI_xYvoK1U",
+      "influencer": "Sarah Brazier",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "76vXx-sd4I0",
+      "influencer": "Sarah Brazier",
+      "channel": "Daily Sales Tips"
+    },
+    {
+      "video_id": "aiiJKvh_wog",
+      "influencer": "Sarah Brazier",
+      "channel": "Daily Sales Tips"
+    },
+    {
+      "video_id": "KFjvmrCwdKk",
+      "influencer": "Sarah Brazier",
+      "channel": "Dimmo"
+    },
+    {
+      "video_id": "WRdcANZIEWo",
+      "influencer": "Sarah Brazier",
+      "channel": "Sales Feed"
+    },
+    {
+      "video_id": "xqLH2-kUHaU",
+      "influencer": "Sarah Brazier",
+      "channel": "Brett Gray"
+    },
+    {
+      "video_id": "HUO99MJDXxE",
+      "influencer": "Sarah Brazier",
+      "channel": "Scratchpad"
+    },
+    {
+      "video_id": "LksUPQxI8Go",
+      "influencer": "Sarah Brazier",
+      "channel": "Scratchpad"
+    },
+    {
+      "video_id": "SxoHAglVurw",
+      "influencer": "Sarah Brazier",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "h6IjHkeiWnw",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "9av0lKbFdnA",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "WQCgvil5ZsM",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "GQA4XwSmeQg",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "NGo1Rg89VKw",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "dZVBEi1qgVM",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "LSYM5b-ihpg",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "6Tcb5cmgdro",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "Yh7b4XiSddo",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "YRYSybg1UQY",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "HegjSiX4cKI",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "5a0zJz8MOj8",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "QC3lLh0MJic",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "5Oihob8zGU0",
+      "influencer": "Scott Leese",
+      "channel": "The Scott Leese"
+    },
+    {
+      "video_id": "LM4n_nfVcmg",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "JlEnV5Ni-w0",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "mYOnNZoiXNI",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "rxrL7DeydF0",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "vxVEOeG09WI",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "HlmmP_8b48I",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "ukroEwhcP20",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "2uqd5lbuY40",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "7F7vFJCCgn8",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "zA9suy4jOAw",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "Eb93TWHI2XU",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "lRD2QjgzcoI",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "9myX0MQevyw",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "LoYN2vVsl8k",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "8ZqTUTyt9AE",
+      "influencer": "Shari Levitin",
+      "channel": "Shari Levitin"
+    },
+    {
+      "video_id": "IM_YAL4eKdI",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "mIGz6XOfL_k",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "8Yt56k1KJwI",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "RJRfY2-aX9s",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "LRk1U7gnAFM",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "Hrg5Mf4qNNA",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "_5XyV-rRk6g",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "wQWg5LMFzn4",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "MRbLFi71s_o",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "ADYqKHJyXO8",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "LSHyuJjHScA",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "SC1jFAWqJIA",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "Nl4jYxficlQ",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "k-9VSMQQFrU",
+      "influencer": "Tiffani Bova",
+      "channel": "Tiffani Bova"
+    },
+    {
+      "video_id": "y0H0CdpJ5wk",
+      "influencer": "Will Aitken",
+      "channel": "Will Aitken"
+    },
+    {
+      "video_id": "CEfaeEktOcQ",
+      "influencer": "Will Aitken",
+      "channel": "Will Aitken"
+    },
+    {
+      "video_id": "pTrIHy4p6gU",
+      "influencer": "Will Aitken",
+      "channel": "Will Aitken"
+    },
+    {
+      "video_id": "mmQbqX3Whak",
+      "influencer": "Will Aitken",
+      "channel": "Will Aitken"
+    },
+    {
+      "video_id": "T-Oop0eejlU",
+      "influencer": "Will Aitken",
+      "channel": "Salesloft"
+    },
+    {
+      "video_id": "ndI_xYvoK1U",
+      "influencer": "Will Aitken",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "V0NZ_4GoLJM",
+      "influencer": "Will Aitken",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "Tss-AZgd9Cg",
+      "influencer": "Will Aitken",
+      "channel": "Lavender"
+    },
+    {
+      "video_id": "NxtUiL0s2O0",
+      "influencer": "Will Aitken",
+      "channel": "Sell Better"
+    },
+    {
+      "video_id": "V5I8UReVnL4",
+      "influencer": "Will Aitken",
+      "channel": "Will Aitken"
+    },
+    {
+      "video_id": "gdBdXP_Xkcs",
+      "influencer": "Will Aitken",
+      "channel": "Will Aitken"
+    }
+  ]
+}
