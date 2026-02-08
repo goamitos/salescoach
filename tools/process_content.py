@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-Content Processing with Claude API
+Content Processing with Claude Batch API
 
 Analyzes collected content, categorizes by deal stage,
-and extracts structured insights.
+and extracts structured insights using the Batch API
+(50% cost reduction, no rate limiting needed).
 
 Usage:
     python tools/process_content.py
@@ -18,6 +19,7 @@ Output:
 import hashlib
 import json
 import time
+from typing import Any, Optional
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -27,7 +29,6 @@ import anthropic
 from config import (
     TMP_DIR,
     ANTHROPIC_API_KEY,
-    RATE_LIMIT_CLAUDE,
     RELEVANCE_THRESHOLD,
     CLAUDE_MODEL,
     CLAUDE_MAX_TOKENS,
@@ -45,6 +46,9 @@ logger = logging.getLogger(__name__)
 LINKEDIN_FILE = TMP_DIR / "linkedin_raw.json"
 YOUTUBE_FILE = TMP_DIR / "youtube_raw.json"
 OUTPUT_FILE = TMP_DIR / "processed_content.json"
+
+# Batch polling interval (seconds)
+POLL_INTERVAL = 30
 
 # Analysis prompt
 ANALYSIS_PROMPT = """Analyze this sales content and extract structured insights.
@@ -119,45 +123,6 @@ def load_collected_content() -> list[dict]:
     return content_items
 
 
-def analyze_content(client: anthropic.Anthropic, item: dict[str, str]) -> dict[str, any] | None:
-    """Send content to Claude for analysis."""
-    prompt = ANALYSIS_PROMPT.format(
-        content=item["content"][:3000],  # Limit content length
-        source_type=item["source_type"],
-        influencer=item["influencer"],
-        stages=", ".join(DEAL_STAGES),
-    )
-
-    try:
-        response = client.messages.create(
-            model=CLAUDE_MODEL,
-            max_tokens=CLAUDE_MAX_TOKENS,
-            temperature=CLAUDE_TEMPERATURE,
-            messages=[{"role": "user", "content": prompt}],
-        )
-
-        # Parse JSON response
-        response_text = response.content[0].text
-        analysis = json.loads(response_text)
-
-        return {
-            "source_id": item["id"],
-            "influencer": item["influencer"],
-            "source_type": item["source_type"],
-            "source_url": item["source_url"],
-            "date_collected": item["date_collected"],
-            **analysis,
-        }
-
-    except json.JSONDecodeError as e:
-        logger.error(f"Failed to parse response for {item['id']}: {e}")
-        return None
-
-    except Exception as e:
-        logger.error(f"API error for {item['id']}: {e}")
-        return None
-
-
 def load_existing_processed() -> tuple[list[dict[str, any]], set[str]]:
     """Load existing processed content to avoid reprocessing and preserve data."""
     existing = []
@@ -176,9 +141,33 @@ def load_existing_processed() -> tuple[list[dict[str, any]], set[str]]:
     return existing, seen_ids
 
 
-def process_all_content() -> dict[str, any] | None:
-    """Main processing function."""
-    logger.info("Starting content processing...")
+def build_batch_requests(items: list[dict]) -> list[dict]:
+    """Build Batch API request objects from content items."""
+    requests = []
+    for item in items:
+        prompt = ANALYSIS_PROMPT.format(
+            content=item["content"][:3000],
+            source_type=item["source_type"],
+            influencer=item["influencer"],
+            stages=", ".join(DEAL_STAGES),
+        )
+        requests.append(
+            {
+                "custom_id": item["id"],
+                "params": {
+                    "model": CLAUDE_MODEL,
+                    "max_tokens": CLAUDE_MAX_TOKENS,
+                    "temperature": CLAUDE_TEMPERATURE,
+                    "messages": [{"role": "user", "content": prompt}],
+                },
+            }
+        )
+    return requests
+
+
+def process_all_content() -> Optional[dict[str, Any]]:
+    """Main processing function using Batch API."""
+    logger.info("Starting content processing (Batch API + Haiku)...")
 
     if not ANTHROPIC_API_KEY:
         logger.error("ANTHROPIC_API_KEY not set in environment")
@@ -206,32 +195,85 @@ def process_all_content() -> dict[str, any] | None:
         f"Found {len(new_items)} new items to process (skipping {len(content_items) - len(new_items)} already done)"
     )
 
-    # Estimate cost
+    # Estimate cost (Haiku Batch: input $0.04/MTok, output $0.20/MTok)
     total_chars = sum(len(item["content"]) for item in new_items)
-    estimated_tokens = total_chars // 4
+    estimated_input_tokens = total_chars // 4
+    estimated_output_tokens = len(new_items) * 300
+    estimated_cost = (estimated_input_tokens * 0.04 + estimated_output_tokens * 0.20) / 1_000_000
     logger.info(
-        f"Processing {len(new_items)} items (~{estimated_tokens:,} input tokens)"
+        f"Estimated cost: ${estimated_cost:.2f} "
+        f"(~{estimated_input_tokens:,} input + ~{estimated_output_tokens:,} output tokens, "
+        f"Haiku Batch pricing)"
     )
 
-    processed = list(existing_processed)  # Start with existing data
+    # Build item lookup for result processing
+    item_lookup = {item["id"]: item for item in new_items}
+
+    # Build and submit batch
+    batch_requests = build_batch_requests(new_items)
+    logger.info(f"Submitting batch of {len(batch_requests)} requests...")
+
+    batch = client.messages.batches.create(requests=batch_requests)
+    logger.info(f"Batch created: {batch.id} (status: {batch.processing_status})")
+
+    # Poll for completion
+    while True:
+        batch = client.messages.batches.retrieve(batch.id)
+        counts = batch.request_counts
+        total = counts.processing + counts.succeeded + counts.errored + counts.canceled + counts.expired
+        done = counts.succeeded + counts.errored + counts.canceled + counts.expired
+        logger.info(
+            f"Batch {batch.id}: {batch.processing_status} "
+            f"({done}/{total} done, {counts.succeeded} succeeded, {counts.errored} errored)"
+        )
+        if batch.processing_status == "ended":
+            break
+        time.sleep(POLL_INTERVAL)
+
+    # Process results
+    logger.info("Batch complete, processing results...")
+    processed = list(existing_processed)
     new_included = 0
     skipped = 0
+    errors = 0
 
-    for i, item in enumerate(new_items):
-        logger.info(f"Processing {i+1}/{len(new_items)}: {item['id']}")
+    for entry in client.messages.batches.results(batch.id):
+        custom_id = entry.custom_id
+        item = item_lookup.get(custom_id)
+        if not item:
+            continue
 
-        result = analyze_content(client, item)
+        if entry.result.type != "succeeded":
+            errors += 1
+            logger.warning(f"Failed: {custom_id} ({entry.result.type})")
+            continue
 
-        if result:
+        try:
+            response_text = entry.result.message.content[0].text.strip()
+            # Strip markdown code fences if present
+            if response_text.startswith("```"):
+                response_text = response_text.split("\n", 1)[1]  # remove ```json line
+                response_text = response_text.rsplit("```", 1)[0]  # remove closing ```
+            analysis = json.loads(response_text)
+
+            result = {
+                "source_id": item["id"],
+                "influencer": item["influencer"],
+                "source_type": item["source_type"],
+                "source_url": item["source_url"],
+                "date_collected": item["date_collected"],
+                **analysis,
+            }
+
             if result.get("relevance_score", 0) >= RELEVANCE_THRESHOLD:
                 processed.append(result)
                 new_included += 1
-                logger.info(f"  -> Score: {result.get('relevance_score')} (included)")
             else:
                 skipped += 1
-                logger.info(f"  -> Score: {result.get('relevance_score')} (skipped)")
 
-        time.sleep(RATE_LIMIT_CLAUDE)
+        except (json.JSONDecodeError, IndexError, KeyError) as e:
+            errors += 1
+            logger.warning(f"Parse error for {custom_id}: {e}")
 
     # Save merged results
     output = {
@@ -240,6 +282,7 @@ def process_all_content() -> dict[str, any] | None:
         "total_processed": len(processed),
         "new_included": new_included,
         "skipped": skipped,
+        "errors": errors,
         "existing_preserved": len(existing_processed),
     }
 
@@ -247,7 +290,8 @@ def process_all_content() -> dict[str, any] | None:
         json.dump(output, f, indent=2)
 
     logger.info(
-        f"Processing complete: {new_included} new included, {skipped} skipped, {len(existing_processed)} preserved"
+        f"Processing complete: {new_included} new included, {skipped} skipped, "
+        f"{errors} errors, {len(existing_processed)} preserved"
     )
     logger.info(f"Total records: {len(processed)}")
     logger.info(f"Output: {OUTPUT_FILE}")

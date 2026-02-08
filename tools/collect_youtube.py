@@ -12,11 +12,14 @@ Output:
     .tmp/youtube_raw.json
 """
 import json
+import os
 import time
 import logging
 from datetime import datetime
+from typing import Optional
 
 from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import GenericProxyConfig
 from youtube_transcript_api._errors import (
     TranscriptsDisabled,
     NoTranscriptFound,
@@ -98,14 +101,17 @@ logger = logging.getLogger(__name__)
 # Jesse Gittler:       Guest on Sales Leader Forums (sales leadership)
 # Julie Hansen:        Guest on Crystal Knows, Heinz Marketing (virtual selling)
 #
-# NO USABLE YOUTUBE CONTENT (6 experts)
+# GUEST APPEARANCES (added via targeted search, 2026-02-07)
+# ----------------------------------------------------------
+# Alexandra Carter:    Negotiation expert — CNBC, Google, BigSpeak, Banking On Cultura (15 videos)
+# Chantel George:      Sistas in Sales channel (@sistasinsales) — summit workshops, panels (15 videos)
+# Justin Michael:      JMM/HYPCCCYCL — FunnelFLARE, Oren Klaff, RightBound, Apollo.io (7 videos)
+#
+# NO USABLE YOUTUBE CONTENT (3 experts)
 # --------------------------------------
 # Ron Kimhi:           No YouTube presence found
-# Justin Michael:      API matched wrong person (DJ "- Topic" auto-channel)
-# Caroline Celis:      Channel found but no sales-relevant content
-# Erica Franklin:      Channel found but no sales-relevant content
-# Alexandra Carter:    API matched wrong person (Alexandra Gater, home decor)
-# Chantel George:      Channel found but no sales-relevant content
+# Caroline Celis:      Only 1 Repvue appearance (too obscure to surface)
+# Erica Franklin:      Appears in Sistas in Sales panels but not named in titles
 
 # Target video IDs (curated list)
 # Format: (video_id, influencer, channel)
@@ -255,6 +261,20 @@ TARGET_VIDEOS = [
     # =====================================================
     # Alexandra Carter
     ("z45in7xwtVk", "Alexandra Carter", "Seth Dechtman - Keynote Speaker Expert"),  # Close Every Deal by Asking THIS QUESTION
+    ("1igeDnw9rF4", "Alexandra Carter", "CNBC Events"),  # Alexandra Carter at CNBC's Your Money: The Art of Negotiation
+    ("2Mw-PApyRbU", "Alexandra Carter", "BigSpeak Speakers Bureau"),  # Negotiation & Self Advocacy for Women
+    ("6n34O_ZIebM", "Alexandra Carter", "CNBC Events"),  # CNBC Women & Wealth How to ask for more
+    ("O6WWp7IH4eI", "Alexandra Carter", "PepTalkHer"),  # Negotiation in Times of Uncertainty
+    ("tEitwtzuvyo", "Alexandra Carter", "PIX11 News"),  # Negotiate your way to success
+    ("cKagoibllok", "Alexandra Carter", "CBS New York"),  # Alexandra Carter On New Book 'Ask for More'
+    ("a4XOg6YqDTo", "Alexandra Carter", "Banking On Cultura"),  # Want to Negotiate Like a Pro? Start Here
+    ("HtU-jpt3i_A", "Alexandra Carter", "Banking On Cultura"),  # Want to Negotiate Like a Pro? Start Here (pt 2)
+    ("HiGlavlCi9o", "Alexandra Carter", "Google Play Books"),  # Ask For More: 10 Questions to Negotiate
+    ("6m9M_ybKQRU", "Alexandra Carter", "SnapTale Audiobook Summaries"),  # Ask for More by Alexandra Carter: 8 Minute Summary
+    ("WyZez_MtlNI", "Alexandra Carter", "5 Minute Mastermind"),  # Ask for More: 10 Questions to Negotiate Anything
+    ("TUTQhKsCCA0", "Alexandra Carter", "Joan Kuhl"),  # Alexandra Carter on Negotiating Flexibility
+    ("D6OwdLvggYI", "Alexandra Carter", "Carmine Gallo TV"),  # The Art of Negotiation
+    ("ybMIF1Y2NV0", "Alexandra Carter", "Seth Dechtman - Keynote Speaker Expert"),  # You Can Get What You Want in Any Negotiation
     # Amy Volas
     ("51vb2QHq4mw", "Amy Volas", "Amy Volas Avenue Talent Partners"),  # Amy Volas - 2020 B2B sales predictions
     ("0FY1P5CmMng", "Amy Volas", "Amy Volas Avenue Talent Partners"),  # Hiring Your First Sales Leade
@@ -374,6 +394,22 @@ TARGET_VIDEOS = [
     ("71PToWWiytY", "Colin Specter", "Colin Specter"),  # 2023 Sales Tech: Point Solutions vs All-in-one
     ("U2gV1cPiU58", "Colin Specter", "Colin Specter"),  # Key ingredient to successful sales teams
     ("Gfxh8A2xV0o", "Colin Specter", "Heavybit"),  # From SDR to AE: How to Turbocharge Your Career
+    # Chantel George (Sistas in Sales)
+    ("p6tFAfls15A", "Chantel George", "Sistas in Sales"),  # Hey SIS! Interview with Anna Robinson, Enterprise Sales
+    ("xzETSTsj7JI", "Chantel George", "Sistas in Sales"),  # Jackie McKinley - U.S. Area Enterprise Sales Leader, NetApp
+    ("A1ja3U3Ap20", "Chantel George", "Sistas in Sales"),  # Leadership Workshop: Divergent Strategies for Revenue
+    ("Hq9ZP-fmERU", "Chantel George", "Sistas in Sales"),  # Leveraging Internal Relationships to Succeed in Sales
+    ("rJRhkIY0YrE", "Chantel George", "Sistas in Sales"),  # All In Tech Sales: Understanding the Art of Tech Sales
+    ("moFpYNa5Mhc", "Chantel George", "Sistas in Sales"),  # All In: Tech Sales, Understanding the Art of Tech Sales
+    ("KxD31qNZ7lg", "Chantel George", "Sistas in Sales"),  # Sistas in Sales x Walmart Connect Fireside Chat
+    ("ZQutGSa9sT0", "Chantel George", "Sistas in Sales"),  # Kerry Washington - Sistas in Sales Keynote 2023
+    ("jqaSPxsBn1Y", "Chantel George", "Sistas in Sales"),  # Getting your Start in Sales: How to get Your Foot in the Door
+    ("CRVlD1AgCBs", "Chantel George", "Sistas in Sales"),  # Delores Bennett Rochester, Cloud Infrastructure Sales
+    ("vf2DrQKIRfs", "Chantel George", "Sistas in Sales"),  # SIStory: Living Legacies Executive Sales Leader Panel
+    ("U3hHm3sM9Dg", "Chantel George", "Sistas in Sales"),  # Health is Wealth: Sales Professional Wellness Journey
+    ("5zvOvFCyrAs", "Chantel George", "Sistas in Sales"),  # Building your Personal Brand As a New Seller
+    ("Mc_a6_FbJj8", "Chantel George", "Sistas in Sales"),  # Generative AI & The Impact of the Sales Industry
+    ("GXyvjJGE_SE", "Chantel George", "Sistas in Sales"),  # State of the Customer: A Leader's Perspective
     # Daniel Disney
     ("molWx_GTIfo", "Daniel Disney", "Daniel Disney"),  # FUNNY SALES MEME! WALKING BACK AFTER CLOSING A DEAL
     ("kz5v-YYEXiY", "Daniel Disney", "Daniel Disney"),  # 7 LinkedIn Social Selling Tips In 7 Minutes
@@ -533,6 +569,14 @@ TARGET_VIDEOS = [
     ("sey54Hu7O4c", "Jim Keenan", "Keenan"),  # The ONE Discovery Question - GAME CHANGER!
     ("Qns0rsE4Ojw", "Jim Keenan", "Keenan"),  # Building the Gap Between Sales
     ("HePENL6liYA", "Jim Keenan", "CNBC Television"),  # BlackRock's Jim Keenan breaks down strategy
+    # Justin Michael (JMM / HYPCCCYCL)
+    ("E6XT502Ot98", "Justin Michael", "FunnelFLARE"),  # Using the Route, Ruin, Multiply Technique for Cold Calling
+    ("42wvhFemn2E", "Justin Michael", "HYPCCCYCL"),  # Anthony Iannarino - Role call cold call
+    ("rY2ob3fcphE", "Justin Michael", "Outbound Business Development"),  # Apollo.io: A Modern Tech Stack for Outbound Sales
+    ("qpUnYwqSw5Q", "Justin Michael", "Oren Klaff"),  # Would the CEO of a $500MM company open your COLD Email?
+    ("PbdvDL7ZBwU", "Justin Michael", "Trent Dressel"),  # How To Cold Email Clients (Best Cold Email Templates)
+    ("GkrZau1w4g4", "Justin Michael", "Gerhard Gschwandtner"),  # HOW TO REACH MORE PROSPECTS WITH RIGHTBOUND
+    ("4Od3fn2Of7U", "Justin Michael", "RightBound"),  # Tenbound, The Sales Development Podcast
     # John Barrows (new videos)
     ("HLouBf1OcVg", "John Barrows", "John Barrows"),  # Why Buyer Enablement Beats Sales Enablement
     ("d5UnXlfS3ok", "John Barrows", "John Barrows"),  # How to Sell Like a CEO ($100M+ in Sales)
@@ -838,6 +882,11 @@ def chunk_transcript(
     return chunks
 
 
+_proxy_url = os.environ.get("DECODO_PROXY_URL")
+if _proxy_url:
+    logger.info("Decodo residential proxy enabled")
+
+
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=1, min=2, max=10),
@@ -845,12 +894,20 @@ def chunk_transcript(
     reraise=True,
 )
 def _fetch_transcript(video_id: str) -> list[any]:
-    """Fetch transcript with retry logic."""
-    ytt_api = YouTubeTranscriptApi()
-    return ytt_api.fetch(video_id)
+    """Fetch transcript via proxy (new connection per request for IP rotation)."""
+    if _proxy_url:
+        api = YouTubeTranscriptApi(
+            proxy_config=GenericProxyConfig(
+                http_url=_proxy_url,
+                https_url=_proxy_url,
+            )
+        )
+    else:
+        api = YouTubeTranscriptApi()
+    return api.fetch(video_id)
 
 
-def get_transcript(video_id: str) -> str | None:
+def get_transcript(video_id: str) -> Optional[str]:
     """Fetch transcript for a YouTube video."""
     try:
         transcript_list = _fetch_transcript(video_id)

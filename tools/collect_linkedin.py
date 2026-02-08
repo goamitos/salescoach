@@ -13,6 +13,7 @@ Output:
 """
 import json
 import time
+from typing import Any, Optional
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -34,7 +35,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Sales Influencers (44 individual experts)
+# Sales Influencers (48 individual experts)
 INFLUENCERS = [
     {
         "name": "Ian Koniak",
@@ -122,6 +123,11 @@ INFLUENCERS = [
     {"name": "Erica Franklin", "linkedin": "erica-franklin", "focus": "DEI advocacy, enterprise account mgmt"},
     {"name": "Maria Bross", "linkedin": "mariabross", "focus": "SDR call reluctance, coaching"},
     {"name": "Niraj Kapur", "linkedin": "nkapur", "focus": "building trust with prospects"},
+    # --- OG16 missing from original list ---
+    {"name": "John Barrows", "linkedin": "johnbarrows", "focus": "enterprise selling, prospecting"},
+    {"name": "Josh Braun", "linkedin": "josh-braun", "focus": "cold outreach, objection handling"},
+    {"name": "Jeb Blount", "linkedin": "jebblount", "focus": "prospecting, sales leadership"},
+    {"name": "Chris Voss", "linkedin": "christophervoss", "focus": "negotiation, tactical empathy"},
 ]
 
 # Sales keywords for enhanced searches
@@ -227,7 +233,7 @@ def _fetch_url(url: str, headers: dict[str, str]) -> str:
     return response.text
 
 
-def fetch_post_preview(url: str) -> dict | None:
+def fetch_post_preview(url: str) -> Optional[dict]:
     """
     Fetch LinkedIn post preview content.
     Gets meta description and og:description which contain post preview.
@@ -277,7 +283,7 @@ def fetch_post_preview(url: str) -> dict | None:
         return None
 
 
-def collect_posts() -> dict[str, any] | None:
+def collect_posts() -> Optional[dict[str, Any]]:
     """Main collection function."""
     logger.info("=" * 60)
     logger.info("LINKEDIN COLLECTION VIA SERPER.DEV")

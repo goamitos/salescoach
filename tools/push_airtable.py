@@ -17,6 +17,7 @@ Output:
 import json
 import logging
 import time
+from typing import Optional
 from pyairtable import Api
 from pyairtable.formulas import match
 
@@ -25,6 +26,7 @@ from config import (
     AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID,
     AIRTABLE_TABLE_NAME,
+    DEAL_STAGES,
 )
 
 # Configure logging
@@ -37,14 +39,38 @@ logger = logging.getLogger(__name__)
 INPUT_FILE = TMP_DIR / "processed_content.json"
 
 
-def format_list_field(items: list[str] | None) -> str:
+# Stages that exist as Airtable single-select options (subset of DEAL_STAGES)
+AIRTABLE_STAGES = {
+    "Account Research", "Business Case Development", "Demo & Presentation",
+    "Discovery", "General Sales Mindset", "Initial Contact", "Needs Analysis",
+    "Outreach Strategy", "Procurement & Negotiation", "Stakeholder Mapping",
+    "Territory Planning",
+}
+
+# Map valid deal stages that don't exist in Airtable to closest match
+STAGE_REMAP = {
+    "Closing": "Procurement & Negotiation",
+    "Onboarding & Expansion": "General Sales Mindset",
+    "Proof of Value": "Business Case Development",
+    "RFP/RFQ Response": "Procurement & Negotiation",
+}
+
+
+def sanitize_stage(stage: str) -> str:
+    """Map stage name to an Airtable-compatible option."""
+    if stage in AIRTABLE_STAGES:
+        return stage
+    return STAGE_REMAP.get(stage, "General Sales Mindset")
+
+
+def format_list_field(items: Optional[list[str]]) -> str:
     """Format list as comma-separated string for Airtable multi-select."""
     if not items:
         return ""
     return ", ".join(str(item) for item in items)
 
 
-def format_multiline_field(items: list[str] | None) -> str:
+def format_multiline_field(items: Optional[list[str]]) -> str:
     """Format list as newline-separated string for Airtable long text."""
     if not items:
         return ""
@@ -128,8 +154,10 @@ def push_to_airtable() -> None:
                 "Source Type": source_type,
                 "Source URL": source_url,
                 "Date Collected": item.get("date_collected", "")[:10],
-                "Primary Stage": item.get("primary_stage", ""),
-                "Secondary Stages": format_list_field(item.get("secondary_stages", [])),
+                "Primary Stage": sanitize_stage(item.get("primary_stage", "")),
+                "Secondary Stages": format_list_field(
+                    [sanitize_stage(s) for s in item.get("secondary_stages", [])]
+                ),
                 "Key Insight": item.get("key_insight", ""),
                 "Tactical Steps": format_multiline_field(item.get("tactical_steps", [])),
                 "Keywords": format_list_field(item.get("keywords", [])),
