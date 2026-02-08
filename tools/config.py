@@ -24,6 +24,21 @@ OUTPUTS_DIR = PROJECT_ROOT / "outputs"
 WORKFLOWS_DIR = PROJECT_ROOT / "workflows"
 DATA_DIR = PROJECT_ROOT / "data"
 DB_PATH = DATA_DIR / "sales_coach.db"
+INFLUENCERS_PATH = DATA_DIR / "influencers.json"
+INFLUENCERS_JSON = INFLUENCERS_PATH  # alias used by collect scripts
+PERSONAS_PATH = DATA_DIR / "personas.json"
+
+
+def load_influencer_registry():
+    """Load the influencer registry from data/influencers.json.
+
+    Returns the list of expert dicts (both active and company profiles).
+    """
+    import json
+
+    with open(INFLUENCERS_PATH) as f:
+        data = json.load(f)
+    return data["influencers"]
 
 # Ensure directories exist
 TMP_DIR.mkdir(exist_ok=True)
@@ -42,6 +57,18 @@ RELEVANCE_THRESHOLD = 7
 CLAUDE_MODEL = "claude-haiku-4-5-20251001"
 CLAUDE_MAX_TOKENS = 1500
 CLAUDE_TEMPERATURE = 0.3
+
+# Persona generation settings (Sonnet for voice analysis nuance)
+PERSONA_CLAUDE_MODEL = "claude-sonnet-4-20250514"
+PERSONA_MAX_TOKENS = 4000
+PERSONA_TEMPERATURE = 0.4
+PERSONA_POLL_INTERVAL = 30
+
+# Persona confidence thresholds
+PERSONA_HIGH_INSIGHTS = 20
+PERSONA_HIGH_CHARS = 30_000
+PERSONA_MEDIUM_INSIGHTS = 10
+PERSONA_MEDIUM_CHARS = 10_000
 
 # Deal stages for categorization
 DEAL_STAGES = [
