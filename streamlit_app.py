@@ -19,11 +19,18 @@ from __future__ import annotations
 
 import base64
 import re
+import sys
 from typing import Optional
 from pathlib import Path
 import streamlit as st
-from pyairtable import Api
 import anthropic
+
+# Add tools/ to path so we can import db module
+sys.path.insert(0, str(Path(__file__).parent / "tools"))
+from db import (
+    get_connection, init_db, search_insights,
+    get_methodology_tree, get_insights_by_methodology, get_tags_for_insights,
+)
 
 # Page config - must be first Streamlit command
 st.set_page_config(
@@ -420,6 +427,101 @@ p, span, div, label, li {
     background: transparent !important;
 }
 
+/* Methodology tags */
+.methodology-tag {
+    display: inline-block;
+    background: var(--gold-glow);
+    color: var(--gold);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.7rem;
+    margin: 1px 2px;
+    font-family: 'Crimson Pro', serif;
+    letter-spacing: 0.02em;
+}
+
+/* Methodology explorer */
+.methodology-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.methodology-card h3 {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.3rem;
+    color: var(--gold) !important;
+}
+
+.methodology-card .meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.methodology-card .overview {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.component-item {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid var(--gold-dim);
+    padding: 0.5rem 0.75rem;
+    margin: 0.4rem 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.component-item .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.component-item .desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+.component-item .how-to {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.methodology-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1rem;
+}
+
+.methodology-nav-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.methodology-nav-btn:hover,
+.methodology-nav-btn.active {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: var(--gold-glow);
+}
+
 /* Hide Streamlit chrome */
 #MainMenu, footer, [data-testid="stToolbar"] { visibility: hidden; }
 
@@ -624,9 +726,6 @@ def get_secrets() -> dict[str, Optional[str]]:
     try:
         return {
             "anthropic_key": st.secrets["ANTHROPIC_API_KEY"],
-            "airtable_key": st.secrets["AIRTABLE_API_KEY"],
-            "airtable_base": st.secrets["AIRTABLE_BASE_ID"],
-            "airtable_table": st.secrets.get("AIRTABLE_TABLE_NAME", "Sales Wisdom"),
         }
     except Exception:
         import os
@@ -635,34 +734,32 @@ def get_secrets() -> dict[str, Optional[str]]:
         load_dotenv()
         return {
             "anthropic_key": os.getenv("ANTHROPIC_API_KEY"),
-            "airtable_key": os.getenv("AIRTABLE_API_KEY"),
-            "airtable_base": os.getenv("AIRTABLE_BASE_ID"),
-            "airtable_table": os.getenv("AIRTABLE_TABLE_NAME", "Sales Wisdom"),
         }
 
 
 @st.cache_data(ttl=300)
-def fetch_records(_airtable_key: str, _base_id: str, _table_name: str) -> list[dict[str, any]]:
-    """Fetch all records from Airtable (cached)."""
-    base_id = _base_id.split("/")[0]
-    api = Api(_airtable_key)
-    table = api.table(base_id, _table_name)
-    return table.all()
+def fetch_records() -> list[dict]:
+    """Fetch all insight records from SQLite (cached)."""
+    init_db()
+    conn = get_connection()
+    try:
+        rows = conn.execute("SELECT * FROM insights ORDER BY relevance_score DESC").fetchall()
+        return [dict(row) for row in rows]
+    finally:
+        conn.close()
 
 
 def score_record(
     record: dict, user_keywords: list[str], matched_stages: list[str]
 ) -> float:
     """Score a record based on keyword and stage matches."""
-    fields = record.get("fields", {})
-
-    insight = (fields.get("Key Insight") or "").lower()
-    stage = (fields.get("Primary Stage") or "").lower()
-    secondary = (fields.get("Secondary Stages") or "").lower()
-    steps = (fields.get("Tactical Steps") or "").lower()
-    keywords = (fields.get("Keywords") or "").lower()
-    situations = (fields.get("Situation Examples") or "").lower()
-    quote = (fields.get("Best Quote") or "").lower()
+    insight = (record.get("key_insight") or "").lower()
+    stage = (record.get("primary_stage") or "").lower()
+    secondary = (record.get("secondary_stages") or "").lower()
+    steps = (record.get("tactical_steps") or "").lower()
+    keywords = (record.get("keywords") or "").lower()
+    situations = (record.get("situation_examples") or "").lower()
+    quote = (record.get("best_quote") or "").lower()
 
     combined = f"{insight} {stage} {secondary} {steps} {keywords} {situations} {quote}"
 
@@ -675,16 +772,45 @@ def score_record(
         if matched_stage in stage or matched_stage in secondary:
             score += 3
 
-    original_score = fields.get("Relevance Score") or 0
+    original_score = record.get("relevance_score") or 0
     score += original_score / 5
 
     return score
 
 
 def find_relevant_records(
-    records: list[dict], scenario: str, top_n: int = 5
+    records: list[dict], scenario: str, top_n: int = 5,
+    influencer_slug: Optional[str] = None, stages: Optional[list[str]] = None,
 ) -> list[dict]:
-    """Find the most relevant records for a given scenario."""
+    """Find the most relevant records using FTS5 search with optional filters.
+
+    Uses SQLite full-text search for fast relevance matching, then optionally
+    filters by influencer and/or stage. Falls back to keyword scoring if FTS5
+    returns no results.
+    """
+    # Try FTS5 search first (fast, relevance-ranked)
+    conn = get_connection()
+    try:
+        fts_results = search_insights(conn, scenario, limit=top_n * 3)
+    finally:
+        conn.close()
+
+    # Apply influencer filter if set
+    if influencer_slug and fts_results:
+        fts_results = [r for r in fts_results if r.get("influencer_slug") == influencer_slug]
+
+    # Apply stage filter if set
+    if stages and fts_results:
+        stages_lower = [s.lower() for s in stages]
+        fts_results = [
+            r for r in fts_results
+            if any(s in (r.get("primary_stage") or "").lower() for s in stages_lower)
+        ]
+
+    if fts_results:
+        return fts_results[:top_n]
+
+    # Fallback: keyword scoring over the pre-loaded record set
     user_keywords = [
         word.lower() for word in re.findall(r"\w+", scenario) if len(word) > 3
     ]
@@ -705,17 +831,16 @@ def find_relevant_records(
     return [record for record, _ in scored[:top_n]]
 
 
-def build_context(records: list[dict[str, any]]) -> str:
+def build_context(records: list[dict]) -> str:
     """Build context string from relevant records."""
     parts = []
     for record in records:
-        fields = record.get("fields", {})
-        influencer = fields.get("Influencer") or "Unknown"
-        stage = fields.get("Primary Stage") or "General"
-        insight = fields.get("Key Insight") or ""
-        steps = fields.get("Tactical Steps") or ""
-        situations = fields.get("Situation Examples") or ""
-        quote = fields.get("Best Quote") or ""
+        influencer = record.get("influencer_name") or "Unknown"
+        stage = record.get("primary_stage") or "General"
+        insight = record.get("key_insight") or ""
+        steps = record.get("tactical_steps") or ""
+        situations = record.get("situation_examples") or ""
+        quote = record.get("best_quote") or ""
 
         part = f"**{influencer}** ({stage}):\nInsight: {insight}"
         if steps:
@@ -797,23 +922,22 @@ Provide specific, actionable coaching advice. Reference which expert's wisdom yo
     return response.content[0].text
 
 
-def get_records_for_stage_group(records: list[dict[str, any]], stages: list[str]) -> list[dict[str, any]]:
+def get_records_for_stage_group(records: list[dict], stages: list[str]) -> list[dict]:
     """Get all records that match any of the given stages."""
     matching = []
     for record in records:
-        fields = record.get("fields", {})
-        primary = fields.get("Primary Stage") or ""
-        secondary = fields.get("Secondary Stages") or ""
+        primary = (record.get("primary_stage") or "").lower()
+        secondary = (record.get("secondary_stages") or "").lower()
 
         for stage in stages:
-            if stage.lower() in primary.lower() or stage.lower() in secondary.lower():
+            if stage.lower() in primary or stage.lower() in secondary:
                 matching.append(record)
                 break
     return matching
 
 
 def synthesize_stage_insight(
-    anthropic_key: str, group_name: str, records: list[dict[str, any]]
+    anthropic_key: str, group_name: str, records: list[dict]
 ) -> str:
     """Synthesize a golden insight for a stage group (max 15 words)."""
     if not records:
@@ -822,9 +946,8 @@ def synthesize_stage_insight(
     # Build context from records (limit to 5 for faster response)
     insights = []
     for record in records[:5]:
-        fields = record.get("fields", {})
-        insight = fields.get("Key Insight") or ""
-        influencer = fields.get("Influencer") or ""
+        insight = record.get("key_insight") or ""
+        influencer = record.get("influencer_name") or ""
         if insight:
             # Truncate long insights
             short_insight = insight[:150] + "..." if len(insight) > 150 else insight
@@ -1044,7 +1167,7 @@ def render_header() -> None:
         )
 
 
-def get_stage_counts(records: list[dict[str, any]]) -> dict[str, int]:
+def get_stage_counts(records: list[dict]) -> dict[str, int]:
     """Count records per stage group."""
     counts = {"All": len(records)}
     for group_name, stages in STAGE_GROUPS.items():
@@ -1056,7 +1179,7 @@ def get_stage_counts(records: list[dict[str, any]]) -> dict[str, int]:
     return counts
 
 
-def render_stage_tabs(records: list[dict[str, any]]) -> None:
+def render_stage_tabs(records: list[dict]) -> None:
     """Render stage filter as a compact selectbox."""
     # Initialize selected stage in session state
     if "selected_stage_group" not in st.session_state:
@@ -1135,7 +1258,7 @@ def render_welcome_state() -> None:
                 st.rerun()
 
 
-def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[str, any]]) -> None:
+def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict]) -> None:
     """Render chat interface with conversation title, persona filtering, and stage filtering."""
     # Initialize session state
     if "messages" not in st.session_state:
@@ -1147,25 +1270,23 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
 
     # Filter records based on selected persona
     filtered_records = records
-    if st.session_state.get("selected_persona"):
-        # Get the actual influencer name from the slug for exact matching
-        persona_name = get_influencer_name(st.session_state.selected_persona)
+    selected_slug = st.session_state.get("selected_persona")
+    if selected_slug:
         filtered_records = [
-            r
-            for r in filtered_records
-            if (r.get("fields", {}).get("Influencer") or "").lower() == persona_name.lower()
+            r for r in filtered_records
+            if r.get("influencer_slug") == selected_slug
         ]
-        # Note: Expert info panel is now shown in header, no need to duplicate here
 
     # Filter records based on selected stage group
     stage_group = st.session_state.get("selected_stage_group", "All")
+    active_stages = None
     if stage_group != "All":
         if stage_group == "General Sales Mindset":
-            stages = ["General Sales Mindset"]
+            active_stages = ["General Sales Mindset"]
         else:
-            stages = STAGE_GROUPS.get(stage_group, [])
-        if stages:
-            filtered_records = get_records_for_stage_group(filtered_records, stages)
+            active_stages = STAGE_GROUPS.get(stage_group, [])
+        if active_stages:
+            filtered_records = get_records_for_stage_group(filtered_records, active_stages)
 
     # Handle prefilled question from suggestion buttons
     prefill = st.session_state.pop("prefill_question", None)
@@ -1185,7 +1306,10 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
             words = prefill.split()[:5]
             st.session_state.conversation_title = " ".join(words) + "..."
         # Get response
-        relevant = find_relevant_records(filtered_records, prefill)
+        relevant = find_relevant_records(
+            filtered_records, prefill,
+            influencer_slug=selected_slug, stages=active_stages,
+        )
         if relevant:
             context = build_context(relevant)
             response = get_coaching_advice(
@@ -1197,12 +1321,15 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
             )
             sources = [
                 {
-                    "influencer": r.get("fields", {}).get("Influencer", "Unknown"),
-                    "stage": r.get("fields", {}).get("Primary Stage", "General"),
-                    "url": r.get("fields", {}).get("Source URL", ""),
+                    "influencer": r.get("influencer_name", "Unknown"),
+                    "stage": r.get("primary_stage", "General"),
+                    "url": r.get("source_url", ""),
                 }
                 for r in relevant
             ]
+            sources = enrich_sources_with_tags(
+                sources, [r.get("id", "") for r in relevant]
+            )
         else:
             response = "I couldn't find specific insights matching your question."
             sources = []
@@ -1226,9 +1353,12 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
                 if message.get("sources"):
                     with st.expander("📚 View sources", expanded=False):
                         for source in message["sources"]:
+                            tags_html = render_source_tags(source.get("tags", []))
                             st.markdown(
                                 f"**{source['influencer']}** ({source['stage']})"
                             )
+                            if tags_html:
+                                st.markdown(tags_html, unsafe_allow_html=True)
                             if source.get("url"):
                                 st.markdown(f"[View source]({source['url']})")
 
@@ -1257,8 +1387,11 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
                             "..." if len(prompt.split()) > 5 else ""
                         )
 
-                # Find relevant records from filtered set
-                relevant = find_relevant_records(filtered_records, prompt)
+                # Find relevant records using FTS5 search
+                relevant = find_relevant_records(
+                    filtered_records, prompt,
+                    influencer_slug=selected_slug, stages=active_stages,
+                )
 
                 if not relevant:
                     if st.session_state.get("selected_persona"):
@@ -1271,7 +1404,6 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
                     # Get advice with conversation context
                     context = build_context(relevant)
 
-                    # Modify system prompt for persona if selected
                     selected_persona = st.session_state.get("selected_persona")
                     response = get_coaching_advice(
                         secrets["anthropic_key"],
@@ -1282,12 +1414,15 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
                     )
                     sources = [
                         {
-                            "influencer": r.get("fields", {}).get("Influencer", "Unknown"),
-                            "stage": r.get("fields", {}).get("Primary Stage", "General"),
-                            "url": r.get("fields", {}).get("Source URL", ""),
+                            "influencer": r.get("influencer_name", "Unknown"),
+                            "stage": r.get("primary_stage", "General"),
+                            "url": r.get("source_url", ""),
                         }
                         for r in relevant
                     ]
+                    sources = enrich_sources_with_tags(
+                        sources, [r.get("id", "") for r in relevant]
+                    )
 
         # Add assistant response
         st.session_state.messages.append(
@@ -1312,7 +1447,7 @@ def render_chat_interface(secrets: dict[str, Optional[str]], records: list[dict[
                 st.rerun()
 
 
-def render_mindset_callout(secrets: dict[str, Optional[str]], records: list[dict[str, any]]) -> None:
+def render_mindset_callout(secrets: dict[str, Optional[str]], records: list[dict]) -> None:
     """Render the always-visible mindset callout."""
     # Initialize session state
     if "stage_insights" not in st.session_state:
@@ -1346,6 +1481,178 @@ def render_mindset_callout(secrets: dict[str, Optional[str]], records: list[dict
     )
 
 
+@st.cache_data(ttl=600)
+def fetch_methodologies() -> list[dict]:
+    """Load methodology tree from SQLite (cached)."""
+    conn = get_connection()
+    try:
+        return get_methodology_tree(conn)
+    finally:
+        conn.close()
+
+
+def enrich_sources_with_tags(sources: list[dict], insight_ids: list[str]) -> list[dict]:
+    """Add methodology tags to source dicts for display."""
+    if not insight_ids:
+        return sources
+    conn = get_connection()
+    try:
+        tags_map = get_tags_for_insights(conn, insight_ids)
+    finally:
+        conn.close()
+
+    for source, iid in zip(sources, insight_ids):
+        source["tags"] = tags_map.get(iid, [])
+    return sources
+
+
+def render_source_tags(tags: list[dict]) -> str:
+    """Render methodology tags as HTML spans."""
+    if not tags:
+        return ""
+    # Deduplicate by methodology name, keep top 3
+    seen = set()
+    unique = []
+    for t in tags:
+        key = t["methodology"]
+        if key not in seen:
+            seen.add(key)
+            unique.append(t)
+    unique = unique[:3]
+    html = " ".join(
+        f'<span class="methodology-tag">{t["methodology"]}: {t["component"]}</span>'
+        for t in unique
+    )
+    return html
+
+
+def render_methodology_explorer(methodologies: list[dict]) -> None:
+    """Render an interactive methodology explorer with expandable cards."""
+    if not methodologies:
+        return
+
+    # Initialize state
+    if "explorer_methodology" not in st.session_state:
+        st.session_state.explorer_methodology = None
+
+    # Methodology selector buttons
+    cols = st.columns(min(len(methodologies), 5))
+    for i, m in enumerate(methodologies):
+        col_idx = i % min(len(methodologies), 5)
+        with cols[col_idx]:
+            label = m.get("name", "")
+            if st.button(label, key=f"meth_{m['id']}", use_container_width=True):
+                if st.session_state.explorer_methodology == m["id"]:
+                    st.session_state.explorer_methodology = None  # toggle off
+                else:
+                    st.session_state.explorer_methodology = m["id"]
+                st.rerun()
+
+    # Show selected methodology detail
+    selected_id = st.session_state.explorer_methodology
+    if not selected_id:
+        return
+
+    selected = next((m for m in methodologies if m["id"] == selected_id), None)
+    if not selected:
+        return
+
+    # Methodology overview card
+    author = selected.get("author") or ""
+    category = selected.get("category") or ""
+    overview = selected.get("overview") or ""
+    philosophy = selected.get("core_philosophy") or ""
+    when_to_use = selected.get("when_to_use") or ""
+    strengths = selected.get("strengths") or ""
+    limitations = selected.get("limitations") or ""
+
+    meta_parts = []
+    if author:
+        meta_parts.append(f"By {author}")
+    if category:
+        meta_parts.append(category)
+    meta_text = " · ".join(meta_parts)
+
+    st.markdown(
+        f"""<div class="methodology-card">
+            <h3>{selected['name']}</h3>
+            <div class="meta">{meta_text}</div>
+            <div class="overview">{overview}</div>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+    # Tabs for details
+    if philosophy or when_to_use or strengths:
+        detail_tabs = st.tabs(["Philosophy", "When to Use", "Strengths & Limitations", "Components"])
+
+        with detail_tabs[0]:
+            if philosophy:
+                st.markdown(philosophy)
+            else:
+                st.caption("No philosophy content yet.")
+
+        with detail_tabs[1]:
+            if when_to_use:
+                st.markdown(when_to_use)
+            else:
+                st.caption("No usage guidance yet.")
+
+        with detail_tabs[2]:
+            if strengths:
+                st.markdown(f"**Strengths:** {strengths}")
+            if limitations:
+                st.markdown(f"**Limitations:** {limitations}")
+            if not strengths and not limitations:
+                st.caption("No analysis yet.")
+
+        with detail_tabs[3]:
+            components = selected.get("components", [])
+            if not components:
+                st.caption("No components defined.")
+            else:
+                for comp in components:
+                    desc = comp.get("description") or ""
+                    how_to = comp.get("how_to_execute") or ""
+                    mistakes = comp.get("common_mistakes") or ""
+
+                    # Truncate long descriptions for card view
+                    short_desc = desc[:200] + "..." if len(desc) > 200 else desc
+
+                    html = f"""<div class="component-item">
+                        <div class="name">{comp['name']}</div>
+                        <div class="desc">{short_desc}</div>"""
+                    if how_to:
+                        short_how = how_to[:150] + "..." if len(how_to) > 150 else how_to
+                        html += f'<div class="how-to">How to: {short_how}</div>'
+                    html += "</div>"
+                    st.markdown(html, unsafe_allow_html=True)
+
+                    # Expandable full detail
+                    if len(desc) > 200 or mistakes:
+                        with st.expander(f"Full detail: {comp['name']}"):
+                            if desc:
+                                st.markdown(f"**Description:** {desc}")
+                            if how_to:
+                                st.markdown(f"**How to execute:** {how_to}")
+                            if mistakes:
+                                st.markdown(f"**Common mistakes:** {mistakes}")
+                            if comp.get("example_scenario"):
+                                st.markdown(f"**Example:** {comp['example_scenario']}")
+    else:
+        # Just show components if no other content
+        components = selected.get("components", [])
+        for comp in components:
+            desc = comp.get("description") or ""
+            st.markdown(
+                f"""<div class="component-item">
+                    <div class="name">{comp['name']}</div>
+                    <div class="desc">{desc}</div>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+
+
 def main() -> None:
     """Main app entry point."""
     # Render centered header with avatars (always visible, even without secrets)
@@ -1354,32 +1661,26 @@ def main() -> None:
     # Get secrets
     secrets = get_secrets()
 
-    if not all(
-        [secrets["anthropic_key"], secrets["airtable_key"], secrets["airtable_base"]]
-    ):
-        st.error("Missing API credentials. Please configure secrets.")
+    if not secrets["anthropic_key"]:
+        st.error("Missing ANTHROPIC_API_KEY. Please configure secrets.")
         st.markdown(
             """
-        **For Streamlit Cloud**: Add secrets in your app settings.
+        **For Streamlit Cloud**: Add `ANTHROPIC_API_KEY` in your app settings.
 
         **For local development**: Create a `.env` file with:
         ```
         ANTHROPIC_API_KEY=your_key
-        AIRTABLE_API_KEY=your_key
-        AIRTABLE_BASE_ID=your_base_id
-        AIRTABLE_TABLE_NAME=Sales Wisdom
         ```
         """
         )
         return
 
-    # Load records
+    # Load records and methodologies from SQLite
     try:
-        records = fetch_records(
-            secrets["airtable_key"], secrets["airtable_base"], secrets["airtable_table"]
-        )
+        records = fetch_records()
+        methodologies = fetch_methodologies()
     except Exception as e:
-        st.error(f"Failed to load Airtable data: {e}")
+        st.error(f"Failed to load data from SQLite: {e}")
         return
 
     # Only show stage filter when there's an active conversation
@@ -1392,12 +1693,21 @@ def main() -> None:
     # Chat interface (full width)
     render_chat_interface(secrets, records)
 
+    # Methodology explorer (below chat)
+    methodology_count = sum(len(m.get("components", [])) for m in methodologies)
+    st.markdown("---")
+    with st.expander(
+        f"📖 Sales Methodologies ({len(methodologies)} frameworks, {methodology_count} components)",
+        expanded=False,
+    ):
+        render_methodology_explorer(methodologies)
+
     # Minimal footer
     influencer_count = len(load_influencers_from_registry())
     st.markdown(
         f"""
         <div class="footer-text">
-            Powered by Claude AI • {len(records)} insights from {influencer_count} experts
+            Powered by Claude AI · {len(records)} insights · {len(methodologies)} methodologies · {influencer_count} experts
         </div>
         """,
         unsafe_allow_html=True,
