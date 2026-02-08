@@ -1,0 +1,1025 @@
+/* ═══════════════════════════════════════════════════════
+   Sales Coach AI — Design System
+   Dark theme with gold accents, editorial typography
+   ═══════════════════════════════════════════════════════ */
+
+/* Google Fonts — Editorial typography */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────── */
+:root {
+    /* Backgrounds */
+    --bg-deep: #0f0f1a;
+    --bg-surface: #1a1a2e;
+    --bg-elevated: #252540;
+    --bg-card: rgba(25, 25, 40, 0.8);
+    --bg-hover: rgba(212, 165, 116, 0.08);
+    --bg-input: rgba(25, 25, 40, 0.6);
+
+    /* Gold palette */
+    --gold-primary: #D4A574;
+    --gold-light: #E8C9A0;
+    --gold-dim: rgba(212, 165, 116, 0.6);
+    --gold-subtle: rgba(212, 165, 116, 0.12);
+    --gold-glow: rgba(212, 165, 116, 0.15);
+
+    /* Text */
+    --text-primary: #f5f5f5;
+    --text-secondary: #a0a0b0;
+    --text-muted: #6a6a7a;
+
+    /* Borders */
+    --border: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(212, 165, 116, 0.3);
+    --border-active: rgba(212, 165, 116, 0.5);
+
+    /* Stage colors */
+    --stage-planning: #60a5fa;
+    --stage-outreach: #4ade80;
+    --stage-discovery: #f59e0b;
+    --stage-present: #a78bfa;
+    --stage-close: #f43f5e;
+    --stage-mindset: #D4A574;
+
+    /* Confidence badge colors */
+    --confidence-high: #4ade80;
+    --confidence-medium: #f59e0b;
+    --confidence-low: #6a6a7a;
+
+    /* Methodology category colors */
+    --method-qualification: #60a5fa;
+    --method-communication: #a78bfa;
+    --method-negotiation: #f43f5e;
+    --method-consultative: #4ade80;
+    --method-value: #f59e0b;
+
+    /* Radii */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 20px var(--gold-glow);
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+}
+
+/* ── Global ────────────────────────────────────────── */
+.stApp {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(212, 165, 116, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(100, 100, 150, 0.03) 0%, transparent 50%),
+        var(--bg-deep) !important;
+    font-family: 'Crimson Pro', Georgia, serif !important;
+    min-height: 100vh;
+}
+
+.stApp > header { background: transparent !important; }
+
+/* Hide Streamlit chrome */
+#MainMenu, footer, [data-testid="stToolbar"] { visibility: hidden; }
+
+/* Layout */
+.block-container {
+    padding: 0.75rem 1.5rem 2rem !important;
+    max-width: 1100px !important;
+}
+
+/* ── Typography ────────────────────────────────────── */
+h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.02em;
+}
+
+p, span, div, label, li {
+    color: var(--text-primary);
+    font-family: 'Crimson Pro', Georgia, serif;
+}
+
+/* ── Navigation ────────────────────────────────────── */
+[data-testid="stSidebarNav"] {
+    background: var(--bg-surface) !important;
+    padding-top: var(--space-md);
+}
+
+[data-testid="stSidebarNavItems"] a {
+    color: var(--text-secondary) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.9rem !important;
+    padding: var(--space-sm) var(--space-md) !important;
+    border-radius: var(--radius-md) !important;
+    transition: all var(--transition-fast) !important;
+}
+
+[data-testid="stSidebarNavItems"] a:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stSidebarNavItems"] a[aria-selected="true"] {
+    color: var(--gold-primary) !important;
+    background: var(--gold-subtle) !important;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.header-container {
+    text-align: center;
+    padding: var(--space-xs) 0;
+    margin-bottom: var(--space-sm);
+}
+
+.header-title h1 {
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    color: var(--text-primary) !important;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.header-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: var(--space-xs);
+    font-style: italic;
+}
+
+/* ── Active Context Bar ────────────────────────────── */
+.context-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.context-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: var(--gold-subtle);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--gold-light);
+    transition: all var(--transition-fast);
+}
+
+.context-chip img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.context-chip .dismiss {
+    cursor: pointer;
+    opacity: 0.5;
+    margin-left: 4px;
+    font-size: 0.7rem;
+}
+
+.context-chip .dismiss:hover { opacity: 1; }
+
+/* ── Stage Summary (golden insight) ──────────────── */
+.stage-summary {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(212, 165, 116, 0.03));
+    border-left: 3px solid var(--gold-primary);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-family: 'Crimson Pro', serif;
+}
+
+.stage-summary-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gold-primary);
+    white-space: nowrap;
+}
+
+.stage-summary-tip {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* ── Coaching Mode Indicator ───────────────────────── */
+.coaching-mode {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    background: linear-gradient(135deg, var(--gold-subtle) 0%, rgba(212, 165, 116, 0.06) 100%);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-hover);
+}
+
+.coaching-mode img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gold-dim);
+}
+
+.coaching-mode .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+.coaching-mode .sublabel {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ── Expert Cards (Experts Page) ───────────────────── */
+.expert-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.expert-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.expert-card .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    margin-bottom: var(--space-sm);
+}
+
+.expert-card .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 0 4px;
+}
+
+.expert-card .specialty {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0 0 var(--space-sm);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.expert-card .meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+}
+
+.expert-card .meta .count {
+    color: var(--gold-primary);
+    font-weight: 500;
+}
+
+/* ── Confidence Badges ─────────────────────────────── */
+.confidence-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.65rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.confidence-badge.high {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--confidence-high);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.confidence-badge.medium {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--confidence-medium);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.confidence-badge.low {
+    background: rgba(106, 106, 122, 0.15);
+    color: var(--confidence-low);
+    border: 1px solid rgba(106, 106, 122, 0.3);
+}
+
+/* ── Framework Tags ────────────────────────────────── */
+.framework-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-secondary);
+    margin: 2px;
+    transition: all var(--transition-fast);
+}
+
+.framework-tag:hover {
+    border-color: var(--border-hover);
+    color: var(--gold-light);
+}
+
+/* ── Methodology Badges ────────────────────────────── */
+.methodology-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid;
+}
+
+.methodology-badge.qualification {
+    background: rgba(96, 165, 250, 0.12);
+    color: var(--method-qualification);
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.methodology-badge.communication {
+    background: rgba(167, 139, 250, 0.12);
+    color: var(--method-communication);
+    border-color: rgba(167, 139, 250, 0.3);
+}
+
+.methodology-badge.negotiation {
+    background: rgba(244, 63, 94, 0.12);
+    color: var(--method-negotiation);
+    border-color: rgba(244, 63, 94, 0.3);
+}
+
+.methodology-badge.consultative {
+    background: rgba(74, 222, 128, 0.12);
+    color: var(--method-consultative);
+    border-color: rgba(74, 222, 128, 0.3);
+}
+
+.methodology-badge.value {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--method-value);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* ── Stage Badges ──────────────────────────────────── */
+.stage-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.stage-badge.planning {
+    background: rgba(96, 165, 250, 0.15);
+    color: var(--stage-planning);
+}
+.stage-badge.outreach {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--stage-outreach);
+}
+.stage-badge.discovery {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--stage-discovery);
+}
+.stage-badge.present {
+    background: rgba(167, 139, 250, 0.15);
+    color: var(--stage-present);
+}
+.stage-badge.close {
+    background: rgba(244, 63, 94, 0.15);
+    color: var(--stage-close);
+}
+.stage-badge.mindset {
+    background: rgba(212, 165, 116, 0.15);
+    color: var(--stage-mindset);
+}
+
+/* ── Insight Cards ─────────────────────────────────── */
+.insight-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-sm);
+    transition: all var(--transition-normal);
+}
+
+.insight-card:hover {
+    border-color: var(--border-hover);
+    background: rgba(30, 30, 48, 0.9);
+}
+
+.insight-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.insight-card .card-header img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+}
+
+.insight-card .card-header .expert-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.insight-card .key-insight {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+}
+
+.insight-card .tactical-steps {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--border);
+    margin-bottom: var(--space-sm);
+}
+
+.insight-card .quote {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--gold-dim);
+    padding: var(--space-sm) var(--space-md);
+    border-left: 2px solid var(--gold-dim);
+    margin-bottom: var(--space-sm);
+}
+
+.insight-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: var(--space-sm);
+}
+
+/* ── Source Cards (Chat) ───────────────────────────── */
+.source-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-xs);
+    transition: all var(--transition-fast);
+}
+
+.source-card:hover {
+    border-color: var(--border-hover);
+}
+
+.source-card img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.source-card .source-info {
+    flex: 1;
+}
+
+.source-card .source-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.source-card .source-stage {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.source-card .source-quote {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Suggestion Cards ──────────────────────────────── */
+.suggestion-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.9rem var(--space-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-align: left;
+}
+
+.suggestion-card:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
+.suggestion-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+/* ── Expert Info Panel ─────────────────────────────── */
+.expert-info-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--gold-primary);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 0.6rem var(--space-md);
+    margin: 0.75rem auto 0;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.expert-info-panel .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gold-dim);
+}
+
+.expert-info-panel .details { flex: 1; }
+
+.expert-info-panel .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.expert-info-panel .specialty {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 2px 0;
+    font-style: italic;
+}
+
+.expert-info-panel .followers {
+    font-size: 0.75rem;
+    color: var(--gold-primary);
+    margin: 0;
+}
+
+/* ── Methodology Explorer ──────────────────────────── */
+.methodology-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+}
+
+.methodology-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-sm);
+}
+
+.methodology-card .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs);
+}
+
+.methodology-card .author {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: var(--space-sm);
+}
+
+.methodology-card .philosophy {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+}
+
+.methodology-card .component-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.methodology-card .component-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.methodology-card .component-pill:hover {
+    border-color: var(--border-hover);
+    color: var(--gold-light);
+}
+
+/* ── Chat Messages ─────────────────────────────────── */
+.stChatMessage {
+    border-radius: var(--radius-md) !important;
+    margin-bottom: 0.6rem !important;
+    padding: 0.6rem 0.9rem !important;
+}
+
+[data-testid="stChatMessageContent"],
+[data-testid="stChatMessageContent"] p,
+[data-testid="stChatMessageContent"] li {
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+    font-family: 'Crimson Pro', Georgia, serif !important;
+}
+
+[data-testid="stChatMessageContent"] p { margin-bottom: 0.4rem !important; }
+
+/* User messages */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    background: linear-gradient(135deg, var(--gold-primary) 0%, #c49464 100%) !important;
+    margin-left: 15% !important;
+    border: none !important;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) p,
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) span {
+    color: var(--bg-deep) !important;
+}
+
+/* Assistant messages */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+    background: var(--bg-card) !important;
+    border-left: 2px solid var(--gold-dim) !important;
+    margin-right: 10% !important;
+}
+
+/* Conversation title */
+.conversation-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+}
+
+/* Chat input */
+.stChatInput > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-md) !important;
+}
+
+.stChatInput textarea {
+    color: var(--text-primary) !important;
+    font-family: 'Crimson Pro', serif !important;
+}
+
+/* ── Buttons ───────────────────────────────────────── */
+.stButton > button {
+    border-radius: var(--radius-md) !important;
+    font-family: 'Crimson Pro', serif !important;
+    font-weight: 500 !important;
+    transition: all var(--transition-normal) !important;
+    padding: 0.6rem var(--space-md) !important;
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.stButton > button:hover {
+    background: var(--bg-hover) !important;
+    border-color: var(--border-hover) !important;
+}
+
+/* Suggestion card buttons */
+button[kind="secondary"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Crimson Pro', serif !important;
+    font-size: 0.9rem !important;
+    padding: 0.9rem var(--space-md) !important;
+    opacity: 1 !important;
+    text-align: left !important;
+}
+
+button[kind="secondary"]:hover {
+    background: var(--bg-hover) !important;
+    border-color: var(--border-hover) !important;
+    transform: translateY(-1px);
+}
+
+/* ── Selectbox ─────────────────────────────────────── */
+.stSelectbox > div > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.stSelectbox label { color: var(--text-secondary) !important; }
+
+/* ── Multiselect ───────────────────────────────────── */
+.stMultiSelect > div > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.stMultiSelect label { color: var(--text-secondary) !important; }
+
+/* ── Text input ────────────────────────────────────── */
+.stTextInput > div > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.stTextInput input {
+    color: var(--text-primary) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.stTextInput label { color: var(--text-secondary) !important; }
+
+/* ── Tabs ──────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+    background: var(--bg-surface) !important;
+    border-radius: var(--radius-md);
+    padding: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: var(--radius-sm) !important;
+    padding: var(--space-sm) var(--space-md) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.8rem !important;
+    color: var(--text-secondary) !important;
+    background: transparent !important;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--text-primary) !important;
+    background: var(--bg-hover) !important;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    color: var(--gold-primary) !important;
+    background: var(--gold-subtle) !important;
+}
+
+.stTabs [data-baseweb="tab-highlight"] {
+    background-color: var(--gold-primary) !important;
+}
+
+/* ── Expander ──────────────────────────────────────── */
+.stExpander {
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    background: transparent !important;
+}
+
+/* ── Popover ───────────────────────────────────────── */
+[data-testid="stPopover"] > div {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-lg) !important;
+}
+
+/* ── Dialog ────────────────────────────────────────── */
+[data-testid="stDialog"] > div {
+    background: var(--bg-surface) !important;
+    border-radius: var(--radius-lg) !important;
+}
+
+/* ── Footer ────────────────────────────────────────── */
+.footer-text {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: var(--space-lg) 0 var(--space-sm);
+    letter-spacing: 0.03em;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Mindset Callout ───────────────────────────────── */
+.mindset-callout {
+    background: var(--gold-subtle);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.mindset-callout strong {
+    color: var(--gold-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+}
+
+.mindset-callout p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: var(--space-xs) 0 0;
+}
+
+/* ── Page-specific: Experts Grid ───────────────────── */
+.experts-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+}
+
+/* ── Search Box ────────────────────────────────────── */
+.search-container {
+    position: relative;
+    margin-bottom: var(--space-md);
+}
+
+/* ── Scrollable Expert Strip (Coach page featured) ── */
+.featured-experts {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.featured-expert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.featured-expert:hover { transform: scale(1.05); }
+
+.featured-expert img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    transition: all var(--transition-fast);
+}
+
+.featured-expert:hover img {
+    border-color: var(--gold-dim);
+    box-shadow: var(--shadow-glow);
+}
+
+.featured-expert.selected img {
+    border-color: var(--gold-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.featured-expert .name {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+    .block-container {
+        padding: var(--space-sm) 0.75rem !important;
+    }
+
+    .experts-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+
+    .expert-card .avatar {
+        width: 48px;
+        height: 48px;
+    }
+
+    .featured-experts {
+        gap: var(--space-sm);
+    }
+
+    .featured-expert img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .expert-info-panel {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--space-md);
+        margin: var(--space-sm) var(--space-md);
+    }
+
+    .context-bar {
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .coaching-mode {
+        padding: var(--space-xs) var(--space-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .experts-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-expert img {
+        width: 40px;
+        height: 40px;
+    }
+}
