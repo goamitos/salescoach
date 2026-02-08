@@ -552,23 +552,38 @@ def validate_personas(client: anthropic.Anthropic, n: int = 3) -> None:
         )
         text = response.content[0].text.lower()
 
-        # Check for framework mentions
-        fw_hits = [fw for fw in frameworks if fw in text]
+        # Check for framework mentions (word-level: match any significant
+        # word from a framework name, since descriptive names like
+        # "Buyer Enablement Over Sales Process" won't appear verbatim)
+        stop_words = {"the", "and", "for", "over", "with", "from", "into", "based"}
+        fw_hits = []
+        for fw in frameworks:
+            fw_words = [w for w in fw.split() if len(w) > 3 and w not in stop_words]
+            if any(w in text for w in fw_words):
+                fw_hits.append(fw)
+
+        # Exact phrase matches (these are short coined phrases)
         phrase_hits = [p for p in phrases if p in text]
-        # Also check for first-person voice
+
+        # First-person voice
         first_person = any(marker in text for marker in ["i ", "my ", "i've ", "i'm "])
 
-        passed = len(fw_hits) > 0 and first_person
+        # Key topics mentioned (backup signal for framework relevance)
+        topics = [t.lower() for t in persona.get("key_topics", [])]
+        topic_hits = [t for t in topics if t in text]
+
+        passed = (len(fw_hits) > 0 or len(topic_hits) >= 2) and first_person
         status = "PASS" if passed else "FAIL"
         if not passed:
             all_passed = False
 
         print(f"\n[{status}] {name} ({persona['confidence']})")
-        print(f"  Frameworks mentioned: {fw_hits if fw_hits else 'NONE'} (of {len(frameworks)})")
-        print(f"  Phrases echoed:       {len(phrase_hits)} (of {len(phrases)})")
-        print(f"  First-person voice:   {'Yes' if first_person else 'No'}")
+        print(f"  Frameworks referenced: {fw_hits if fw_hits else 'NONE'} (of {len(frameworks)})")
+        print(f"  Topics referenced:     {len(topic_hits)}/{len(topics)} ({', '.join(topic_hits[:4])})")
+        print(f"  Phrases echoed:        {len(phrase_hits)} (of {len(phrases)})")
+        print(f"  First-person voice:    {'Yes' if first_person else 'No'}")
         if not passed:
-            print(f"  Response preview:     {response.content[0].text[:200]}...")
+            print(f"  Response preview:      {response.content[0].text[:200]}...")
 
     print(f"\n{'All checks passed!' if all_passed else 'Some checks failed — review above.'}")
     print("=" * 70)
