@@ -96,7 +96,7 @@ def _render_expert_selector() -> None:
     # Selection buttons (Streamlit needs real buttons for state)
     # Collective wisdom + featured experts in a row
     button_items = [{"slug": None, "label": "All"}] + [
-        {"slug": inf["slug"], "label": inf["name"].split()[0][:6]}
+        {"slug": inf["slug"], "label": inf["name"].split()[0]}
         for inf in featured
     ]
 
