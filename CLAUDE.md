@@ -74,6 +74,28 @@ Territory Planning, Account Research, Stakeholder Mapping, Outreach Strategy, In
 ### Data Schema (Airtable)
 Influencer | Source Type | Source URL | Date Collected | Primary Stage | Secondary Stages | Key Insight | Tactical Steps | Keywords | Situation Examples | Best Quote | Relevance Score
 
+## Working Principles
+- Always start in Plan Mode. Go back and forth until the plan is solid before executing.
+- When stuck mid-task, stop and re-plan. Never stack fixes on top of fixes.
+- After implementation, verify your work — run tests, check output, or open the browser.
+- When asked to fix a bug or make a change, give options with tradeoffs before building.
+- After any mistake, update this file or the relevant workflow so it doesn't happen again.
+
+## Key Reference Files
+- `files/SPEC.md` — Architecture spec and design decisions
+- `files/TODO.md` — Active task backlog (run `/todo` to manage)
+- `files/BACKLOG.md` — Non-blocking bugs and issues
+- `docs/influencers.md` — Influencer profiles with LinkedIn/YouTube links
+- `workflows/` — Markdown SOPs for each pipeline stage
+
+## Test Strategy
+- **Unit tests**: Run per-file during feature work (`python3 -m pytest tests/test_specific.py -x -q`)
+- **Integration tests**: Run at branch completion before PR (`python3 -m pytest tests/ -m integration -x -q`)
+- **Full suite**: Only at merge time, PR creation, or explicit request. Never during feature dev. (`python3 -m pytest tests/ --tb=short -q`)
+
+## TODO
+See `files/TODO.md` for the full task backlog. Run `/todo` to review and update.
+
 ## Important Constraints
 - Never commit credentials (secrets are in 1Password, injected at runtime)
 - LinkedIn scraping via Google X-ray only (not direct scraping)
