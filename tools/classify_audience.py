@@ -26,10 +26,12 @@ logger = logging.getLogger(__name__)
 
 POLL_INTERVAL = 30
 
-AUDIENCE_ROLES = """- vp_sales / cro: Managing teams, pipeline strategy, forecasting, coaching reps, board reporting, org design, hiring
-- director / manager: First-line leadership, deal coaching, team enablement, rep development
-- ae: Running deals, discovery calls, demos, negotiations, closing, account management
-- sdr: Prospecting, cold outreach, booking meetings, lead qualification
+AUDIENCE_ROLES = """- vp_sales: VP Sales / CRO — managing teams, pipeline strategy, forecasting, coaching reps, board reporting, org design, hiring
+- cro: Chief Revenue Officer — same as vp_sales (use vp_sales OR cro, never combine them)
+- director: Sales Director — first-line leadership, deal coaching, team enablement
+- manager: Sales Manager — rep development, frontline coaching, hiring
+- ae: Account Executive — running deals, discovery calls, demos, negotiations, closing
+- sdr: SDR / BDR — prospecting, cold outreach, booking meetings, lead qualification
 - general: Applicable across all roles equally"""
 
 CLASSIFICATION_PROMPT = """Classify who this sales insight is most useful for.
