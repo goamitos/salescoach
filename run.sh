@@ -17,6 +17,29 @@ if [ -d "venv" ]; then
     source venv/bin/activate
 fi
 
+# Load secrets: prefer 1Password CLI, fall back to macOS Keychain
+load_keychain_secrets() {
+    KEYS="ANTHROPIC_API_KEY AIRTABLE_API_KEY AIRTABLE_BASE_ID AIRTABLE_TABLE_NAME SERPER_API_KEY YOUTUBE_API_KEY DECODO_PROXY_URL"
+    for key in $KEYS; do
+        if [ -z "${!key}" ]; then
+            val=$(security find-generic-password -s "$key" -w 2>/dev/null || true)
+            if [ -n "$val" ]; then
+                export "$key=$val"
+            fi
+        fi
+    done
+}
+
+# Run a command with secrets injected (1Password or Keychain)
+run_with_secrets() {
+    if command -v op &>/dev/null; then
+        op run --env-file=.env.tpl -- "$@"
+    else
+        load_keychain_secrets
+        "$@"
+    fi
+}
+
 # Check if script name was provided
 if [ -z "$1" ]; then
     echo "Usage: ./run.sh <script_name>"
@@ -32,23 +55,22 @@ fi
 
 # Handle streamlit specially
 if [ "$1" = "streamlit" ]; then
-    echo "Starting Streamlit with 1Password secrets..."
-    op run --env-file=.env.tpl -- streamlit run streamlit_app.py
+    echo "Starting Streamlit..."
+    run_with_secrets streamlit run streamlit_app.py
     exit 0
 fi
 
 # Handle claude specially (needs PTY for interactive mode)
 if [ "$1" = "claude" ]; then
-    echo "Starting Claude Code with 1Password secrets..."
-    # Export secrets directly using op read (op run doesn't provide proper TTY)
-    # Note: Secrets exported this way are visible in process listings (ps eww).
-    # This is an acceptable tradeoff for Claude Code's TTY requirement.
-    # Secrets are short-lived in memory and cleared when the shell exits.
-    export ANTHROPIC_API_KEY="$(op read 'op://SalesCoach/SalesCoach/ANTHROPIC_API_KEY')"
-    export AIRTABLE_API_KEY="$(op read 'op://SalesCoach/SalesCoach/AIRTABLE_API_KEY')"
-    export AIRTABLE_BASE_ID="$(op read 'op://SalesCoach/SalesCoach/AIRTABLE_BASE_ID')"
-    export AIRTABLE_TABLE_NAME="$(op read 'op://SalesCoach/SalesCoach/AIRTABLE_TABLE_NAME')"
-    export SERPER_API_KEY="$(op read 'op://SalesCoach/SalesCoach/SERPER_API_KEY')"
+    echo "Starting Claude Code with secrets..."
+    load_keychain_secrets
+    if command -v op &>/dev/null; then
+        export ANTHROPIC_API_KEY="$(op read 'op://SalesCoach/SalesCoach/ANTHROPIC_API_KEY')"
+        export AIRTABLE_API_KEY="$(op read 'op://SalesCoach/SalesCoach/AIRTABLE_API_KEY')"
+        export AIRTABLE_BASE_ID="$(op read 'op://SalesCoach/SalesCoach/AIRTABLE_BASE_ID')"
+        export AIRTABLE_TABLE_NAME="$(op read 'op://SalesCoach/SalesCoach/AIRTABLE_TABLE_NAME')"
+        export SERPER_API_KEY="$(op read 'op://SalesCoach/SalesCoach/SERPER_API_KEY')"
+    fi
     exec claude "${@:2}"
 fi
 
@@ -60,6 +82,6 @@ if [ ! -f "tools/$1.py" ]; then
     exit 1
 fi
 
-# Run with secrets injected via 1Password CLI
-echo "Running tools/$1.py with 1Password secrets..."
-op run --env-file=.env.tpl -- python3 tools/$1.py "${@:2}"
+# Run with secrets injected
+echo "Running tools/$1.py..."
+run_with_secrets python3 tools/$1.py "${@:2}"

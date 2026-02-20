@@ -14,6 +14,34 @@ if [ -d "venv" ]; then
     source venv/bin/activate
 fi
 
+# Load secrets: prefer 1Password CLI, fall back to macOS Keychain
+load_secrets() {
+    if command -v op &>/dev/null; then
+        return 0  # op available — will use op run below
+    fi
+
+    # Fall back to macOS Keychain
+    KEYS="ANTHROPIC_API_KEY AIRTABLE_API_KEY AIRTABLE_BASE_ID AIRTABLE_TABLE_NAME SERPER_API_KEY YOUTUBE_API_KEY DECODO_PROXY_URL"
+    for key in $KEYS; do
+        if [ -z "${!key}" ]; then
+            val=$(security find-generic-password -s "$key" -w 2>/dev/null || true)
+            if [ -n "$val" ]; then
+                export "$key=$val"
+            fi
+        fi
+    done
+}
+
+# Run a command with secrets injected
+run_with_secrets() {
+    if command -v op &>/dev/null; then
+        op run --env-file=.env.tpl -- "$@"
+    else
+        load_secrets
+        "$@"
+    fi
+}
+
 if [ -z "$1" ]; then
     echo "Usage: coach <command> [options] <query>"
     echo ""
@@ -33,10 +61,10 @@ shift
 
 case "$COMMAND" in
     ask)
-        op run --env-file=.env.tpl -- python3 tools/ask_coach.py "$@"
+        run_with_secrets python3 tools/ask_coach.py "$@"
         ;;
     leaders)
-        op run --env-file=.env.tpl -- python3 tools/search_leaders.py "$@"
+        run_with_secrets python3 tools/search_leaders.py "$@"
         ;;
     *)
         echo "Unknown command: $COMMAND"
