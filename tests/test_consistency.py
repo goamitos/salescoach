@@ -4,7 +4,6 @@ Ensures names, slugs, and avatar files stay in sync
 across influencers.json, collect_linkedin.py,
 generate_avatars.py, and the assets/avatars/ directory.
 """
-import ast
 import json
 from pathlib import Path
 
@@ -12,8 +11,6 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).parent.parent
 REGISTRY_PATH = PROJECT_ROOT / "data" / "influencers.json"
-LINKEDIN_SCRIPT = PROJECT_ROOT / "tools" / "collect_linkedin.py"
-AVATARS_SCRIPT = PROJECT_ROOT / "tools" / "generate_avatars.py"
 AVATARS_DIR = PROJECT_ROOT / "assets" / "avatars"
 
 
@@ -34,39 +31,30 @@ def active_slugs(registry_data):
 
 
 @pytest.fixture(scope="module")
-def linkedin_names():
-    """Extract influencer names from collect_linkedin.py INFLUENCERS list."""
-    with open(LINKEDIN_SCRIPT) as f:
-        tree = ast.parse(f.read())
+def linkedin_names(registry_data):
+    """Get influencer names that collect_linkedin.py would use.
 
+    Mirrors _build_influencer_list() logic: active experts with a LinkedIn handle.
+    """
     names = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Assign):
-            for target in node.targets:
-                if isinstance(target, ast.Name) and target.id == "INFLUENCERS":
-                    for elt in node.value.elts:
-                        for k, v in zip(elt.keys, elt.values):
-                            if isinstance(k, ast.Constant) and k.value == "name":
-                                names.add(v.value)
+    for expert in registry_data["influencers"]:
+        if expert.get("status") != "active":
+            continue
+        handle = expert.get("platforms", {}).get("linkedin", {}).get("handle")
+        if not handle:
+            continue
+        names.add(expert["name"])
     return names
 
 
 @pytest.fixture(scope="module")
-def avatar_script_slugs():
-    """Extract slugs from generate_avatars.py INFLUENCERS list."""
-    with open(AVATARS_SCRIPT) as f:
-        tree = ast.parse(f.read())
+def avatar_script_slugs(registry_data):
+    """Get slugs that generate_avatars.py would use.
 
-    slugs = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Assign):
-            for target in node.targets:
-                if isinstance(target, ast.Name) and target.id == "INFLUENCERS":
-                    for elt in node.value.elts:
-                        if isinstance(elt, ast.Tuple) and len(elt.elts) >= 2:
-                            slug_val = elt.elts[1]
-                            if isinstance(slug_val, ast.Constant):
-                                slugs.add(slug_val.value)
+    Mirrors _build_influencer_list() logic: all expert slugs + collective-wisdom.
+    """
+    slugs = {expert["slug"] for expert in registry_data["influencers"]}
+    slugs.add("collective-wisdom")
     return slugs
 
 
