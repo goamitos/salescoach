@@ -240,8 +240,9 @@ def push_to_sqlite() -> None:
         for item in processed:
             try:
                 influencer = item.get("influencer", "Unknown")
+                source_id = item.get("source_id", "")
                 upsert_insight(conn, {
-                    "id": item.get("source_id", ""),
+                    "id": source_id,
                     "influencer_slug": _slugify(influencer),
                     "influencer_name": influencer,
                     "source_type": item.get("source_type", ""),
@@ -256,6 +257,17 @@ def push_to_sqlite() -> None:
                     "best_quote": item.get("best_quote", ""),
                     "relevance_score": item.get("relevance_score", 0),
                 })
+                # Write audience classification if present (from updated prompt)
+                if "target_audience" in item:
+                    audience = item["target_audience"]
+                    if isinstance(audience, list):
+                        audience = json.dumps(audience)
+                    conn.execute(
+                        """UPDATE insights
+                           SET target_audience = ?, audience_confidence = ?
+                           WHERE id = ? AND target_audience IS NULL""",
+                        (audience, item.get("audience_confidence"), source_id),
+                    )
                 pushed += 1
             except Exception as e:
                 logger.error(f"SQLite error for {item.get('source_id', '?')}: {e}")

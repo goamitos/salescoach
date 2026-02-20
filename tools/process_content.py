@@ -60,6 +60,13 @@ SOURCE: {source_type} by {influencer}
 
 Available deal stages: {stages}
 
+Target audience roles (who would act on this advice?):
+- vp_sales/cro: Team management, pipeline strategy, forecasting, coaching reps, org design
+- director/manager: First-line leadership, deal coaching, enablement
+- ae: Running deals, discovery, demos, closing
+- sdr: Prospecting, cold outreach, booking meetings
+- general: Applicable across all roles
+
 Respond in JSON format only (no markdown, no explanation):
 {{
   "primary_stage": "One of the deal stages listed above",
@@ -69,7 +76,9 @@ Respond in JSON format only (no markdown, no explanation):
   "keywords": ["5-8 searchable keywords"],
   "situation_examples": ["1-2 specific scenarios where this applies"],
   "best_quote": "Most memorable/quotable line from content",
-  "relevance_score": 1-10
+  "relevance_score": 1-10,
+  "target_audience": ["1-3 roles from the list above"],
+  "audience_confidence": 0.85
 }}
 
 Scoring guide:
