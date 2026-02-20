@@ -159,6 +159,25 @@ def init_db(db_path: Optional[Path] = None) -> None:
         logger.info("Database initialized at %s", db_path or DB_PATH)
     finally:
         conn.close()
+    migrate_audience_columns(db_path)
+
+
+def migrate_audience_columns(db_path: Optional[Path] = None) -> None:
+    """Add audience columns to existing databases. Safe to call repeatedly."""
+    conn = get_connection(db_path)
+    try:
+        existing = {row[1] for row in conn.execute("PRAGMA table_info(insights)").fetchall()}
+        for col, col_type in [
+            ("target_audience", "TEXT"),
+            ("audience_confidence", "REAL"),
+            ("audience_reasoning", "TEXT"),
+        ]:
+            if col not in existing:
+                conn.execute(f"ALTER TABLE insights ADD COLUMN {col} {col_type}")
+                logger.info("Added column: %s", col)
+        conn.commit()
+    finally:
+        conn.close()
 
 
 # ---------------------------------------------------------------------------
@@ -253,6 +272,46 @@ def search_insights(
         params.append(methodology_component)
 
     sql += " WHERE " + " AND ".join(conditions)
+    sql += " ORDER BY rank LIMIT ?"
+    params.append(limit)
+
+    rows = conn.execute(sql, params).fetchall()
+    return [dict(row) for row in rows]
+
+
+def search_leaders(
+    conn: sqlite3.Connection,
+    query: str,
+    limit: int = 20,
+    stage: Optional[str] = None,
+    min_confidence: float = 0.7,
+) -> list[dict]:
+    """Search insights tagged for VP Sales / CRO audience.
+
+    Uses FTS5 for text matching, filters to records where target_audience
+    contains 'vp_sales' or 'cro' with confidence >= min_confidence.
+    """
+    fts_query = ' OR '.join(f'"{word}"' for word in query.split() if word.strip())
+    if not fts_query:
+        return []
+
+    sql = """
+        SELECT i.*, rank
+        FROM insights_fts fts
+        JOIN insights i ON i.rowid = fts.rowid
+        WHERE insights_fts MATCH ?
+          AND i.audience_confidence >= ?
+          AND (
+              i.target_audience LIKE '%"vp_sales"%'
+              OR i.target_audience LIKE '%"cro"%'
+          )
+    """
+    params: list = [fts_query, min_confidence]
+
+    if stage:
+        sql += " AND i.primary_stage = ?"
+        params.append(stage)
+
     sql += " ORDER BY rank LIMIT ?"
     params.append(limit)
 

@@ -507,6 +507,70 @@ def search_insights_fts(query: str, limit: int = 20) -> list[dict]:
         return filter_insights(load_insights(), search_query=query)[:limit]
 
 
+# ── Leadership Hub helpers ────────────────────────────
+
+@st.cache_data(ttl=300)
+def load_leader_insights() -> list[dict]:
+    """Load insights tagged for VP Sales / CRO audience."""
+    conn = _get_db_connection()
+    if not conn:
+        return []
+    try:
+        rows = conn.execute("""
+            SELECT * FROM insights
+            WHERE (target_audience LIKE '%"vp_sales"%' OR target_audience LIKE '%"cro"%')
+              AND audience_confidence >= 0.7
+            ORDER BY relevance_score DESC
+        """).fetchall()
+        insights = []
+        for row in rows:
+            insight = dict(row)
+            for field in ("secondary_stages", "tactical_steps", "keywords",
+                          "situation_examples", "target_audience"):
+                val = insight.get(field)
+                if val and isinstance(val, str):
+                    try:
+                        insight[field] = json.loads(val)
+                    except json.JSONDecodeError:
+                        insight[field] = []
+            insights.append(insight)
+        conn.close()
+        return insights
+    except Exception:
+        conn.close()
+        return []
+
+
+def get_leader_stats(insights: list[dict]) -> dict:
+    """Compute aggregate stats for the Leadership Hub dashboard."""
+    if not insights:
+        return {"total": 0, "by_stage": {}, "by_influencer": {}, "top_keywords": []}
+
+    by_stage: dict[str, int] = {}
+    by_influencer: dict[str, int] = {}
+    keyword_counts: dict[str, int] = {}
+
+    for i in insights:
+        stage = i.get("primary_stage", "General")
+        by_stage[stage] = by_stage.get(stage, 0) + 1
+
+        name = i.get("influencer_name", "Unknown")
+        by_influencer[name] = by_influencer.get(name, 0) + 1
+
+        for kw in (i.get("keywords") or []):
+            if isinstance(kw, str):
+                keyword_counts[kw.lower()] = keyword_counts.get(kw.lower(), 0) + 1
+
+    top_keywords = sorted(keyword_counts.items(), key=lambda x: x[1], reverse=True)[:20]
+
+    return {
+        "total": len(insights),
+        "by_stage": dict(sorted(by_stage.items(), key=lambda x: x[1], reverse=True)),
+        "by_influencer": dict(sorted(by_influencer.items(), key=lambda x: x[1], reverse=True)[:15]),
+        "top_keywords": top_keywords,
+    }
+
+
 # ── Avatar helpers ─────────────────────────────────────
 
 @st.cache_data(ttl=3600)
