@@ -79,7 +79,7 @@ section[data-testid="stSidebar"] {
 """, unsafe_allow_html=True)
 
 # Tab buttons (using Streamlit columns for click handling)
-col1, col2, col3, col4 = st.columns([1, 1, 1, 6])
+col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 5])
 
 with col1:
     if st.button("💬 Coach", key="tab_coach", use_container_width=True):
@@ -94,6 +94,11 @@ with col2:
 with col3:
     if st.button("💡 Insights", key="tab_insights", use_container_width=True):
         st.query_params["page"] = "insights"
+        st.rerun()
+
+with col4:
+    if st.button("👔 Leaders", key="tab_leaders", use_container_width=True):
+        st.query_params["page"] = "leaders"
         st.rerun()
 
 # Add visual indicator for active tab
@@ -132,3 +137,10 @@ elif current_tab == "insights":
     spec = importlib.util.spec_from_file_location("insights_page", "pages/3_insights.py")
     insights_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(insights_module)
+
+elif current_tab == "leaders":
+    # Import and execute leaders page
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("leaders_page", "pages/4_leaders.py")
+    leaders_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(leaders_module)
