@@ -26,7 +26,6 @@ from pyairtable import Api
 import anthropic
 
 from config import (
-    ANTHROPIC_API_KEY,
     AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID,
     AIRTABLE_TABLE_NAME,

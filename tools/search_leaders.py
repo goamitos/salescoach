@@ -18,7 +18,7 @@ import sys
 
 import anthropic
 
-from config import ANTHROPIC_API_KEY, get_anthropic_key
+from config import get_anthropic_key
 from db import get_connection, search_leaders
 
 
