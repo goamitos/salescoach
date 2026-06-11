@@ -33,7 +33,7 @@ import anthropic
 from pyairtable import Api
 
 from config import (
-    ANTHROPIC_API_KEY,
+    get_anthropic_key,
     AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID,
     AIRTABLE_TABLE_NAME,
@@ -611,10 +611,11 @@ def main():
 
     # Validation mode: doesn't need Airtable, just personas.json + Claude
     if args.validate:
-        if not ANTHROPIC_API_KEY:
+        key = get_anthropic_key()
+        if not key:
             logger.error("ANTHROPIC_API_KEY not set")
             sys.exit(1)
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        client = anthropic.Anthropic(api_key=key)
         validate_personas(client)
         return
 
@@ -654,11 +655,12 @@ def main():
         return
 
     # 4. Run Claude Batch API
-    if not ANTHROPIC_API_KEY:
+    key = get_anthropic_key()
+    if not key:
         logger.error("ANTHROPIC_API_KEY not set")
         sys.exit(1)
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=key)
     batch_requests = build_batch_requests(experts)
     analysis_results = run_batch(client, batch_requests)
 

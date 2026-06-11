@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Search Leaders — VP/CRO Content Search & AI Q&A
+Search Leaders: VP/CRO Content Search & AI Q&A
 
 Searches the VP Sales / CRO subset of the Sales Coach knowledge base.
 Optionally synthesizes AI coaching advice from leadership-relevant insights.
@@ -115,7 +115,7 @@ def synthesize_answer(query, results):
     client = anthropic.Anthropic(api_key=key)
     system = """You are a sales leadership coach specializing in advice for VP Sales and CRO roles.
 You synthesize wisdom from top sales leaders to provide actionable advice for sales executives.
-Focus on leadership, team management, strategy, and organizational decisions — not individual deal tactics.
+Focus on leadership, team management, strategy, and organizational decisions, not individual deal tactics.
 Reference which expert's wisdom you're drawing from."""
 
     response = client.messages.create(

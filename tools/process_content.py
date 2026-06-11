@@ -28,7 +28,7 @@ import anthropic
 
 from config import (
     TMP_DIR,
-    ANTHROPIC_API_KEY,
+    get_anthropic_key,
     RELEVANCE_THRESHOLD,
     CLAUDE_MODEL,
     CLAUDE_MAX_TOKENS,
@@ -178,11 +178,12 @@ def process_all_content() -> Optional[dict[str, Any]]:
     """Main processing function using Batch API."""
     logger.info("Starting content processing (Batch API + Haiku)...")
 
-    if not ANTHROPIC_API_KEY:
+    key = get_anthropic_key()
+    if not key:
         logger.error("ANTHROPIC_API_KEY not set in environment")
         return
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=key)
 
     # Load existing processed data to merge with
     existing_processed, seen_ids = load_existing_processed()
