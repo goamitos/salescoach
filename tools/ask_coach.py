@@ -31,6 +31,7 @@ from config import (
     AIRTABLE_BASE_ID,
     AIRTABLE_TABLE_NAME,
     CLAUDE_MODEL,
+    get_anthropic_key,
 )
 from personas import (
     load_personas,
@@ -184,11 +185,12 @@ def get_coaching_advice(scenario: str, context: str, persona_slug: str = None) -
     When persona_slug is provided, responds as that expert using their
     voice profile, frameworks, and signature phrases.
     """
-    if not ANTHROPIC_API_KEY:
+    key = get_anthropic_key()
+    if not key:
         print("Error: ANTHROPIC_API_KEY not configured")
         sys.exit(1)
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=key)
 
     if persona_slug:
         personas = load_personas()

@@ -18,7 +18,7 @@ import sys
 
 import anthropic
 
-from config import ANTHROPIC_API_KEY
+from config import ANTHROPIC_API_KEY, get_anthropic_key
 from db import get_connection, search_leaders
 
 
@@ -81,8 +81,9 @@ def display_results(results):
 
 def synthesize_answer(query, results):
     """Use Claude to synthesize an answer from VP/CRO results."""
-    if not ANTHROPIC_API_KEY:
-        print("Error: ANTHROPIC_API_KEY not set — cannot synthesize.")
+    key = get_anthropic_key()
+    if not key:
+        print("Error: ANTHROPIC_API_KEY not set -- cannot synthesize.")
         return
 
     if not results:
@@ -111,7 +112,7 @@ def synthesize_answer(query, results):
 
     context = "\n\n---\n\n".join(context_parts)
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=key)
     system = """You are a sales leadership coach specializing in advice for VP Sales and CRO roles.
 You synthesize wisdom from top sales leaders to provide actionable advice for sales executives.
 Focus on leadership, team management, strategy, and organizational decisions — not individual deal tactics.
