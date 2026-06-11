@@ -93,7 +93,9 @@ def _build_fts_query(gaps: list[str], methodology_focus: Optional[str]) -> str:
         if w not in seen:
             seen.add(w)
             unique_words.append(w)
-    return " OR ".join(f'"{w}"' for w in unique_words if w.strip())
+    # Strip inner double-quotes before wrapping so a token like '"challenger"'
+    # cannot produce a nested-quote FTS expression.
+    return " OR ".join(f'"{w.replace(chr(34), "")}"' for w in unique_words if w.strip())
 
 
 def find_advice(
