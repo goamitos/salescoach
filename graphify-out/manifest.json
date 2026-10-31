@@ -1,0 +1,878 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1793472374.991806,
+    "seen": 1793472594.937984,
+    "ast_hash": "1bbc87d47a8ede6839588ae240f445b9",
+    "semantic_hash": "1bbc87d47a8ede6839588ae240f445b9"
+  },
+  ".github/workflows/weekly-linkedin.yml": {
+    "mtime": 1793470197.5237465,
+    "seen": 1793471941.168629,
+    "ast_hash": "f5de1ff2f3de63a38513145725279ad4",
+    "semantic_hash": "f5de1ff2f3de63a38513145725279ad4"
+  },
+  ".pre-commit-config.yaml": {
+    "mtime": 1793470197.5238743,
+    "seen": 1793471941.1686301,
+    "ast_hash": "0a9b6c03fc225d9c46941eda256c304c",
+    "semantic_hash": "0a9b6c03fc225d9c46941eda256c304c"
+  },
+  "coach.sh": {
+    "mtime": 1793470197.5311544,
+    "seen": 1793471941.168631,
+    "ast_hash": "6fecfbb6c72c4f8af47ed9dc334e5c0a",
+    "semantic_hash": "6fecfbb6c72c4f8af47ed9dc334e5c0a"
+  },
+  "components/__init__.py": {
+    "mtime": 1793470197.5312474,
+    "seen": 1793471941.168631,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "components/chat_message.py": {
+    "mtime": 1793470197.531345,
+    "seen": 1793471941.168632,
+    "ast_hash": "5e241042b5814433ee25e4918c1535b3",
+    "semantic_hash": "5e241042b5814433ee25e4918c1535b3"
+  },
+  "components/expert_card.py": {
+    "mtime": 1793470197.5315104,
+    "seen": 1793471941.168633,
+    "ast_hash": "12a8d7ebfbfcba055c1abd12de3958bd",
+    "semantic_hash": "12a8d7ebfbfcba055c1abd12de3958bd"
+  },
+  "components/insight_card.py": {
+    "mtime": 1793470197.5316856,
+    "seen": 1793471941.168633,
+    "ast_hash": "93b10c735ce198b1dcdb40f63d6c72d9",
+    "semantic_hash": "93b10c735ce198b1dcdb40f63d6c72d9"
+  },
+  "components/methodology_badge.py": {
+    "mtime": 1793470197.5318174,
+    "seen": 1793471941.1686342,
+    "ast_hash": "0386764393d3c8554f4ee361bef7bfdd",
+    "semantic_hash": "0386764393d3c8554f4ee361bef7bfdd"
+  },
+  "components/stage_pills.py": {
+    "mtime": 1793470197.5318727,
+    "seen": 1793471941.1686342,
+    "ast_hash": "e3c7607874f04a4cc5d0d4386d802bc5",
+    "semantic_hash": "e3c7607874f04a4cc5d0d4386d802bc5"
+  },
+  "data/curated_videos.json": {
+    "mtime": 1793470197.5321572,
+    "seen": 1793471941.168635,
+    "ast_hash": "c642c7c8e2e1275bf8bbf6cd24774077",
+    "semantic_hash": "c642c7c8e2e1275bf8bbf6cd24774077"
+  },
+  "data/curated_videos_cleaned.json": {
+    "mtime": 1793470197.5324187,
+    "seen": 1793471941.1686358,
+    "ast_hash": "3be5cd55403edfe15a971440859041c6",
+    "semantic_hash": "3be5cd55403edfe15a971440859041c6"
+  },
+  "data/influencers.json": {
+    "mtime": 1793470197.5327306,
+    "seen": 1793471941.1686358,
+    "ast_hash": "20b3a7af31da9aaad152f19c2d16ca59",
+    "semantic_hash": "20b3a7af31da9aaad152f19c2d16ca59"
+  },
+  "data/personas.json": {
+    "mtime": 1793470197.5329707,
+    "seen": 1793471941.168637,
+    "ast_hash": "dd586e94f864199679e18f5327571ac6",
+    "semantic_hash": "dd586e94f864199679e18f5327571ac6"
+  },
+  "data/target_videos.json": {
+    "mtime": 1793470197.5476167,
+    "seen": 1793471941.168637,
+    "ast_hash": "350f2153fe3984505a697954ba800e91",
+    "semantic_hash": "350f2153fe3984505a697954ba800e91"
+  },
+  "pages/1_coach.py": {
+    "mtime": 1793470197.5490265,
+    "seen": 1793471941.168638,
+    "ast_hash": "90dbc09db5981ac4f8548dfa00d9991f",
+    "semantic_hash": "90dbc09db5981ac4f8548dfa00d9991f"
+  },
+  "pages/2_experts.py": {
+    "mtime": 1793470197.5500748,
+    "seen": 1793471941.168638,
+    "ast_hash": "8c5a79ed74d17e632c8cb6739a68ca7d",
+    "semantic_hash": "8c5a79ed74d17e632c8cb6739a68ca7d"
+  },
+  "pages/3_insights.py": {
+    "mtime": 1793470197.5501647,
+    "seen": 1793471941.168639,
+    "ast_hash": "c32871347e8149ff4e539b2635e449af",
+    "semantic_hash": "c32871347e8149ff4e539b2635e449af"
+  },
+  "pages/4_leaders.py": {
+    "mtime": 1793470197.550255,
+    "seen": 1793471941.168639,
+    "ast_hash": "5074b2da246f57bcb86e67806896b555",
+    "semantic_hash": "5074b2da246f57bcb86e67806896b555"
+  },
+  "pages/__init__.py": {
+    "mtime": 1793470197.5502725,
+    "seen": 1793471941.16864,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "run.sh": {
+    "mtime": 1793470197.550382,
+    "seen": 1793471941.168641,
+    "ast_hash": "006e1d31e12396f1f0431d4ae703ca19",
+    "semantic_hash": "006e1d31e12396f1f0431d4ae703ca19"
+  },
+  "scripts/scan_errors.sh": {
+    "mtime": 1793470197.5504565,
+    "seen": 1793471941.168641,
+    "ast_hash": "0a8f15c32e5ad38a95229d01d6365b4b",
+    "semantic_hash": "0a8f15c32e5ad38a95229d01d6365b4b"
+  },
+  "streamlit_app.py": {
+    "mtime": 1793470197.5505552,
+    "seen": 1793471941.168642,
+    "ast_hash": "6debd31de640591f3d871104749922fa",
+    "semantic_hash": "6debd31de640591f3d871104749922fa"
+  },
+  "test_db_connection.py": {
+    "mtime": 1793470197.5505998,
+    "seen": 1793471941.168642,
+    "ast_hash": "da52941e960042785c669ba6cfe6cbd0",
+    "semantic_hash": "da52941e960042785c669ba6cfe6cbd0"
+  },
+  "tests/__init__.py": {
+    "mtime": 1793470197.5506444,
+    "seen": 1793471941.168643,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "tests/conftest.py": {
+    "mtime": 1793470197.5506988,
+    "seen": 1793471941.168643,
+    "ast_hash": "ab78d16c69308be24dba88372a2aabe4",
+    "semantic_hash": "ab78d16c69308be24dba88372a2aabe4"
+  },
+  "tests/test_advice_schema.py": {
+    "mtime": 1793470197.5507915,
+    "seen": 1793471941.1686442,
+    "ast_hash": "079a3626c290cf425aa58bf92654aad6",
+    "semantic_hash": "079a3626c290cf425aa58bf92654aad6"
+  },
+  "tests/test_app_browser.py": {
+    "mtime": 1793470197.5508838,
+    "seen": 1793471941.1686451,
+    "ast_hash": "674f33d72a2dc695f03d120e2206149e",
+    "semantic_hash": "674f33d72a2dc695f03d120e2206149e"
+  },
+  "tests/test_classify_audience.py": {
+    "mtime": 1793472531.913031,
+    "seen": 1793472594.938012,
+    "ast_hash": "aa8aa6f71b886c0fe36bf16674e3a7df",
+    "semantic_hash": ""
+  },
+  "tests/test_consistency.py": {
+    "mtime": 1793470197.5510275,
+    "seen": 1793471941.1686459,
+    "ast_hash": "385ee5ac6a8585284145940526ae0d18",
+    "semantic_hash": "385ee5ac6a8585284145940526ae0d18"
+  },
+  "tests/test_db_audience.py": {
+    "mtime": 1793470197.551074,
+    "seen": 1793471941.1686459,
+    "ast_hash": "05f827b32a2502e67a64bcd8a4c115a5",
+    "semantic_hash": "05f827b32a2502e67a64bcd8a4c115a5"
+  },
+  "tests/test_find_advice.py": {
+    "mtime": 1793470197.5511615,
+    "seen": 1793471941.1686468,
+    "ast_hash": "d156d8419fbc815f08e0057389ec9f20",
+    "semantic_hash": "d156d8419fbc815f08e0057389ec9f20"
+  },
+  "tests/test_generate_avatars.py": {
+    "mtime": 1793470197.5512037,
+    "seen": 1793471941.1686468,
+    "ast_hash": "c605c7aca119b2cb9cd65aec787a57e2",
+    "semantic_hash": "c605c7aca119b2cb9cd65aec787a57e2"
+  },
+  "tests/test_personas.py": {
+    "mtime": 1793470197.5513115,
+    "seen": 1793471941.168648,
+    "ast_hash": "5b319c6f137240f91e15f1a4f3ce0beb",
+    "semantic_hash": "5b319c6f137240f91e15f1a4f3ce0beb"
+  },
+  "tests/test_registry.py": {
+    "mtime": 1793470197.5514019,
+    "seen": 1793471941.168649,
+    "ast_hash": "a142707a1f58b926c1eb1ee962936521",
+    "semantic_hash": "a142707a1f58b926c1eb1ee962936521"
+  },
+  "tests/test_search_leaders_cli.py": {
+    "mtime": 1793470197.5514498,
+    "seen": 1793471941.168649,
+    "ast_hash": "6b46e352cddf2088e4a19a5db47698e0",
+    "semantic_hash": "6b46e352cddf2088e4a19a5db47698e0"
+  },
+  "tests/test_secrets.py": {
+    "mtime": 1793470197.5514982,
+    "seen": 1793471941.16865,
+    "ast_hash": "36fff1c6b7ba0cdeb9b454dc3d4e9025",
+    "semantic_hash": "36fff1c6b7ba0cdeb9b454dc3d4e9025"
+  },
+  "tests/test_streamlit_helpers.py": {
+    "mtime": 1793470197.5515788,
+    "seen": 1793471941.16865,
+    "ast_hash": "d6c66d18eb7ada0032085a6dc2694ed7",
+    "semantic_hash": "d6c66d18eb7ada0032085a6dc2694ed7"
+  },
+  "tests/test_tag_cache.py": {
+    "mtime": 1793472488.0831535,
+    "seen": 1793472594.93802,
+    "ast_hash": "beacd1b39c9b1d26b9ded94f219e4152",
+    "semantic_hash": ""
+  },
+  "tools/advice.py": {
+    "mtime": 1793470197.551795,
+    "seen": 1793471941.168651,
+    "ast_hash": "4395af8254ecb26fae8c57c5d94a3d2c",
+    "semantic_hash": "4395af8254ecb26fae8c57c5d94a3d2c"
+  },
+  "tools/advice_schema.py": {
+    "mtime": 1793472570.8787413,
+    "seen": 1793472594.9380212,
+    "ast_hash": "40c60ba00757d4588d279acd2ca12a99",
+    "semantic_hash": ""
+  },
+  "tools/ask_coach.py": {
+    "mtime": 1793470197.5519764,
+    "seen": 1793471941.168652,
+    "ast_hash": "7816266cbacbdc27d59089e7aabf555a",
+    "semantic_hash": "7816266cbacbdc27d59089e7aabf555a"
+  },
+  "tools/backfill_methodology_tags.py": {
+    "mtime": 1793472443.98308,
+    "seen": 1793472594.9380229,
+    "ast_hash": "fac9e8bc228c94f2ab2051a6e027e42c",
+    "semantic_hash": ""
+  },
+  "tools/build_expert_directory.py": {
+    "mtime": 1793470197.552182,
+    "seen": 1793471941.168654,
+    "ast_hash": "6b86117ff9993b537521907adf5936dd",
+    "semantic_hash": "6b86117ff9993b537521907adf5936dd"
+  },
+  "tools/classify_audience.py": {
+    "mtime": 1793472463.4318292,
+    "seen": 1793472594.938025,
+    "ast_hash": "5795553386c51041bca29476bd70e58e",
+    "semantic_hash": ""
+  },
+  "tools/collect_linkedin.py": {
+    "mtime": 1793470197.5523787,
+    "seen": 1793471941.1686552,
+    "ast_hash": "5a0fa16a732bc13e12f311bdebd9551d",
+    "semantic_hash": "5a0fa16a732bc13e12f311bdebd9551d"
+  },
+  "tools/collect_youtube.py": {
+    "mtime": 1793470197.552529,
+    "seen": 1793471941.1686552,
+    "ast_hash": "e73305b97d210f4f375a8bc49227b33d",
+    "semantic_hash": "e73305b97d210f4f375a8bc49227b33d"
+  },
+  "tools/config.py": {
+    "mtime": 1793470197.552588,
+    "seen": 1793471941.1686559,
+    "ast_hash": "9a89f83202ec10df46bfa676d43e016c",
+    "semantic_hash": "9a89f83202ec10df46bfa676d43e016c"
+  },
+  "tools/curate_youtube.py": {
+    "mtime": 1793470197.5526989,
+    "seen": 1793471941.1686568,
+    "ast_hash": "3889edb5c6c8e45e3cfdc5045020b43c",
+    "semantic_hash": "3889edb5c6c8e45e3cfdc5045020b43c"
+  },
+  "tools/db.py": {
+    "mtime": 1793470197.5527558,
+    "seen": 1793471941.1686568,
+    "ast_hash": "3b6237514069b56b16500aef89d5790b",
+    "semantic_hash": "3b6237514069b56b16500aef89d5790b"
+  },
+  "tools/download_avatars.py": {
+    "mtime": 1793470197.5528474,
+    "seen": 1793471941.168658,
+    "ast_hash": "2eb220ce20b4d0b99c429f65f8ad0a91",
+    "semantic_hash": "2eb220ce20b4d0b99c429f65f8ad0a91"
+  },
+  "tools/export_airtable.py": {
+    "mtime": 1793470197.5528982,
+    "seen": 1793471941.168658,
+    "ast_hash": "2ebd7ee2824181371961bcd2784ae064",
+    "semantic_hash": "2ebd7ee2824181371961bcd2784ae064"
+  },
+  "tools/generate_avatars.py": {
+    "mtime": 1793470197.5529523,
+    "seen": 1793471941.168659,
+    "ast_hash": "95ea1fcb03940362d806a3b955e6cfd7",
+    "semantic_hash": "95ea1fcb03940362d806a3b955e6cfd7"
+  },
+  "tools/generate_methodology_content.py": {
+    "mtime": 1793470197.5530417,
+    "seen": 1793471941.168659,
+    "ast_hash": "e12e9e3e990b34c202544330c15b5907",
+    "semantic_hash": "e12e9e3e990b34c202544330c15b5907"
+  },
+  "tools/generate_personas.py": {
+    "mtime": 1793470197.5531194,
+    "seen": 1793471941.16866,
+    "ast_hash": "3ef73a8b74597100defb6dec8fb772b6",
+    "semantic_hash": "3ef73a8b74597100defb6dec8fb772b6"
+  },
+  "tools/migrate_to_sqlite.py": {
+    "mtime": 1793470197.5532196,
+    "seen": 1793471941.16866,
+    "ast_hash": "c11d3c7f7ca67740cffc4cc8d731229d",
+    "semantic_hash": "c11d3c7f7ca67740cffc4cc8d731229d"
+  },
+  "tools/personas.py": {
+    "mtime": 1793470197.5533035,
+    "seen": 1793471941.1686609,
+    "ast_hash": "886f3d5764b961fe8571da4f3d6feeb3",
+    "semantic_hash": "886f3d5764b961fe8571da4f3d6feeb3"
+  },
+  "tools/process_content.py": {
+    "mtime": 1793470197.5533938,
+    "seen": 1793471941.168662,
+    "ast_hash": "2d73953061a2652c55f76e8600c06589",
+    "semantic_hash": "2d73953061a2652c55f76e8600c06589"
+  },
+  "tools/push_airtable.py": {
+    "mtime": 1793470197.553486,
+    "seen": 1793471941.168662,
+    "ast_hash": "40c42d43afd8bceded3116881cd73d95",
+    "semantic_hash": "40c42d43afd8bceded3116881cd73d95"
+  },
+  "tools/search_leaders.py": {
+    "mtime": 1793470197.5536077,
+    "seen": 1793471941.168663,
+    "ast_hash": "a5b40565f5b65d822f056b80b09c1212",
+    "semantic_hash": "a5b40565f5b65d822f056b80b09c1212"
+  },
+  "tools/secrets.py": {
+    "mtime": 1793470197.5536575,
+    "seen": 1793471941.168663,
+    "ast_hash": "ea812dca646debfc9e5be514d6abb4b2",
+    "semantic_hash": "ea812dca646debfc9e5be514d6abb4b2"
+  },
+  "tools/seed_methodologies.py": {
+    "mtime": 1793470197.553719,
+    "seen": 1793471941.168664,
+    "ast_hash": "dab73f0cad9cf99be8fe232c9960addc",
+    "semantic_hash": "dab73f0cad9cf99be8fe232c9960addc"
+  },
+  "tools/tag_cache.py": {
+    "mtime": 1793472374.9926004,
+    "seen": 1793472594.938039,
+    "ast_hash": "93cb93631492c81f4bb0022a0c8640f1",
+    "semantic_hash": ""
+  },
+  "tools/update_pipeline.py": {
+    "mtime": 1793470197.553921,
+    "seen": 1793471941.1686652,
+    "ast_hash": "89bd9e98cc04e39c33dc857031152d62",
+    "semantic_hash": "89bd9e98cc04e39c33dc857031152d62"
+  },
+  "utils/__init__.py": {
+    "mtime": 1793470197.5539663,
+    "seen": 1793471941.1686652,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "utils/ai.py": {
+    "mtime": 1793470197.5540698,
+    "seen": 1793471941.1686661,
+    "ast_hash": "827dc610588ed3cd17ca2c4860c25bf3",
+    "semantic_hash": "827dc610588ed3cd17ca2c4860c25bf3"
+  },
+  "utils/data.py": {
+    "mtime": 1793470197.55414,
+    "seen": 1793471941.1686661,
+    "ast_hash": "5fda3f4b9338153566fc5b49c0a6c5eb",
+    "semantic_hash": "5fda3f4b9338153566fc5b49c0a6c5eb"
+  },
+  "utils/search.py": {
+    "mtime": 1793470197.5542357,
+    "seen": 1793471941.1686668,
+    "ast_hash": "168d50979205d11aa32cd654a6e91b77",
+    "semantic_hash": "168d50979205d11aa32cd654a6e91b77"
+  },
+  "utils/state.py": {
+    "mtime": 1793470197.5542793,
+    "seen": 1793471941.1686678,
+    "ast_hash": "ac09b90cf4cb2d8f4bf94dafbae78062",
+    "semantic_hash": "ac09b90cf4cb2d8f4bf94dafbae78062"
+  },
+  ".claude/CLAUDE.md": {
+    "mtime": 1793471594.327948,
+    "seen": 1793471941.1686678,
+    "ast_hash": "9b31786b637be3c13978bec4c2330752",
+    "semantic_hash": "9b31786b637be3c13978bec4c2330752"
+  },
+  ".claude/agents/cost-auditor.md": {
+    "mtime": 1793470197.523403,
+    "seen": 1793471941.168669,
+    "ast_hash": "039b63fa19a87f127eefc0f11c3977ff",
+    "semantic_hash": "039b63fa19a87f127eefc0f11c3977ff"
+  },
+  ".claude/agents/post-merge-validator.md": {
+    "mtime": 1793470197.52347,
+    "seen": 1793471941.168669,
+    "ast_hash": "3f06ee53359af084551d19ab77e085cb",
+    "semantic_hash": "3f06ee53359af084551d19ab77e085cb"
+  },
+  "CLAUDE.md": {
+    "mtime": 1793472374.992096,
+    "seen": 1793472594.938047,
+    "ast_hash": "9e85f7340154045da285578add32b668",
+    "semantic_hash": "9e85f7340154045da285578add32b668"
+  },
+  "README.md": {
+    "mtime": 1793470197.5242903,
+    "seen": 1793471941.16867,
+    "ast_hash": "2eb1a08fb14f4b56c01a59968ec247d8",
+    "semantic_hash": "2eb1a08fb14f4b56c01a59968ec247d8"
+  },
+  "docs/PR_ANALYSIS_REPORT.md": {
+    "mtime": 1793470197.5477383,
+    "seen": 1793471941.168671,
+    "ast_hash": "f1d63d82ed054bc17e297f9cc64b1893",
+    "semantic_hash": "f1d63d82ed054bc17e297f9cc64b1893"
+  },
+  "docs/airtable_setup.md": {
+    "mtime": 1793470197.5478556,
+    "seen": 1793471941.168672,
+    "ast_hash": "2f2be8097b325ff9f3af0fdacbab359a",
+    "semantic_hash": "2f2be8097b325ff9f3af0fdacbab359a"
+  },
+  "docs/best-practices.md": {
+    "mtime": 1793470197.5479844,
+    "seen": 1793471941.168672,
+    "ast_hash": "7f8b58330fb206087f3976cd1518f917",
+    "semantic_hash": "7f8b58330fb206087f3976cd1518f917"
+  },
+  "docs/experts.md": {
+    "mtime": 1793470197.54811,
+    "seen": 1793471941.168673,
+    "ast_hash": "cdb7e7f408b803f59cf0767c0d6ff46a",
+    "semantic_hash": "cdb7e7f408b803f59cf0767c0d6ff46a"
+  },
+  "docs/influencers.md": {
+    "mtime": 1793470197.5482008,
+    "seen": 1793471941.168673,
+    "ast_hash": "b5656dc4595269a0b945f0e9e783d487",
+    "semantic_hash": "b5656dc4595269a0b945f0e9e783d487"
+  },
+  "docs/plans/2026-02-20-vp-cro-content-hub-design.md": {
+    "mtime": 1793470197.5482786,
+    "seen": 1793471941.168674,
+    "ast_hash": "8656fdbe7e494c37ab53ef6df73681dd",
+    "semantic_hash": "8656fdbe7e494c37ab53ef6df73681dd"
+  },
+  "docs/plans/2026-02-20-vp-cro-content-hub-plan.md": {
+    "mtime": 1793470197.5483582,
+    "seen": 1793471941.168674,
+    "ast_hash": "40dd0c6df6da9405a21dc36bee60d465",
+    "semantic_hash": "40dd0c6df6da9405a21dc36bee60d465"
+  },
+  "docs/yt_learning_sharks_bites_founders.md": {
+    "mtime": 1793470197.548465,
+    "seen": 1793471941.1686752,
+    "ast_hash": "570000c76ffd330a1328a8a9094484de",
+    "semantic_hash": "570000c76ffd330a1328a8a9094484de"
+  },
+  "docs/yt_transcripts_2videos.md": {
+    "mtime": 1793470197.548666,
+    "seen": 1793471941.1686761,
+    "ast_hash": "d7792d3fa4145582130348f73dbbd5c3",
+    "semantic_hash": "d7792d3fa4145582130348f73dbbd5c3"
+  },
+  "files/BACKLOG.md": {
+    "mtime": 1793470197.5487525,
+    "seen": 1793471941.1686761,
+    "ast_hash": "8911e59697fe9416723f52850f271c9c",
+    "semantic_hash": "8911e59697fe9416723f52850f271c9c"
+  },
+  "files/SPEC.md": {
+    "mtime": 1793470197.5487995,
+    "seen": 1793471941.168677,
+    "ast_hash": "f98a8c0f43648799ba660c7aa787776d",
+    "semantic_hash": "f98a8c0f43648799ba660c7aa787776d"
+  },
+  "files/TODO.md": {
+    "mtime": 1793470197.5488434,
+    "seen": 1793471941.168677,
+    "ast_hash": "0f4346bf691fadc945bf6dd68d4b3e17",
+    "semantic_hash": "0f4346bf691fadc945bf6dd68d4b3e17"
+  },
+  "files/best-practices.md": {
+    "mtime": 1793470197.5489364,
+    "seen": 1793471941.1686778,
+    "ast_hash": "7f8b58330fb206087f3976cd1518f917",
+    "semantic_hash": "7f8b58330fb206087f3976cd1518f917"
+  },
+  "requirements.txt": {
+    "mtime": 1793470197.550324,
+    "seen": 1793471941.168679,
+    "ast_hash": "1cb6057fa89349864d6705910afcd9a5",
+    "semantic_hash": "1cb6057fa89349864d6705910afcd9a5"
+  },
+  "workflows/01_linkedin_collection.md": {
+    "mtime": 1793470197.5543487,
+    "seen": 1793471941.168679,
+    "ast_hash": "2d43860635036f508b6d548d27a81a00",
+    "semantic_hash": "2d43860635036f508b6d548d27a81a00"
+  },
+  "workflows/02_youtube_collection.md": {
+    "mtime": 1793470197.554399,
+    "seen": 1793471941.16868,
+    "ast_hash": "c48f89945f3a16ce01ff6b02258d6090",
+    "semantic_hash": "c48f89945f3a16ce01ff6b02258d6090"
+  },
+  "workflows/03_content_processing.md": {
+    "mtime": 1793470197.554453,
+    "seen": 1793471941.168681,
+    "ast_hash": "538df28783dff6927fa1462db3992504",
+    "semantic_hash": "538df28783dff6927fa1462db3992504"
+  },
+  "workflows/04_airtable_export.md": {
+    "mtime": 1793470197.5544972,
+    "seen": 1793471941.168681,
+    "ast_hash": "5f173ba2ee24e430e85004acf7d91aa4",
+    "semantic_hash": "5f173ba2ee24e430e85004acf7d91aa4"
+  },
+  ".codex/hooks.json": {
+    "mtime": 1793472249.7926648,
+    "seen": 1793472594.9379861,
+    "ast_hash": "a5bd11f24c986b84232ca82f4cd4a825",
+    "semantic_hash": ""
+  },
+  "tests/test_backfill_methodology_tags.py": {
+    "mtime": 1793472531.9131947,
+    "seen": 1793472594.938011,
+    "ast_hash": "d3d8ea33cc972a08a97dce2298f5d031",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1793472249.7942102,
+    "seen": 1793472594.938047,
+    "ast_hash": "4a7a3bc7ffcbca196a41274d568c8d07",
+    "semantic_hash": ""
+  },
+  "assets/avatars/30mpc.png": {
+    "mtime": 1793470197.5244308,
+    "seen": 1793472594.9380631,
+    "ast_hash": "7564a5bff383f3a847c75ae3c9d45565",
+    "semantic_hash": ""
+  },
+  "assets/avatars/alexandra-carter.png": {
+    "mtime": 1793470197.5245442,
+    "seen": 1793472594.9380639,
+    "ast_hash": "c77fa15085fd06849945c1f6e352c6de",
+    "semantic_hash": ""
+  },
+  "assets/avatars/amy-volas.png": {
+    "mtime": 1793470197.5246592,
+    "seen": 1793472594.9380648,
+    "ast_hash": "9cad546a6ebdb9b08816fc926703abcc",
+    "semantic_hash": ""
+  },
+  "assets/avatars/anthony-iannarino.png": {
+    "mtime": 1793470197.5247848,
+    "seen": 1793472594.938066,
+    "ast_hash": "433fe1e29264f284e5ababb42a212a28",
+    "semantic_hash": ""
+  },
+  "assets/avatars/armand-farrokh.png": {
+    "mtime": 1793470197.5248654,
+    "seen": 1793472594.938066,
+    "ast_hash": "4d5c98f50ad7a85482247bef11101de4",
+    "semantic_hash": ""
+  },
+  "assets/avatars/becc-holland.png": {
+    "mtime": 1793470197.524969,
+    "seen": 1793472594.938067,
+    "ast_hash": "5b2f39a539f563d85472b8a1e5efde15",
+    "semantic_hash": ""
+  },
+  "assets/avatars/belal-batrawy.png": {
+    "mtime": 1793470197.5251675,
+    "seen": 1793472594.938068,
+    "ast_hash": "609a49097600c634c8ac8b31d95d1880",
+    "semantic_hash": ""
+  },
+  "assets/avatars/bryan-tucker.png": {
+    "mtime": 1793470197.525261,
+    "seen": 1793472594.938068,
+    "ast_hash": "8a97a440797b6c0a13d5a9c1644056bb",
+    "semantic_hash": ""
+  },
+  "assets/avatars/caroline-celis.png": {
+    "mtime": 1793470197.5254004,
+    "seen": 1793472594.938069,
+    "ast_hash": "7dd5145a0667733f867710ab586b0661",
+    "semantic_hash": ""
+  },
+  "assets/avatars/chantel-george.png": {
+    "mtime": 1793470197.525518,
+    "seen": 1793472594.93807,
+    "ast_hash": "a35383cdc2d99e0e54dd9ae23057f7b8",
+    "semantic_hash": ""
+  },
+  "assets/avatars/chris-orlob.png": {
+    "mtime": 1793470197.5256448,
+    "seen": 1793472594.93807,
+    "ast_hash": "fde859287e6b206db54d95701295a4d5",
+    "semantic_hash": ""
+  },
+  "assets/avatars/chris-voss.png": {
+    "mtime": 1793470197.525746,
+    "seen": 1793472594.938071,
+    "ast_hash": "1e57f4d98c1e684c48f49c4300a44394",
+    "semantic_hash": ""
+  },
+  "assets/avatars/colin-specter.png": {
+    "mtime": 1793470197.525866,
+    "seen": 1793472594.938072,
+    "ast_hash": "d7a7098a7d87b1c72e8ed75befc55b3e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/collective-wisdom.png": {
+    "mtime": 1793470197.5260897,
+    "seen": 1793472594.938072,
+    "ast_hash": "7c681834d1aa743dabe4edf5d5c8e5e8",
+    "semantic_hash": ""
+  },
+  "assets/avatars/daniel-disney.png": {
+    "mtime": 1793470197.526162,
+    "seen": 1793472594.9380732,
+    "ast_hash": "14277b2c0cb44100360fdc3ec7c532f4",
+    "semantic_hash": ""
+  },
+  "assets/avatars/devin-reed.png": {
+    "mtime": 1793470197.5262809,
+    "seen": 1793472594.938074,
+    "ast_hash": "c17542da03bb243757ce4b4b1664a957",
+    "semantic_hash": ""
+  },
+  "assets/avatars/erica-franklin.png": {
+    "mtime": 1793470197.5264406,
+    "seen": 1793472594.938074,
+    "ast_hash": "b1b98c8eae6a1623ff7d7118bf555836",
+    "semantic_hash": ""
+  },
+  "assets/avatars/florin-tatulea.png": {
+    "mtime": 1793470197.5266004,
+    "seen": 1793472594.9380748,
+    "ast_hash": "ff7601a2cc71c0900e7adc077a7aed12",
+    "semantic_hash": ""
+  },
+  "assets/avatars/gal-aga.png": {
+    "mtime": 1793470197.5266948,
+    "seen": 1793472594.938076,
+    "ast_hash": "300a03a481e4d830d4918a0ddbbcbd24",
+    "semantic_hash": ""
+  },
+  "assets/avatars/giulio-segantini.png": {
+    "mtime": 1793470197.526795,
+    "seen": 1793472594.938077,
+    "ast_hash": "51c011f008cd37e34f9d3d93fe25d43b",
+    "semantic_hash": ""
+  },
+  "assets/avatars/gong-io.png": {
+    "mtime": 1793470197.5270486,
+    "seen": 1793472594.938077,
+    "ast_hash": "7bab1345cdb9386c02ac3fcce044ab1e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/hannah-ajikawo.png": {
+    "mtime": 1793470197.5271556,
+    "seen": 1793472594.938078,
+    "ast_hash": "1412ea34bf71d613dbba113ebb7e1bed",
+    "semantic_hash": ""
+  },
+  "assets/avatars/ian-koniak.png": {
+    "mtime": 1793470197.5272748,
+    "seen": 1793472594.9380789,
+    "ast_hash": "ef7c2a5c39c6861b12e5b0e2543271a8",
+    "semantic_hash": ""
+  },
+  "assets/avatars/jeb-blount.png": {
+    "mtime": 1793470197.5273721,
+    "seen": 1793472594.9380789,
+    "ast_hash": "7b0657a2b7e9a763d5be194f601331a7",
+    "semantic_hash": ""
+  },
+  "assets/avatars/jen-allen-knuth.png": {
+    "mtime": 1793470197.5274956,
+    "seen": 1793472594.93808,
+    "ast_hash": "0ed83db853ae07e740cf3ac539fd6a0d",
+    "semantic_hash": ""
+  },
+  "assets/avatars/jesse-gittler.png": {
+    "mtime": 1793470197.5276299,
+    "seen": 1793472594.938081,
+    "ast_hash": "01ac4adfd6f4be482c7ecdfa68175169",
+    "semantic_hash": ""
+  },
+  "assets/avatars/jill-konrath.png": {
+    "mtime": 1793470197.5278344,
+    "seen": 1793472594.938081,
+    "ast_hash": "d678ca64ffa1327146737f2548d4fe02",
+    "semantic_hash": ""
+  },
+  "assets/avatars/jim-keenan.png": {
+    "mtime": 1793470197.527932,
+    "seen": 1793472594.938082,
+    "ast_hash": "3ff9a37b15fb483c7afc2335fd4e1d5f",
+    "semantic_hash": ""
+  },
+  "assets/avatars/john-barrows.png": {
+    "mtime": 1793470197.5280433,
+    "seen": 1793472594.9380832,
+    "ast_hash": "9f77aff90b750497f8b0833ee2426ffb",
+    "semantic_hash": ""
+  },
+  "assets/avatars/josh-braun.png": {
+    "mtime": 1793470197.5281467,
+    "seen": 1793472594.9380832,
+    "ast_hash": "7728fcaa031e8c48e77eae275112c1c2",
+    "semantic_hash": ""
+  },
+  "assets/avatars/julie-hansen.png": {
+    "mtime": 1793470197.5282404,
+    "seen": 1793472594.9380841,
+    "ast_hash": "f305d348f8a30e16712c5906c1f1593b",
+    "semantic_hash": ""
+  },
+  "assets/avatars/justin-michael.png": {
+    "mtime": 1793470197.5285127,
+    "seen": 1793472594.938085,
+    "ast_hash": "828e950cee7949237e782c2ebe680598",
+    "semantic_hash": ""
+  },
+  "assets/avatars/kevin-dorsey.png": {
+    "mtime": 1793470197.5286574,
+    "seen": 1793472594.938085,
+    "ast_hash": "bb6b701033434c7143cdc5708a6caf95",
+    "semantic_hash": ""
+  },
+  "assets/avatars/kwame-christian.png": {
+    "mtime": 1793470197.5287569,
+    "seen": 1793472594.9380858,
+    "ast_hash": "c4a638749ffecfee73fcdcbeb8e0c44b",
+    "semantic_hash": ""
+  },
+  "assets/avatars/kyle-coleman.png": {
+    "mtime": 1793470197.52894,
+    "seen": 1793472594.938087,
+    "ast_hash": "1c5ddfb6411a89bc8d9d047e3c42328b",
+    "semantic_hash": ""
+  },
+  "assets/avatars/maria-bross.png": {
+    "mtime": 1793470197.52904,
+    "seen": 1793472594.938087,
+    "ast_hash": "80ac7f277e3bdefdaa8f941cd5643a55",
+    "semantic_hash": ""
+  },
+  "assets/avatars/mark-hunter.png": {
+    "mtime": 1793470197.5291407,
+    "seen": 1793472594.938088,
+    "ast_hash": "70b39cba311cf2ddb859969c985126c9",
+    "semantic_hash": ""
+  },
+  "assets/avatars/mark-kosoglow.png": {
+    "mtime": 1793470197.5292704,
+    "seen": 1793472594.938088,
+    "ast_hash": "a7b19d7b7d05f239fe4a78f3af2a726e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/mo-bunnell.png": {
+    "mtime": 1793470197.5293963,
+    "seen": 1793472594.938089,
+    "ast_hash": "be999583b9318d04bf0b8c6735129f40",
+    "semantic_hash": ""
+  },
+  "assets/avatars/morgan-j-ingram.png": {
+    "mtime": 1793470197.5295286,
+    "seen": 1793472594.93809,
+    "ast_hash": "f2aa8732f5258e6a07eef0900610594d",
+    "semantic_hash": ""
+  },
+  "assets/avatars/nate-nasralla.png": {
+    "mtime": 1793470197.529627,
+    "seen": 1793472594.938091,
+    "ast_hash": "7b22ccfb3649131fd3c4afbd6128168d",
+    "semantic_hash": ""
+  },
+  "assets/avatars/nick-cegelski.png": {
+    "mtime": 1793470197.5297303,
+    "seen": 1793472594.938091,
+    "ast_hash": "54989af99ff9535e52b650ef6c8dd15e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/niraj-kapur.png": {
+    "mtime": 1793470197.5299141,
+    "seen": 1793472594.938092,
+    "ast_hash": "dc2d593bb06af4e46e64c0947131040e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/ron-kimhi.png": {
+    "mtime": 1793470197.529998,
+    "seen": 1793472594.938093,
+    "ast_hash": "437aefd18bd5717c7f6c0a3ddbbe767e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/rosalyn-santa-elena.png": {
+    "mtime": 1793470197.5301373,
+    "seen": 1793472594.938093,
+    "ast_hash": "17c59b85e35f629be014399dea773090",
+    "semantic_hash": ""
+  },
+  "assets/avatars/samantha-mckenna.png": {
+    "mtime": 1793470197.5302315,
+    "seen": 1793472594.9380941,
+    "ast_hash": "a97bdd0459098dde64eec2380eb0fa1f",
+    "semantic_hash": ""
+  },
+  "assets/avatars/sarah-brazier.png": {
+    "mtime": 1793470197.5303774,
+    "seen": 1793472594.938095,
+    "ast_hash": "4dd8233f5242b083fdcfe8b672c34f94",
+    "semantic_hash": ""
+  },
+  "assets/avatars/scott-leese.png": {
+    "mtime": 1793470197.530498,
+    "seen": 1793472594.938095,
+    "ast_hash": "a36b29fec3ac840c5306c0d45949665e",
+    "semantic_hash": ""
+  },
+  "assets/avatars/shari-levitin.png": {
+    "mtime": 1793470197.5307126,
+    "seen": 1793472594.938096,
+    "ast_hash": "951c0f69df69dde0d60e7ee43c238105",
+    "semantic_hash": ""
+  },
+  "assets/avatars/tiffani-bova.png": {
+    "mtime": 1793470197.530829,
+    "seen": 1793472594.938097,
+    "ast_hash": "04fe25daa3163f2e386d5fc2fa2bc731",
+    "semantic_hash": ""
+  },
+  "assets/avatars/will-aitken.png": {
+    "mtime": 1793470197.5309534,
+    "seen": 1793472594.938097,
+    "ast_hash": "8609524cf92f424d11a0a16ab3494639",
+    "semantic_hash": ""
+  }
+}
