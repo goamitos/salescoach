@@ -16,7 +16,7 @@ from typing import Optional
 
 import anthropic
 
-from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, DB_PATH
+from config import get_anthropic_key, CLAUDE_MODEL, DB_PATH
 from db import get_connection, migrate_audience_columns
 
 logging.basicConfig(
@@ -95,7 +95,8 @@ def get_unclassified_insights(conn) -> list[dict]:
 
 def classify_all():
     """Main: batch-classify all untagged insights."""
-    if not ANTHROPIC_API_KEY:
+    key = get_anthropic_key()
+    if not key:
         logger.error("ANTHROPIC_API_KEY not set")
         return
 
@@ -117,7 +118,7 @@ def classify_all():
     est_cost = (est_input * 0.40 + est_output * 2.00) / 1_000_000
     logger.info("Estimated cost: $%.2f (Haiku Batch)", est_cost)
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=key)
     requests = []
     for insight in unclassified:
         prompt = build_classification_prompt(insight)

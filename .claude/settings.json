@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Write",
+      "WebSearch",
+      "WebFetch(domain:google.com)",
+      "WebFetch(domain:googleapis.com)",
+      "WebFetch(domain:youtube.com)",
+      "WebFetch(domain:linkedin.com)",
+      "WebFetch(domain:serper.dev)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(bash scripts/scan_errors.sh:*)",
+      "Bash(./run.sh:*)",
+      "Bash(./coach.sh:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "mcp__airtable__*"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/amitmini/projects/salescoach && python3 -m pytest tests/ --tb=short -q 2>&1 | tail -20"
+          },
+          {
+            "type": "command",
+            "command": "cd /Users/amitmini/projects/salescoach && bash scripts/scan_errors.sh 2>&1 | tail -20"
+          }
+        ]
+      }
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

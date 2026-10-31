@@ -102,3 +102,14 @@ def get_random_user_agent():
     import random
 
     return random.choice(USER_AGENTS)
+
+
+def get_anthropic_key() -> str | None:
+    """Bites Anthropic key: Secret Manager / Keychain first, env fallback."""
+    try:
+        from tools.secrets import get_secret
+        return get_secret("BITES_ANTHROPIC_API_KEY")
+    except (ImportError, RuntimeError):
+        # Library missing or secret genuinely not found: transition fallback.
+        # Other errors (auth/network bugs) propagate so failures are visible.
+        return os.getenv("ANTHROPIC_API_KEY")

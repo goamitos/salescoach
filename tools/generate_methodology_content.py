@@ -27,7 +27,7 @@ from typing import Optional
 
 import anthropic
 
-from config import ANTHROPIC_API_KEY, TMP_DIR, RATE_LIMIT_CLAUDE
+from config import get_anthropic_key, TMP_DIR, RATE_LIMIT_CLAUDE
 from db import get_connection, init_db, get_methodology_tree
 
 logging.basicConfig(
@@ -128,13 +128,14 @@ def generate_content(client: anthropic.Anthropic, methodology: dict) -> dict:
 
 def generate_all(methodology_ids: Optional[list[str]] = None) -> None:
     """Generate content for all (or specified) methodologies."""
-    if not ANTHROPIC_API_KEY:
+    key = get_anthropic_key()
+    if not key:
         logger.error("ANTHROPIC_API_KEY not set. Run via ./run.sh or set in .env")
         return
 
     init_db()
     conn = get_connection()
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=key)
 
     try:
         tree = get_methodology_tree(conn)

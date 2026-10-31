@@ -160,6 +160,8 @@ def init_db(db_path: Optional[Path] = None) -> None:
     finally:
         conn.close()
     migrate_audience_columns(db_path)
+    from advice_schema import migrate_advice_columns  # local import, avoids circular
+    migrate_advice_columns(db_path)
 
 
 def migrate_audience_columns(db_path: Optional[Path] = None) -> None:
