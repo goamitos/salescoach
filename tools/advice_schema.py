@@ -91,7 +91,12 @@ def migrate_advice_columns(db_path: Optional[Path] = None) -> None:
         db_path: Path to the SQLite database file. Defaults to the project DB
             when None (resolved inside tools.db.get_connection).
     """
-    from tools.db import get_connection  # local import to avoid circular dependency
+    # Local import to avoid a circular dependency. Scripts run as
+    # `python tools/x.py` have tools/ on sys.path, not the repo root.
+    try:
+        from db import get_connection
+    except ImportError:
+        from tools.db import get_connection
 
     conn = get_connection(db_path)
     try:

@@ -5,12 +5,19 @@ Audience Classification with Claude Batch API
 Re-classifies existing insights by target audience role
 (vp_sales, cro, director, manager, ae, sdr, general).
 
+Only insights that are new, whose content changed, or that were classified
+under an older AUDIENCE_TAG_VERSION are sent (see tools/tag_cache.py). Each
+run is capped at --max-items; the rest are deferred to the next run.
+
 Usage:
-    python tools/classify_audience.py
-    ./run.sh classify_audience
+    ./run.sh classify_audience                  # Classify new/changed insights
+    ./run.sh classify_audience --dry-run        # Preview count and cost, no API calls
+    ./run.sh classify_audience --max-items 200  # Cap this run (default 500)
+    ./run.sh classify_audience --seed-cache     # One-off: record existing classifications, no API calls
 """
 import json
 import logging
+import sys
 import time
 from typing import Optional
 
@@ -18,6 +25,13 @@ import anthropic
 
 from config import get_anthropic_key, CLAUDE_MODEL, DB_PATH
 from db import get_connection, migrate_audience_columns
+from tag_cache import (
+    content_hash,
+    ensure_tag_cache_table,
+    record_tagged,
+    seed_from_existing,
+    select_for_tagging,
+)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -25,6 +39,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 POLL_INTERVAL = 30
+
+# Bump when CLASSIFICATION_PROMPT or AUDIENCE_ROLES changes meaningfully:
+# every insight is then re-classified on the following runs.
+AUDIENCE_TAG_VERSION = 1
+TAGGER = "audience"
+DEFAULT_MAX_ITEMS = 500
 
 AUDIENCE_ROLES = """- vp_sales: VP Sales / CRO — managing teams, pipeline strategy, forecasting, coaching reps, board reporting, org design, hiring
 - cro: Chief Revenue Officer — same as vp_sales (use vp_sales OR cro, never combine them)
@@ -85,32 +105,57 @@ def parse_classification_response(response_text: str) -> Optional[dict]:
         return None
 
 
-def get_unclassified_insights(conn) -> list[dict]:
-    """Get all insights that haven't been audience-classified yet."""
-    rows = conn.execute(
-        "SELECT * FROM insights WHERE target_audience IS NULL"
-    ).fetchall()
-    return [dict(r) for r in rows]
+def select_insights(
+    conn, max_items: int = DEFAULT_MAX_ITEMS
+) -> tuple[list[dict], int]:
+    """Pick the insights to classify this run. Returns (selected, deferred_count)."""
+    ensure_tag_cache_table(conn)
+    insights = [dict(r) for r in conn.execute("SELECT * FROM insights").fetchall()]
+    return select_for_tagging(
+        conn, insights, AUDIENCE_TAG_VERSION, max_items, tagger=TAGGER
+    )
+
+
+def seed_cache(conn) -> int:
+    """Record every insight that already has an audience classification. No API calls."""
+    ensure_tag_cache_table(conn)
+    classified = [dict(r) for r in conn.execute(
+        "SELECT * FROM insights WHERE target_audience IS NOT NULL"
+    ).fetchall()]
+    count = seed_from_existing(conn, classified, AUDIENCE_TAG_VERSION, tagger=TAGGER)
+    conn.commit()
+    return count
+
+
+def _max_items_arg() -> int:
+    if "--max-items" in sys.argv:
+        idx = sys.argv.index("--max-items")
+        if idx + 1 < len(sys.argv):
+            return int(sys.argv[idx + 1])
+    return DEFAULT_MAX_ITEMS
 
 
 def classify_all():
-    """Main: batch-classify all untagged insights."""
-    key = get_anthropic_key()
-    if not key:
-        logger.error("ANTHROPIC_API_KEY not set")
-        return
-
+    """Main: batch-classify new or changed insights."""
+    max_items = _max_items_arg()
     migrate_audience_columns()
 
     conn = get_connection()
-    unclassified = get_unclassified_insights(conn)
+
+    if "--seed-cache" in sys.argv:
+        count = seed_cache(conn)
+        conn.close()
+        print(f"Seeded tag cache with {count} already-classified insights (tagger={TAGGER}).")
+        return
+
+    unclassified, deferred = select_insights(conn, max_items=max_items)
 
     if not unclassified:
-        logger.info("All insights already classified")
+        logger.info("Nothing to classify")
         conn.close()
         return
 
-    logger.info("Found %d unclassified insights", len(unclassified))
+    logger.info("Found %d insights to classify (%d deferred to a later run)", len(unclassified), deferred)
 
     # Estimate cost
     est_input = len(unclassified) * 400
@@ -118,6 +163,24 @@ def classify_all():
     est_cost = (est_input * 0.40 + est_output * 2.00) / 1_000_000
     logger.info("Estimated cost: $%.2f (Haiku Batch)", est_cost)
 
+    if "--dry-run" in sys.argv:
+        print("=" * 50)
+        print("DRY RUN — No API calls made")
+        print("=" * 50)
+        print(f"  Insights to classify: {len(unclassified)}")
+        print(f"  Deferred (cap {max_items}): {deferred}")
+        print(f"  Estimated cost: ${est_cost:.2f}")
+        print("=" * 50)
+        conn.close()
+        return
+
+    key = get_anthropic_key()
+    if not key:
+        logger.error("ANTHROPIC_API_KEY not set")
+        conn.close()
+        return
+
+    insights_by_id = {ins["id"]: ins for ins in unclassified}
     client = anthropic.Anthropic(api_key=key)
     requests = []
     for insight in unclassified:
@@ -175,11 +238,18 @@ def classify_all():
                 entry.custom_id,
             ),
         )
+        insight = insights_by_id.get(entry.custom_id)
+        if insight is not None:
+            record_tagged(
+                conn, insight["id"], content_hash(insight), AUDIENCE_TAG_VERSION, tagger=TAGGER
+            )
         updated += 1
 
     conn.commit()
     conn.close()
-    logger.info("Classification complete: %d updated, %d errors", updated, errors)
+    logger.info(
+        "Classification complete: %d updated, %d errors, %d deferred", updated, errors, deferred
+    )
 
 
 if __name__ == "__main__":
