@@ -1,3 +1,5 @@
+> **Global rules active:** See `~/.claude/rules/` for security, coding-style, git-workflow, agents, testing, performance, and project-specific guidelines. These apply to all projects.
+
 # Sales Coach
 
 Automated pipeline that scrapes sales wisdom from LinkedIn/YouTube, categorizes by deal stage, stores in Airtable, and provides AI-powered Q&A.
