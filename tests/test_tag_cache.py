@@ -22,6 +22,7 @@ from tag_cache import (
     ensure_tag_cache_table,
     needs_retag,
     record_tagged,
+    seed_from_existing,
     select_for_tagging,
 )
 
@@ -353,3 +354,48 @@ class TestSelectForTagging:
         selected, deferred = select_for_tagging(conn, insights, current_schema_version=2, max_items=10)
         assert len(selected) == 2
         assert deferred == 0
+
+
+# ---------------------------------------------------------------------------
+# Per-tagger namespacing and seeding
+# ---------------------------------------------------------------------------
+
+
+class TestTaggerNamespace:
+    def test_recording_under_one_tagger_does_not_cover_another(self, conn):
+        insight = _make_insight("ns-1")
+        record_tagged(conn, "ns-1", content_hash(insight), 1, tagger="methodology")
+        assert needs_retag(conn, insight, 1, tagger="methodology") is False
+        assert needs_retag(conn, insight, 1, tagger="audience") is True
+
+    def test_two_taggers_keep_separate_rows(self, conn):
+        insight = _make_insight("ns-2")
+        record_tagged(conn, "ns-2", content_hash(insight), 1, tagger="methodology")
+        record_tagged(conn, "ns-2", content_hash(insight), 3, tagger="audience")
+        rows = conn.execute(
+            "SELECT tagger, schema_version FROM tag_cache WHERE insight_id = ? ORDER BY tagger",
+            ("ns-2",),
+        ).fetchall()
+        assert [tuple(r) for r in rows] == [("audience", 3), ("methodology", 1)]
+
+    def test_default_tagger_is_its_own_namespace(self, conn):
+        insight = _make_insight("ns-3")
+        record_tagged(conn, "ns-3", content_hash(insight), 1)
+        assert needs_retag(conn, insight, 1) is False
+        assert needs_retag(conn, insight, 1, tagger="audience") is True
+
+
+class TestSeedFromExisting:
+    def test_seeded_insights_no_longer_need_tagging(self, conn):
+        insights = [_make_insight(f"seed-{i}", key_insight=f"Insight {i}") for i in range(3)]
+        assert seed_from_existing(conn, insights, 1, tagger="methodology") == 3
+        selected, deferred = select_for_tagging(conn, insights, 1, max_items=10, tagger="methodology")
+        assert selected == []
+        assert deferred == 0
+
+    def test_seeding_is_idempotent(self, conn):
+        insights = [_make_insight("seed-x")]
+        seed_from_existing(conn, insights, 1, tagger="audience")
+        seed_from_existing(conn, insights, 1, tagger="audience")
+        count = conn.execute("SELECT COUNT(*) FROM tag_cache").fetchone()[0]
+        assert count == 1

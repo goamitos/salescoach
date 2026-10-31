@@ -5,9 +5,16 @@ Backfill methodology tags for all insights using Claude Batch API.
 Sends each insight to Claude Haiku to identify matching methodology
 components, then writes tags to insight_methodology_tags table.
 
+Only insights that are new, whose content changed, or that were tagged under
+an older METHODOLOGY_TAG_VERSION are sent (see tools/tag_cache.py). Each run is
+capped at --max-items; the rest are deferred to the next run.
+
 Usage:
-    python backfill_methodology_tags.py              # Full backfill
-    python backfill_methodology_tags.py --dry-run    # Preview cost estimate
+    python backfill_methodology_tags.py                  # Tag new/changed insights
+    python backfill_methodology_tags.py --dry-run        # Preview count and cost, no API calls
+    python backfill_methodology_tags.py --max-items 200  # Cap this run (default 500)
+    python backfill_methodology_tags.py --force          # Re-tag all insights (still capped)
+    python backfill_methodology_tags.py --seed-cache     # One-off: record existing tags, no API calls
     python backfill_methodology_tags.py --resume BATCH_ID  # Resume polling
 
 Cost estimate: ~1,893 requests × Haiku Batch pricing ≈ $0.19
@@ -29,6 +36,13 @@ from db import (
     tag_insight_methodology,
     get_stats,
 )
+from tag_cache import (
+    content_hash,
+    ensure_tag_cache_table,
+    record_tagged,
+    seed_from_existing,
+    select_for_tagging,
+)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -37,6 +51,12 @@ logger = logging.getLogger(__name__)
 
 POLL_INTERVAL = 30  # seconds between batch status checks
 RESULTS_FILE = TMP_DIR / "methodology_tags_results.json"
+
+# Bump when TAGGING_PROMPT or the methodology component set changes
+# meaningfully: every insight is then re-tagged on the following runs.
+METHODOLOGY_TAG_VERSION = 1
+TAGGER = "methodology"
+DEFAULT_MAX_ITEMS = 500
 
 TAGGING_PROMPT = """Analyze this sales insight and identify which sales methodology components it relates to.
 
@@ -125,71 +145,143 @@ def build_batch_requests(
     return requests
 
 
-def backfill_tags() -> None:
-    """Run the full backfill: submit batch, poll, write tags."""
-    dry_run = "--dry-run" in sys.argv
-    resume_batch_id = None
+def _load_all_insights(conn) -> list[dict]:
+    return [dict(r) for r in conn.execute("SELECT * FROM insights").fetchall()]
 
-    if "--resume" in sys.argv:
-        idx = sys.argv.index("--resume")
+
+def select_insights(
+    conn, force: bool = False, max_items: int = DEFAULT_MAX_ITEMS
+) -> tuple[list[dict], int]:
+    """Pick the insights to tag this run. Returns (selected, deferred_count).
+
+    Without force, only insights the tag cache says need tagging are picked.
+    With force, every insight is picked. Both are capped at max_items.
+    """
+    ensure_tag_cache_table(conn)
+    insights = _load_all_insights(conn)
+    if force:
+        return insights[:max_items], max(0, len(insights) - max_items)
+    return select_for_tagging(
+        conn, insights, METHODOLOGY_TAG_VERSION, max_items, tagger=TAGGER
+    )
+
+
+def seed_cache(conn) -> int:
+    """Record every insight that already has methodology tags. No API calls."""
+    ensure_tag_cache_table(conn)
+    tagged = [dict(r) for r in conn.execute(
+        """SELECT i.* FROM insights i
+           WHERE i.id IN (SELECT DISTINCT insight_id FROM insight_methodology_tags)"""
+    ).fetchall()]
+    count = seed_from_existing(conn, tagged, METHODOLOGY_TAG_VERSION, tagger=TAGGER)
+    conn.commit()
+    return count
+
+
+def write_insight_tags(
+    conn, insight: dict, tags: list[dict], valid_component_ids: set[str]
+) -> tuple[int, int]:
+    """Replace an insight's methodology tags and record it in the tag cache.
+
+    Old tags are deleted first so a re-tag that drops a component does not
+    leave a stale row behind. Does not commit.
+
+    Returns:
+        (tags_written, invalid_ids_skipped)
+    """
+    conn.execute(
+        "DELETE FROM insight_methodology_tags WHERE insight_id = ?", (insight["id"],)
+    )
+    written = invalid = 0
+    for tag in tags:
+        component_id = tag.get("component_id", "")
+        confidence = tag.get("confidence", 0.0)
+        if component_id not in valid_component_ids:
+            invalid += 1
+            continue
+        if confidence >= 0.5:
+            tag_insight_methodology(conn, insight["id"], component_id, confidence)
+            written += 1
+    record_tagged(
+        conn, insight["id"], content_hash(insight), METHODOLOGY_TAG_VERSION, tagger=TAGGER
+    )
+    return written, invalid
+
+
+def _arg_value(flag: str) -> Optional[str]:
+    if flag in sys.argv:
+        idx = sys.argv.index(flag)
         if idx + 1 < len(sys.argv):
-            resume_batch_id = sys.argv[idx + 1]
+            return sys.argv[idx + 1]
+    return None
 
-    key = get_anthropic_key()
-    if not key:
-        logger.error("ANTHROPIC_API_KEY not set. Run via ./run.sh or set in .env")
-        return
+
+def backfill_tags() -> None:
+    """Run the backfill: select, submit batch, poll, write tags."""
+    dry_run = "--dry-run" in sys.argv
+    force = "--force" in sys.argv
+    resume_batch_id = _arg_value("--resume")
+    max_items = int(_arg_value("--max-items") or DEFAULT_MAX_ITEMS)
 
     init_db()
     conn = get_connection()
-    client = anthropic.Anthropic(api_key=key)
 
     try:
+        if "--seed-cache" in sys.argv:
+            count = seed_cache(conn)
+            print(f"Seeded tag cache with {count} already-tagged insights (tagger={TAGGER}).")
+            return
+
         # Load methodology components for prompt
         tree = get_methodology_tree(conn)
         components_list = build_components_list(tree)
         total_components = sum(len(m["components"]) for m in tree)
         logger.info("Loaded %d methodology components for tagging", total_components)
 
-        # Load insights (skip already-tagged ones unless --force)
-        if "--force" in sys.argv:
-            insights = [dict(r) for r in conn.execute("SELECT * FROM insights").fetchall()]
-        else:
-            insights = [dict(r) for r in conn.execute(
-                """SELECT i.* FROM insights i
-                   WHERE i.id NOT IN (SELECT DISTINCT insight_id FROM insight_methodology_tags)"""
-            ).fetchall()]
+        # Map every insight by id: result hashes are computed from this, which
+        # also covers a resumed batch whose ids the current selection may skip.
+        insights_by_id = {ins["id"]: ins for ins in _load_all_insights(conn)}
 
-        logger.info("Found %d insights to tag", len(insights))
+        if not resume_batch_id:
+            insights, deferred = select_insights(conn, force=force, max_items=max_items)
+            logger.info("Found %d insights to tag (%d deferred to a later run)", len(insights), deferred)
 
-        if not insights:
-            logger.info("All insights already tagged. Use --force to re-tag.")
+            if not insights:
+                logger.info("Nothing to tag. Use --force to re-tag everything.")
+                return
+
+            # Cost estimate
+            avg_input_tokens = 800  # ~prompt with components list
+            avg_output_tokens = 100  # ~JSON response
+            # Haiku Batch: input $0.04/MTok, output $0.20/MTok
+            estimated_cost = (
+                len(insights) * avg_input_tokens * 0.04
+                + len(insights) * avg_output_tokens * 0.20
+            ) / 1_000_000
+            logger.info("Estimated cost: $%.2f (%d requests, Haiku Batch pricing)", estimated_cost, len(insights))
+
+            if dry_run:
+                print("=" * 50)
+                print("DRY RUN — No API calls made")
+                print("=" * 50)
+                print(f"  Insights to tag: {len(insights)}")
+                print(f"  Deferred (cap {max_items}): {deferred}")
+                print(f"  Components available: {total_components}")
+                print(f"  Estimated cost: ${estimated_cost:.2f}")
+                print("=" * 50)
+                return
+
+        key = get_anthropic_key()
+        if not key:
+            logger.error("ANTHROPIC_API_KEY not set. Run via ./run.sh or set in .env")
             return
-
-        # Cost estimate
-        avg_input_tokens = 800  # ~prompt with components list
-        avg_output_tokens = 100  # ~JSON response
-        # Haiku Batch: input $0.04/MTok, output $0.20/MTok
-        estimated_cost = (
-            len(insights) * avg_input_tokens * 0.04
-            + len(insights) * avg_output_tokens * 0.20
-        ) / 1_000_000
-        logger.info("Estimated cost: $%.2f (%d requests, Haiku Batch pricing)", estimated_cost, len(insights))
-
-        if dry_run:
-            print("=" * 50)
-            print("DRY RUN — No API calls made")
-            print("=" * 50)
-            print(f"  Insights to tag: {len(insights)}")
-            print(f"  Components available: {total_components}")
-            print(f"  Estimated cost: ${estimated_cost:.2f}")
-            print("=" * 50)
-            return
+        client = anthropic.Anthropic(api_key=key)
 
         # Submit or resume batch
         if resume_batch_id:
             logger.info("Resuming batch %s...", resume_batch_id)
             batch_id = resume_batch_id
+            deferred = 0
         else:
             batch_requests = build_batch_requests(insights, components_list)
             logger.info("Submitting batch of %d requests...", len(batch_requests))
@@ -228,7 +320,12 @@ def backfill_tags() -> None:
             insight_id = entry.custom_id
 
             if entry.result.type != "succeeded":
-                errors += 1
+                errors += 1  # not recorded in the cache, so retried next run
+                continue
+
+            insight = insights_by_id.get(insight_id)
+            if insight is None:
+                logger.warning("Result for unknown insight %s, skipping", insight_id)
                 continue
 
             try:
@@ -240,30 +337,16 @@ def backfill_tags() -> None:
 
                 result = json.loads(text)
                 tags = result.get("tags", [])
-
-                if tags:
-                    insight_had_valid_tag = False
-                    for tag in tags:
-                        component_id = tag.get("component_id", "")
-                        confidence = tag.get("confidence", 0.0)
-
-                        if component_id not in valid_component_ids:
-                            invalid_ids += 1
-                            continue
-
-                        if confidence >= 0.5:
-                            tag_insight_methodology(
-                                conn, insight_id, component_id, confidence
-                            )
-                            tags_written += 1
-                            insight_had_valid_tag = True
-
-                    if insight_had_valid_tag:
-                        insights_tagged += 1
-
             except (json.JSONDecodeError, KeyError) as e:
                 errors += 1
                 logger.debug("Parse error for %s: %s", insight_id, e)
+                continue
+
+            written, invalid = write_insight_tags(conn, insight, tags, valid_component_ids)
+            tags_written += written
+            invalid_ids += invalid
+            if written:
+                insights_tagged += 1
 
         if invalid_ids:
             logger.warning("Skipped %d tags with invalid component IDs", invalid_ids)
@@ -277,6 +360,7 @@ def backfill_tags() -> None:
         print(f"  Insights tagged:  {insights_tagged}")
         print(f"  Tags written:     {tags_written}")
         print(f"  Errors:           {errors}")
+        print(f"  Deferred:         {deferred}")
         print(f"  Avg tags/insight: {tags_written / max(insights_tagged, 1):.1f}")
         print(f"  DB total tags:    {stats['insight_methodology_tags']}")
         print("=" * 50)
